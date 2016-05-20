@@ -1,4 +1,4 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;

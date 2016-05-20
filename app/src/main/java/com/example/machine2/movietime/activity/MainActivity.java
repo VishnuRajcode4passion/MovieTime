@@ -1,4 +1,4 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -7,6 +7,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.widget.GridView;
 
+import com.example.machine2.movietime.MovieImageAdapter;
+import com.example.machine2.movietime.MovieManager;
+import com.example.machine2.movietime.R;
+import com.example.machine2.movietime.activity.BaseActivity;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 
