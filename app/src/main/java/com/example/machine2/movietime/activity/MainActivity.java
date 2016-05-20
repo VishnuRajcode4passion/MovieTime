@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter {
         movieManager.movieManager(this);
 
     }
-
+//sets gridview.......
     @Override
     public void setImageAdapter(MovieImageAdapter imageAdapter) {
 
