@@ -8,9 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.GridView;
 
 import com.example.machine2.movietime.MovieImageAdapter;
-import com.example.machine2.movietime.MovieManager;
+import com.example.machine2.movietime.PopularMovieManager;
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.activity.BaseActivity;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 
@@ -23,7 +22,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter {
     ActionBarDrawerToggle toggle;
     NetworkCommunicator networkCommunicator;
     Toolbar toolbar;
-    MovieManager movieManager;
+    PopularMovieManager popularMovieManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +40,8 @@ public class MainActivity extends BaseActivity implements MovieAdapter {
         //calling the progress dialog from the Base activty
         dialogShow(this);
 
-        movieManager = new MovieManager();
-        movieManager.movieManager(this);
+        popularMovieManager = new PopularMovieManager();
+        popularMovieManager.movieManager(this);
 
     }
 //sets gridview.......

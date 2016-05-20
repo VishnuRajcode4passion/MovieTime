@@ -22,7 +22,7 @@ public class MoviePosterParser {
         this.context = context;
     }
 
-    MovieImageAdapter poster(byte[] responseBody) {
+    MovieImageAdapter parser(byte[] responseBody) {
         responseString = new String(responseBody);
         gson = new Gson();
         moviesResponse = gson.fromJson(responseString, MoviesResponse.class);

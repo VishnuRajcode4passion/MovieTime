@@ -16,42 +16,30 @@ import cz.msebera.android.httpclient.Header;
 public class NetworkCommunicator {
 
     //Variables and class declartions
-    private static final String TAG = "NetworkCommunicator";
     AsyncHttpClient client;
-    String url;
     Context context;
 
-    public NetworkCommunicator(Context context, String url) {
-        this.url = url;
-        this.context = context;
-    }
-
-    //method created for the Movies
-    public void sendRequest(final NetworkListener networkListener) {
+    //method created for sending requestUrl to server
+    public void sendRequest(final NetworkListener networkListener, String url, RequestParams params) {
 
         client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("api_key", "efc0d91dd29ee74d0c55029e31266793");
-
         client.get(url, params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                networkListener.onResponse(responseBody);
+                networkListener.onSuccess(responseBody);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
                 Toast.makeText(context, "NETWORK ERROR " + error, Toast.LENGTH_LONG).show();
-//                NetworkErrors networkErrors = new NetworkErrors();
-//                networkErrors.showError(statusCode, error);
             }
 
             @Override
             public void onCancel() {
-                //   super.onCancel();
-                client.cancelRequests(context, true);
+                   super.onCancel();
+                   client.cancelRequests(context, true);
 
             }
         });
