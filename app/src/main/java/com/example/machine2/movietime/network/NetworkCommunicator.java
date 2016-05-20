@@ -1,7 +1,7 @@
 package com.example.machine2.movietime.network;
 
 import android.content.Context;
-import android.preference.PreferenceActivity;
+
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
