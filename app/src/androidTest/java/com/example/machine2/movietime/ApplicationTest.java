@@ -1,4 +1,4 @@
-package com.example.machine2.moviesss;
+package com.example.machine2.movietime;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

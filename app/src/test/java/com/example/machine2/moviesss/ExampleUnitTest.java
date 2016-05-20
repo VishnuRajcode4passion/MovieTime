@@ -1,4 +1,4 @@
-package com.example.machine2.moviesss;
+package com.example.machine2.movietime;
 
 import org.junit.Test;
 
