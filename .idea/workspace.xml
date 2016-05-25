@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d29cf794-c934-41e3-8f0a-1e39515c923b" name="Default" comment="">
+<<<<<<< HEAD
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/machine2/movietime/BaseManager.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/machine2/movietime/Request.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.8/taskArtifacts/cache.properties.lock" />
@@ -41,6 +42,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/machine2/movietime/UrlProvider.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/machine2/movietime/UrlProvider.java" />
 >>>>>>> e6f58fa30817afd03fdf5b9ffd1c36855a587a81
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/machine2/movietime/PopularMovieManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/machine2/movietime/PopularMovieManager.java" />
+>>>>>>> e7b0ce7e021290369c414860bc0eccc82c6fb1f8
     </list>
     <ignored path="MovieTime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,6 +90,7 @@
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state vertical-scroll-proportion="1.3432835">
               <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
@@ -99,6 +104,10 @@
 =======
             <state vertical-scroll-proportion="0.7334385">
               <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+=======
+            <state vertical-scroll-proportion="0.4731861">
+              <caret line="27" column="56" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="56" />
+>>>>>>> e7b0ce7e021290369c414860bc0eccc82c6fb1f8
               <folding>
                 <element signature="docComment;class#PopularMovieManager#0" expanded="false" />
               </folding>
@@ -2675,8 +2684,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/machine2/movietime/PopularMovieManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7334385">
-          <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.4731861">
+          <caret line="27" column="56" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="56" />
           <folding>
             <element signature="docComment;class#PopularMovieManager#0" expanded="false" />
           </folding>
