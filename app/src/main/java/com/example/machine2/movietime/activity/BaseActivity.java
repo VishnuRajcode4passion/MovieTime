@@ -11,8 +11,8 @@ public class BaseActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-    public void dialogShow(Context context) {
-        progressDialog = new ProgressDialog(context);
+    public void dialogShow() {
+        progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Processing...");
         progressDialog.setMessage("Please wait.");
         progressDialog.setCancelable(false);

@@ -17,12 +17,9 @@ public class MainActivity extends BaseActivity implements MovieAdapter {
 
     //variable declaration
     GridView gridView;
-    NavigationView navigationView;
-    DrawerLayout drawer;
-    ActionBarDrawerToggle toggle;
-    NetworkCommunicator networkCommunicator;
     Toolbar toolbar;
     PopularMovieManager popularMovieManager;
+    MovieAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +28,19 @@ public class MainActivity extends BaseActivity implements MovieAdapter {
         setContentView(R.layout.nav_activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         gridView = (GridView) findViewById(R.id.gridview);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Popular");
 
         //calling the progress dialog from the Base activty
-        dialogShow(this);
+        dialogShow();
 
         popularMovieManager = new PopularMovieManager();
-        popularMovieManager.movieManager(this);
-
+        popularMovieManager.movieManager(this,this);
     }
-//sets gridview.......
+
+    //sets gridview.
     @Override
     public void setImageAdapter(MovieImageAdapter imageAdapter) {
 

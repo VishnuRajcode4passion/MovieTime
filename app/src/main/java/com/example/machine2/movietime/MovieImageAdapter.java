@@ -12,6 +12,7 @@ import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by machine3 on 5/20/16.
@@ -21,7 +22,8 @@ public class MovieImageAdapter extends BaseAdapter {
     Context context;
     List<MoviesResponse.ResultsBean> results;
     MoviesResponse.ResultsBean item;
-    UrlProvider urlProvider;
+    Map<String, String> paramMap;
+    RequestParams params;
 
     ImageView imageView;
     TextView movieId;
@@ -31,13 +33,13 @@ public class MovieImageAdapter extends BaseAdapter {
     String image;
 
     private static LayoutInflater inflater = null;
+    private Request request = new Request();
 
     public MovieImageAdapter(Context context, List<MoviesResponse.ResultsBean> results) {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.results = results;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     //getting the count of item
@@ -48,7 +50,6 @@ public class MovieImageAdapter extends BaseAdapter {
     }
 
     // getting the item at particular position
-
     @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub
@@ -69,7 +70,7 @@ public class MovieImageAdapter extends BaseAdapter {
         View rowView;
         rowView = inflater.inflate(R.layout.single_row_image_adapter, null);
         item = (MoviesResponse.ResultsBean) getItem(position);
-        posterUrl = urlProvider.posterUrl;
+        posterUrl = UrlProvider.posterUrl;
 
         movieId = (TextView) rowView.findViewById(R.id.textView);
         imageView = (ImageView) rowView.findViewById(R.id.imageView);
@@ -77,8 +78,8 @@ public class MovieImageAdapter extends BaseAdapter {
         int id = item.getId();
         imageUrl = item.getPoster_path();
 
-        RequestParams params = new RequestParams();
-        params.put("api_key", "efc0d91dd29ee74d0c55029e31266793");
+        paramMap = request.getHeaders();
+        params = new RequestParams(paramMap);
         image = posterUrl + imageUrl + params;
 
         //Loading image from  url into imageView
