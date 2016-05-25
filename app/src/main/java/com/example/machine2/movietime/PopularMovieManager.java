@@ -19,7 +19,7 @@ public class PopularMovieManager extends BaseManager implements NetworkListener 
     MoviePosterParser moviePosterParser;
     Request request = new Request();
 
-    public void movieManager(Context context,MovieAdapter movieAdapter) {
+    public void movieManager(Context context, MovieAdapter movieAdapter) {
 
         this.context = context;
         this.movieAdapter = movieAdapter;
