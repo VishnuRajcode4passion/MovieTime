@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
 
         //calling the progress dialog from the Base activty
 
-        dialogShow(this);
+        dialogShow();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
         navigationView.setNavigationItemSelectedListener(this);
 
         popularMovieManager = new PopularMovieManager();
-        popularMovieManager.movieManager(this);
+        popularMovieManager.movieManager(this,this);
 
     }
 //sets gridview.......

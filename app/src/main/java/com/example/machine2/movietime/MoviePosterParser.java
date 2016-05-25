@@ -6,10 +6,6 @@ package com.example.machine2.movietime;
 import android.content.Context;
 import com.google.gson.Gson;
 
-/**
- * Created by machine2 on 09/05/16.
- */
-//Manager class of the movie sendRequest
 public class MoviePosterParser {
 
     Gson gson;
@@ -18,9 +14,17 @@ public class MoviePosterParser {
     String responseString;
     Context context;
 
+    public MoviePosterParser(Context context) {
+        this.context = context;
+    }
 
+    //parser method for parsing json to gson
+    MovieImageAdapter parser(byte[] responseBody) {
 
-//    MovieImageAdapter parser() {
-//
-//    }
+        responseString = new String(responseBody);
+        gson = new Gson();
+        moviesResponse = gson.fromJson(responseString, MoviesResponse.class);
+        imageAdapter = new MovieImageAdapter(context, moviesResponse.getResults());
+        return imageAdapter;
+    }
 }

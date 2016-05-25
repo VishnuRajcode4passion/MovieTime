@@ -1,9 +1,8 @@
 package com.example.machine2.movietime.network;
 
-import android.content.Context;
-import android.widget.Toast;
+import android.util.Log;
 
-import com.example.machine2.movietime.MoviePosterParser;
+import com.example.machine2.movietime.Request;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -15,16 +14,18 @@ import cz.msebera.android.httpclient.Header;
  */
 public class NetworkCommunicator {
 
-    //Variables and class declartions
+    //Variables declarations
     AsyncHttpClient client;
-    Context context;
-    MoviePosterParser moviePosterParser;
+    RequestParams params;
+    String url;
 
     //method created for sending requestUrl to server
-    public void sendRequest(final NetworkListener networkListener, String Url, RequestParams params) {
+    public void sendRequest(final NetworkListener networkListener, Request request) {
 
+        url = request.getUrl();
+        params = new RequestParams(request.getHeaders());
         client = new AsyncHttpClient();
-        client.get(Url, params, new AsyncHttpResponseHandler() {
+        client.get(url, params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -35,42 +36,14 @@ public class NetworkCommunicator {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-                Toast.makeText(context, "NETWORK ERROR " + error, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onCancel() {
-                   super.onCancel();
-                   client.cancelRequests(context, true);
-
-            }
-        });
-    }
-    public void weatherRequest(final NetworkListener networkListener,CharSequence city, RequestParams params) {
-        String Url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=45df4fca7d202600be0e657e2d0a9dcd";
-        client = new AsyncHttpClient();
-        client.get(Url,null, new AsyncHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                networkListener.onSuccess(responseBody);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                Toast.makeText(context, "NETWORK ERROR " + error, Toast.LENGTH_LONG).show();
+                Log.d("NetworkCommunicator ", "NETWORK ERROR " + error);
             }
 
             @Override
             public void onCancel() {
                 super.onCancel();
-                client.cancelRequests(context, true);
-
+                client.cancelAllRequests(true);
             }
         });
     }
-
-
 }
