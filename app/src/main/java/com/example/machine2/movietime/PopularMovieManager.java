@@ -32,8 +32,8 @@ public class PopularMovieManager extends BaseManager implements NetworkListener 
     @Override
     public void onSuccess(byte[] responseBody) {
 
-        moviePosterParser = new MoviePosterParser(context);
-        movieImageAdapter = moviePosterParser.parser(responseBody);
+        moviePosterParser = new MoviePosterParser();
+        movieImageAdapter = moviePosterParser.parser(context,responseBody);
         movieAdapter.setImageAdapter(movieImageAdapter);
     }
 }

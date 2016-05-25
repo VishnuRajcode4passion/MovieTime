@@ -14,12 +14,9 @@ public class MoviePosterParser {
     String responseString;
     Context context;
 
-    public MoviePosterParser(Context context) {
-        this.context = context;
-    }
 
     //parser method for parsing json to gson
-    MovieImageAdapter parser(byte[] responseBody) {
+    MovieImageAdapter parser(Context context, byte[] responseBody) {
 
         responseString = new String(responseBody);
         gson = new Gson();

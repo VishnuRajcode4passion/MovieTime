@@ -32,7 +32,7 @@ public class NetworkCommunicator {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
+                Log.d("NetworkCommunicator", "Headers "+headers);
                 networkListener.onSuccess(responseBody);
             }
 
