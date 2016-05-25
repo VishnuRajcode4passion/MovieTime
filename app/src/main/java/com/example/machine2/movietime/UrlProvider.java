@@ -12,4 +12,5 @@ public class UrlProvider
     public static String posterUrl = "https://image.tmdb.org/t/p/w185/";
     public static String  movieDetailsUrl = "http://api.themoviedb.org/3/movie/";
     public static String  movirTrailerUrl = "https://api.themoviedb.org/3/movie/157336/videos?api_key=efc0d91dd29ee74d0c55029e31266793";
+    public static String WeatherUrl = "api.openweathermap.org/data/2.5/weather?q=?";
 }

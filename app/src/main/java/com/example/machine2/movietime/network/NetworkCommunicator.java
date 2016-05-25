@@ -1,9 +1,9 @@
 package com.example.machine2.movietime.network;
 
 import android.content.Context;
-
 import android.widget.Toast;
 
+import com.example.machine2.movietime.MoviePosterParser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -16,44 +16,61 @@ import cz.msebera.android.httpclient.Header;
 public class NetworkCommunicator {
 
     //Variables and class declartions
-    private static final String TAG = "NetworkCommunicator";
     AsyncHttpClient client;
-    String url;
     Context context;
+    MoviePosterParser moviePosterParser;
 
-    public NetworkCommunicator(Context context, String url) {
-        this.url = url;
-        this.context = context;
-    }
-
-    //method created for the Movies
-    public void sendRequest(final NetworkListener networkListener) {
+    //method created for sending requestUrl to server
+    public void sendRequest(final NetworkListener networkListener, String Url, RequestParams params) {
 
         client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("api_key", "efc0d91dd29ee74d0c55029e31266793");
-
-        client.get(url, params, new AsyncHttpResponseHandler() {
+        client.get(Url, params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                networkListener.onResponse(responseBody);
+
+                networkListener.onSuccess(responseBody);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
                 Toast.makeText(context, "NETWORK ERROR " + error, Toast.LENGTH_LONG).show();
-//                NetworkErrors networkErrors = new NetworkErrors();
-//                networkErrors.showError(statusCode, error);
             }
 
             @Override
             public void onCancel() {
-                //   super.onCancel();
+                   super.onCancel();
+                   client.cancelRequests(context, true);
+
+            }
+        });
+    }
+    public void weatherRequest(final NetworkListener networkListener,CharSequence city, RequestParams params) {
+        String Url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=45df4fca7d202600be0e657e2d0a9dcd";
+        client = new AsyncHttpClient();
+        client.get(Url,null, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                networkListener.onSuccess(responseBody);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                Toast.makeText(context, "NETWORK ERROR " + error, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancel() {
+                super.onCancel();
                 client.cancelRequests(context, true);
 
             }
         });
     }
+
+
 }

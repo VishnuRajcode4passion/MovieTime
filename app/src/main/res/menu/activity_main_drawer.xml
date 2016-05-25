@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/popular"
+            android:title="Popular"
+            android:icon="@drawable/cinema"
+            android:checked="true"/>
+
+        <item
+            android:id="@+id/topRated"
+            android:title="Top Rated"
+            android:icon="@drawable/game"/>
+
+        <item
+            android:id="@+id/favorite"
+            android:title="Favorite"
+            android:icon="@drawable/star"/>
+    </group>
+
+
+
+    <item android:title="More Options">
+        <menu>
+            <item android:title="CheckWeather"
+                android:id="@+id/search"
+                android:icon="@drawable/wether"/>
+            <item android:title="Logout"
+                android:id="@+id/logout"
+                android:icon="@drawable/computer"/>
+        </menu>
+
+
+    </item>
+
+</menu>
