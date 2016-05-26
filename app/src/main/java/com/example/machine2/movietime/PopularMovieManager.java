@@ -2,7 +2,6 @@ package com.example.machine2.movietime;
 
 import android.content.Context;
 
-import com.example.machine2.movietime.activity.MainActivity;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;
@@ -35,5 +34,10 @@ public class PopularMovieManager extends BaseManager implements NetworkListener 
         moviePosterParser = new MoviePosterParser(context);
         movieImageAdapter = moviePosterParser.parser(responseBody);
         movieAdapter.setImageAdapter(movieImageAdapter);
+    }
+
+    @Override
+    public void onFailure(int statusCode) {
+
     }
 }

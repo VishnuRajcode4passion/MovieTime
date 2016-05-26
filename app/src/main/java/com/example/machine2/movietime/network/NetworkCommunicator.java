@@ -36,6 +36,8 @@ public class NetworkCommunicator {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
+                networkListener.onFailure(statusCode);
+
                 Log.d("NetworkCommunicator ", "NETWORK ERROR " + error);
             }
 

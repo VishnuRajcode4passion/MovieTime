@@ -5,4 +5,5 @@ package com.example.machine2.movietime.network;
  */
 public interface NetworkListener {
     void onSuccess(byte[] responseBody);
+    void onFailure(int statusCode);
 }
