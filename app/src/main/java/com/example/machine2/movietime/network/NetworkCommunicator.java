@@ -2,13 +2,10 @@ package com.example.machine2.movietime.network;
 
 import android.util.Log;
 
-import com.example.machine2.movietime.BaseManager;
 import com.example.machine2.movietime.Request;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
-import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -32,20 +29,16 @@ public class NetworkCommunicator {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.d("NetworkCommunicator", "Headers "+headers);
+
+                Log.d("NetworkCommunicator", "Headers " + headers);
                 networkListener.onSuccess(responseBody);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-                Log.d("NetworkCommunicator ", "NETWORK ERROR " + error);
-            }
-
-            @Override
-            public void onCancel() {
-                super.onCancel();
-                client.cancelAllRequests(true);
+                Log.d("NetworkCommunicator ", "NETWORK ERROR " + statusCode +error +responseBody);
+                networkListener.onFailure(responseBody);
             }
         });
     }

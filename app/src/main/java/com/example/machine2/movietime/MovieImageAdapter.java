@@ -70,7 +70,7 @@ public class MovieImageAdapter extends BaseAdapter {
         View rowView;
         rowView = inflater.inflate(R.layout.single_row_image_adapter, null);
         item = (MoviesResponse.ResultsBean) getItem(position);
-        posterUrl = UrlProvider.posterUrl;
+        posterUrl = UrlProvider.POSTER_URL;
 
         movieId = (TextView) rowView.findViewById(R.id.textView);
         imageView = (ImageView) rowView.findViewById(R.id.imageView);
