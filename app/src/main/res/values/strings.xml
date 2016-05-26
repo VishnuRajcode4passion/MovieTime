@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MovieTime</string>
     <string name="action_settings">Settings</string>
+    <string name="topRated">Top Rated</string>
+    <string name="popular">Popular</string>
+    <string name="favorite">Favorite</string>
+    <string name="logout">Log Out</string>
+    <string name="exit">Exit</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>
