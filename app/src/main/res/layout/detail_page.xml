@@ -86,7 +86,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/movie_poster"
                 android:layout_below="@+id/rating"
-                />
+                android:checked="false" />
             <TextView
                 android:layout_width="75dp"
                 android:id="@+id/rating"

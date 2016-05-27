@@ -1,5 +1,6 @@
 package com.example.machine2.movietime.network;
 
+import com.example.machine2.movietime.FavoriteAdapter;
 import com.example.machine2.movietime.MovieImageAdapter;
 
 /**
@@ -8,4 +9,5 @@ import com.example.machine2.movietime.MovieImageAdapter;
 public interface MovieAdapter
 {
  void setImageAdapter(MovieImageAdapter imageAdapter);
+ void setFavorite(FavoriteAdapter favoriteAdapter);
 }
