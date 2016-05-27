@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.machine2.movietime.MovieDetailsManager;
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.SetDetails;
+import com.example.machine2.movietime.SetMovieDetails;
 import com.example.machine2.movietime.network.DetailsAdapter;
 
 /**
@@ -79,7 +79,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
 
 
     @Override
-    public void setMovieDetails(SetDetails detailResponse) {
+    public void setMovieDetails(SetMovieDetails detailResponse) {
         String title = detailResponse.gettitle();
         titles.setText(title);
 

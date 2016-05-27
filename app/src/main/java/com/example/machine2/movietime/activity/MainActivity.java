@@ -29,7 +29,6 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
-    NetworkCommunicator networkCommunicator;
     String movie_id;
     TextView MovieId;
     Intent intent;
@@ -45,13 +44,10 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         gridView = (GridView) findViewById(R.id.gridview);
 
-
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Popular");
 
         //calling the progress dialog from the Base activty
-
         dialogShow();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -70,12 +66,10 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
                 intent = new Intent(MainActivity.this,MovieDetailsActivity.class);
                 intent.putExtra("selectedId",movie_id);
                 startActivity(intent);
-
             }
         });
-
     }
-//sets gridview.......
+    //sets gridview.......
 
     @Override
     public void setImageAdapter(MovieImageAdapter imageAdapter) {
@@ -85,9 +79,9 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
         gridView.setAdapter(imageAdapter);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         MenuSelector menuSelector = new MenuSelector(this,this,drawer);
         String title = menuSelector.getItem(item);
         getSupportActionBar().setTitle(title);

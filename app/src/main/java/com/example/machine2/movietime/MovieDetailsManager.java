@@ -1,7 +1,6 @@
 package com.example.machine2.movietime;
 
 import com.example.machine2.movietime.network.DetailsAdapter;
-import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;
 import com.google.gson.Gson;
@@ -9,24 +8,22 @@ import com.google.gson.Gson;
 /**
  * Created by machine2 on 26/05/16.
  */
-public class MovieDetailsManager extends BaseManager implements NetworkListener{
+public class MovieDetailsManager extends BaseManager implements NetworkListener {
 
-    MovieAdapter movieAdapter;
-    MovieImageAdapter movieImageAdapter;
     NetworkCommunicator networkCommunicator;
     Request request = new Request();
     String id;
     Gson gson;
-    DetailResponse detailResponse;
+    MovieDetailResponse movieDetailResponse;
     String responseString;
     DetailsAdapter detailsAdapter;
-    SetDetails setDetails = new SetDetails();
+    SetMovieDetails setMovieDetails = new SetMovieDetails();
 
     public void movieManager(DetailsAdapter detailsAdapter, String id) {
 
         this.detailsAdapter = detailsAdapter;
         this.id = id;
-        request.setUrl(UrlProvider.MOVIE_DETAILS_URL+id);
+        request.setUrl(UrlProvider.MOVIE_DETAILS_URL + id);
         request.setHeaders(getHeaders());
         networkCommunicator = new NetworkCommunicator();
         networkCommunicator.sendRequest(this, request);
@@ -37,12 +34,9 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener{
 
         responseString = new String(responseBody);
         gson = new Gson();
-        detailResponse = gson.fromJson(responseString, DetailResponse.class);
-        setDetails.settitle(detailResponse.getOriginal_title());
-        detailsAdapter.setMovieDetails(setDetails);
-
-
-
+        movieDetailResponse = gson.fromJson(responseString, MovieDetailResponse.class);
+        setMovieDetails.settitle(movieDetailResponse.getOriginal_title());
+        detailsAdapter.setMovieDetails(setMovieDetails);
     }
 
     @Override
