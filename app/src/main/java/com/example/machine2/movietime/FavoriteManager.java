@@ -1,15 +1,19 @@
 package com.example.machine2.movietime;
 
+import android.content.Context;
+
 import com.example.machine2.movietime.network.DetailsAdapter;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 /**
- * Created by machine2 on 26/05/16.
+ * Created by machine2 on 27/05/16.
  */
-public class MovieDetailsManager extends BaseManager implements NetworkListener{
+public class FavoriteManager extends BaseManager implements NetworkListener{
 
     MovieAdapter movieAdapter;
     MovieImageAdapter movieImageAdapter;
@@ -17,16 +21,31 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener{
     Request request = new Request();
     String id;
     Gson gson;
+
     DetailResponse detailResponse;
+    MovieDatabase db;
     String responseString;
     DetailsAdapter detailsAdapter;
     UpdatedMovieDetails updatedMovieDetails = new UpdatedMovieDetails();
+    Context context;
+    ArrayList<String> images;
+    ArrayList<String> mid;
+    FavoriteAdapter favoriteAdapter;
 
-    public void movieManager(DetailsAdapter detailsAdapter, String id) {
+    public FavoriteManager(Context context, ArrayList<String> images, ArrayList<String> mid) {
+        this.context = context;
+        this.images = images;
+        this.mid = mid;
 
-        this.detailsAdapter = detailsAdapter;
+
+
+    }
+
+    public void movieManager(MovieAdapter movieAdapter, String id) {
+
+        this.movieAdapter = movieAdapter;
         this.id = id;
-        request.setUrl(UrlProvider.MOVIE_DETAILS_URL+id);
+        request.setUrl(updatedMovieDetails.getImage());
         request.setHeaders(getHeaders());
         networkCommunicator = new NetworkCommunicator();
         networkCommunicator.sendRequest(this, request);
@@ -38,13 +57,11 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener{
         responseString = new String(responseBody);
         gson = new Gson();
         detailResponse = gson.fromJson(responseString, DetailResponse.class);
-        updatedMovieDetails.settitle(detailResponse.getOriginal_title());
-        updatedMovieDetails.setImage(detailResponse.getPoster_path());
-        updatedMovieDetails.setDuration(detailResponse.getRuntime());
-        updatedMovieDetails.setRatings(detailResponse.getVote_average());
-        updatedMovieDetails.setReleseDate(detailResponse.getRelease_date());
-        updatedMovieDetails.setDescription(detailResponse.getOverview());
-        detailsAdapter.setMovieDetails(updatedMovieDetails);
+        favoriteAdapter = new FavoriteAdapter(context,images,mid);
+        db.open();
+        //Toast.makeText(, "Added to Favoruite", Toast.LENGTH_LONG).show();
+        db.close();
+        movieAdapter.setFavorite(favoriteAdapter);
 
 
 

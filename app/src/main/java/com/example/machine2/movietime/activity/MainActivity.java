@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.machine2.movietime.FavoriteAdapter;
 import com.example.machine2.movietime.MenuSelector;
 import com.example.machine2.movietime.MovieImageAdapter;
 import com.example.machine2.movietime.PopularMovieManager;
@@ -22,6 +23,7 @@ import com.example.machine2.movietime.network.NetworkCommunicator;
 
 public class MainActivity extends BaseActivity implements MovieAdapter,NavigationView.OnNavigationItemSelectedListener {
 
+
     //variable declaration
     GridView gridView;
     Toolbar toolbar;
@@ -29,6 +31,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
+    NetworkCommunicator networkCommunicator;
     String movie_id;
     TextView MovieId;
     Intent intent;
@@ -48,6 +51,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
         getSupportActionBar().setTitle("Popular");
 
         //calling the progress dialog from the Base activty
+
         dialogShow();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -57,6 +61,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
 
         popularMovieManager = new PopularMovieManager();
         popularMovieManager.movieManager(this,this);
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,7 +74,8 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
             }
         });
     }
-    //sets gridview.......
+
+//sets gridview.......
 
     @Override
     public void setImageAdapter(MovieImageAdapter imageAdapter) {
@@ -80,9 +86,14 @@ public class MainActivity extends BaseActivity implements MovieAdapter,Navigatio
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public void setFavorite(FavoriteAdapter favoriteAdapter) {
+        gridView.setAdapter(favoriteAdapter);
+    }
 
-        MenuSelector menuSelector = new MenuSelector(this,this,drawer);
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        MenuSelector menuSelector = new MenuSelector(this,movie_id,drawer);
         String title = menuSelector.getItem(item);
         getSupportActionBar().setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
