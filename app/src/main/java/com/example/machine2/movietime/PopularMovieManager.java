@@ -28,7 +28,7 @@ public class PopularMovieManager extends BaseManager implements NetworkListener 
     String responseString;
     String statusMessage;
 
-    public void movieManager(Context context, MovieAdapter movieAdapter) {
+    public void getPosters(Context context, MovieAdapter movieAdapter) {
 
         this.context = context;
         this.movieAdapter = movieAdapter;

@@ -14,29 +14,34 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.FavoriteAdapter;
-import com.example.machine2.movietime.MenuSelector;
+import com.example.machine2.movietime.FavoriteManager;
+import com.example.machine2.movietime.MovieDatabase;
 import com.example.machine2.movietime.MovieImageAdapter;
 import com.example.machine2.movietime.PopularMovieManager;
 import com.example.machine2.movietime.R;
+import com.example.machine2.movietime.TopRatedMovieManager;
 import com.example.machine2.movietime.network.MovieAdapter;
-import com.example.machine2.movietime.network.NetworkCommunicator;
 
-public class
+import java.util.ArrayList;
 
-        MainActivity extends BaseActivity implements MovieAdapter,NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
 
+public class MainActivity extends BaseActivity implements MovieAdapter, NavigationView.OnNavigationItemSelectedListener {
 
     //variable declaration
     GridView gridView;
     Toolbar toolbar;
-    PopularMovieManager popularMovieManager;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
-    NetworkCommunicator networkCommunicator;
     String movie_id;
     TextView MovieId;
     Intent intent;
+    String title;
+    TopRatedMovieManager topRatedMovieManager;
+    PopularMovieManager popularMovieManager;
+    FavoriteManager favoriteManager;
+    MovieDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +58,6 @@ public class
         getSupportActionBar().setTitle("Popular");
 
         //calling the progress dialog from the Base activty
-
         dialogShow();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,41 +66,77 @@ public class
         navigationView.setNavigationItemSelectedListener(this);
 
         popularMovieManager = new PopularMovieManager();
-        popularMovieManager.movieManager(this,this);
+        popularMovieManager.getPosters(this, this);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                MovieId = (TextView)view.findViewById(R.id.textView);
+                MovieId = (TextView) view.findViewById(R.id.textView);
                 movie_id = MovieId.getText().toString();
-                intent = new Intent(MainActivity.this,MovieDetailsActivity.class);
-                intent.putExtra("selectedId",movie_id);
+                intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                intent.putExtra("selectedId", movie_id);
                 startActivity(intent);
             }
         });
     }
 
-//sets gridview.......
-
+    //sets gridview..
     @Override
     public void setImageAdapter(MovieImageAdapter imageAdapter) {
 
-        dialogDismiss();
 
+        dialogDismiss();
         gridView.setAdapter(imageAdapter);
     }
 
     @Override
     public void setFavorite(FavoriteAdapter favoriteAdapter) {
+
+        dialogDismiss();
         gridView.setAdapter(favoriteAdapter);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        MenuSelector menuSelector = new MenuSelector(this,movie_id,drawer);
-        String title = menuSelector.getItem(item);
+
+
+//        MenuSelector menuSelector = new MenuSelector(this,movie_id);
+//        String title = menuSelector.getItem(item);
+        int id = item.getItemId();
+        if (id == R.id.topRated) {
+            dialogShow();
+            topRatedMovieManager = new TopRatedMovieManager();
+            topRatedMovieManager.getPosters(this, this);
+            title = "Top Rated";
+
+        } else if (id == R.id.popular) {
+            dialogShow();
+            popularMovieManager.getPosters(this, this);
+            title = "Popular";
+
+        } else if (id == R.id.favorite) {
+
+//            db = new MovieDatabase(this);
+//            db.open();
+//            ArrayList<String> image = db.getPoster();
+//            ArrayList<String> Movieid = db.getId();
+//            favoriteManager = new FavoriteManager(this, image, Movieid);
+//            favoriteManager.getPosters(movieAdapter, Mid);
+            dialogShow();
+            db = new MovieDatabase(this);
+            db.open();
+            ArrayList<String> image = db.getPoster();
+            ArrayList<String> ids = db.getId();
+            favoriteManager = new FavoriteManager();
+            favoriteManager.getPosters(this, this, image, ids);
+//            Picasso.with(context).load(image).resize(410,400).into(poster);
+            db.close();
+            title = "Favourite";
+
+        } else if (id == R.id.logout) {
+        }
+
         getSupportActionBar().setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
         return true;

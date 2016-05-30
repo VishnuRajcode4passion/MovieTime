@@ -17,7 +17,7 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener{
     Request request = new Request();
     String id;
     Gson gson;
-    DetailResponse detailResponse;
+    MovieDetailResponse detailResponse;
     String responseString;
     DetailsAdapter detailsAdapter;
     UpdatedMovieDetails updatedMovieDetails = new UpdatedMovieDetails();
@@ -37,7 +37,7 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener{
 
         responseString = new String(responseBody);
         gson = new Gson();
-        detailResponse = gson.fromJson(responseString, DetailResponse.class);
+        detailResponse = gson.fromJson(responseString, MovieDetailResponse.class);
         updatedMovieDetails.settitle(detailResponse.getOriginal_title());
         updatedMovieDetails.setImage(detailResponse.getPoster_path());
         updatedMovieDetails.setDuration(detailResponse.getRuntime());
