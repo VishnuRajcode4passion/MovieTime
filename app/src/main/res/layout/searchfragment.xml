@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
-
-    <fragment
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.machine2.movietime.WeatherSearchFragment"
-        android:id="@+id/fragment" />
+        android:id="@+id/search"
+        android:hint="Enter a city name"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="102dp"
+        android:layout_height="36dp"
+        android:text="SEARCH"
+        android:id="@+id/searchs"
+        android:layout_gravity="center_horizontal" />
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="com.example.machine2.movietime.WeatherDisplayFragment"
-        android:id="@+id/fragment2" />
+        android:id="@+id/fragment3" />
 </LinearLayout>

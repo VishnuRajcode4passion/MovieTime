@@ -2,6 +2,7 @@ package com.example.machine2.movietime;
 
 import android.content.Context;
 
+import com.example.machine2.movietime.controllers.BaseManager;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;

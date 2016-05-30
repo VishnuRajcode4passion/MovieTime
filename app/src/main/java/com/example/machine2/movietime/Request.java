@@ -9,6 +9,7 @@ public class Request {
 
     String url;
     Map<String, String> headers;
+    Map<String, String> header;
 
     public String getUrl() {
         return url;
@@ -25,5 +26,12 @@ public class Request {
 
     public void setHeaders(Map<String, String> headers) {
         this.headers = headers;
+    }
+    public Map<String, String> getHeader() {
+        return header;
+    }
+
+    public void setHeader(Map<String, String> headers) {
+        this.header = headers;
     }
 }

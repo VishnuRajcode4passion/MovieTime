@@ -4,6 +4,8 @@ package com.example.machine2.movietime;
  * Created by machine3 on 5/20/16.
  */
 import android.content.Context;
+
+import com.example.machine2.movietime.models.MoviesResponse;
 import com.google.gson.Gson;
 
 public class MoviePosterParser {

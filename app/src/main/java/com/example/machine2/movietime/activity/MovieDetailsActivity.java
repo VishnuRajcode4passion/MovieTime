@@ -14,24 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.machine2.movietime.MovieDatabase;
-import com.example.machine2.movietime.MovieDetailResponse;
 import com.example.machine2.movietime.MovieDetailsManager;
 import com.example.machine2.movietime.MovieTrailerManager;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.Request;
 import com.example.machine2.movietime.TrailerAdapter;
 import com.example.machine2.movietime.UpdatedMovieDetails;
-import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.network.DetailsAdapter;
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
 import java.util.Map;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by machine2 on 26/05/16.
@@ -86,7 +79,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         id = bundle.getString("selectedId");
 
         movieDetailsManager = new MovieDetailsManager();
-        movieDetailsManager.movieManager(this, id);
+        movieDetailsManager.getMovieDetails(this, id);
 
         movieTrailerManager = new MovieTrailerManager();
         movieTrailerManager.movieManager(this, this, id);
@@ -161,26 +154,10 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
     }
 
     public void addFavorite(View view) {
-//        db.open();
-//        image =  updatedMovieDetails.getImage();
-//        db.insert(image, id);
-//        db.close();
 
         db = new MovieDatabase(this);
-        MovieDetailResponse movieDetailResponse = new MovieDetailResponse();
-//        String imageUrl = movieDetailResponse.getPoster_path();
-//        image = "https://image.tmdb.org/t/p/w500/" + imageUrl + request.getHeaders();
-
-        String posterUrl = UrlProvider.POSTER_URL;
-        String imageUrl = movieDetailResponse.getPoster_path();
-        paramMap = request.getHeaders();
-        params = new RequestParams(paramMap);
-        image = posterUrl + imageUrl + params;
-        System.out.println("poster url "+posterUrl);
-        System.out.println("image url " + imageUrl);
-        System.out.println("params "+params);
         db.open();
-        db.insert(image, id);
+        db.insert(posters, id);
         Toast.makeText(getApplicationContext(), "Added to Favoruite", Toast.LENGTH_LONG).show();
         db.close();
     }

@@ -1,7 +1,14 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.controllers;
 
 import android.content.Context;
 
+import com.example.machine2.movietime.FavoriteAdapter;
+import com.example.machine2.movietime.MovieDatabase;
+import com.example.machine2.movietime.MovieDetailResponse;
+import com.example.machine2.movietime.MovieImageAdapter;
+import com.example.machine2.movietime.Request;
+import com.example.machine2.movietime.UpdatedMovieDetails;
+import com.example.machine2.movietime.controllers.BaseManager;
 import com.example.machine2.movietime.network.DetailsAdapter;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
@@ -32,22 +39,8 @@ public class FavoriteManager extends BaseManager implements NetworkListener {
     ArrayList<String> mid;
     FavoriteAdapter favoriteAdapter;
 
-//    public FavoriteManager(Context context, ArrayList<String> images, ArrayList<String> mid) {
-//
-//        this.context = context;
-//        this.images = images;
-//        this.mid = mid;
-//    }
 
     public void getPosters(Context context, MovieAdapter movieAdapter, ArrayList<String> image, ArrayList<String> ids) {
-
-//        this.movieAdapter = movieAdapter;
-//        this.id = id;
-//        request.setUrl(updatedMovieDetails.getImage());
-//        request.setHeaders(getHeaders());
-//        networkCommunicator = new NetworkCommunicator();
-//        networkCommunicator.sendRequest(this, request);
-
         favoriteAdapter = new FavoriteAdapter(context,image,ids);
         System.out.println("FAVOURITE ADAPTER " + favoriteAdapter);
         movieAdapter.setFavorite(favoriteAdapter);
@@ -60,9 +53,6 @@ public class FavoriteManager extends BaseManager implements NetworkListener {
         gson = new Gson();
         detailResponse = gson.fromJson(responseString, MovieDetailResponse.class);
         favoriteAdapter = new FavoriteAdapter(context, images, mid);
-        db.open();
-        //Toast.makeText(, "Added to Favoruite", Toast.LENGTH_LONG).show();
-        db.close();
         movieAdapter.setFavorite(favoriteAdapter);
     }
 

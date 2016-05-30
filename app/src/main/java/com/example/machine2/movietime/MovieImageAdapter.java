@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.machine2.movietime.models.MoviesResponse;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
