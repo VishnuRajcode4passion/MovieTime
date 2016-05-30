@@ -39,8 +39,9 @@ public class MovieImageAdapter extends BaseAdapter {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.results = results;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
+
 
     //getting the count of item
     @Override
@@ -67,6 +68,7 @@ public class MovieImageAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView;
         rowView = inflater.inflate(R.layout.single_row_image_adapter, null);
         item = (MoviesResponse.ResultsBean) getItem(position);

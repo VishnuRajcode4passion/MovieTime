@@ -6,8 +6,7 @@ import java.util.List;
  * Created by machine2 on 26/05/16.
  */
 public class MovieDetailResponse {
-
-
+    //response class
     /**
      * adult : false
      * backdrop_path : /xu9zaAevzQ5nnrsXN6JcahLnG4i.jpg
