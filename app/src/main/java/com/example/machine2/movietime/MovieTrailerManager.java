@@ -22,12 +22,14 @@ public class MovieTrailerManager extends  BaseManager implements NetworkListener
     DetailsAdapter detailsAdapter;
     TrailerAdapter trailerAdapter;
 
-    public void movieManager(Context context, DetailsAdapter detailsAdapter, String id) {
+    public void getTrailerManager(Context context, DetailsAdapter detailsAdapter, String id) {
 
         this.context = context;
         this.detailsAdapter = detailsAdapter;
         this.id = id;
-        request.setUrl(UrlProvider.MOVIE_TRAILER_URL+id);
+        String trailerId = id+"/videos?";
+        request.setUrl(UrlProvider.MOVIE_TRAILER_URL+trailerId);
+        System.out.println(" Trailer url "+ UrlProvider.MOVIE_TRAILER_URL+trailerId);
         request.setHeaders(getHeaders());
         networkCommunicator = new NetworkCommunicator();
         networkCommunicator.sendRequest(this, request);
@@ -41,9 +43,6 @@ public class MovieTrailerManager extends  BaseManager implements NetworkListener
         movieTrailerResponse = gson.fromJson(responseString, MovieTrailerResponse.class);
         trailerAdapter = new TrailerAdapter(context, movieTrailerResponse.getResults());
         detailsAdapter.movieTrailer(trailerAdapter);
-
-
-
     }
 
     @Override
