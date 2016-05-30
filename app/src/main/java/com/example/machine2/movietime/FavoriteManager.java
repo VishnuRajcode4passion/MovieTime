@@ -58,9 +58,6 @@ public class FavoriteManager extends BaseManager implements NetworkListener{
         gson = new Gson();
         detailResponse = gson.fromJson(responseString, DetailResponse.class);
         favoriteAdapter = new FavoriteAdapter(context,images,mid);
-        db.open();
-        //Toast.makeText(, "Added to Favoruite", Toast.LENGTH_LONG).show();
-        db.close();
         movieAdapter.setFavorite(favoriteAdapter);
 
 

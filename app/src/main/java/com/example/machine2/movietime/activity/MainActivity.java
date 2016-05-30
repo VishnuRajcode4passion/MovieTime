@@ -21,7 +21,9 @@ import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 
-public class MainActivity extends BaseActivity implements MovieAdapter,NavigationView.OnNavigationItemSelectedListener {
+public class
+
+        MainActivity extends BaseActivity implements MovieAdapter,NavigationView.OnNavigationItemSelectedListener {
 
 
     //variable declaration
