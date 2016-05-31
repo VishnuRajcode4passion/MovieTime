@@ -9,44 +9,52 @@ import com.example.machine2.movietime.models.MoviesErrorResponse;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;
+import com.example.machine2.movietime.network.WeatherListener;
 import com.google.gson.Gson;
 
 /**
- * Created by machine3 on 5/20/16.
+ * Created by machine2 on 30/05/16.
  */
-public class PopularMovieManager extends BaseManager implements NetworkListener {
-
+public class WeatherManager extends BaseManager implements NetworkListener {
     MovieAdapter movieAdapter;
     MovieImageAdapter movieImageAdapter;
 
-    NetworkCommunicator networkCommunicator;
+
     Context context;
     MoviePosterParser moviePosterParser;
-    Request request;
-    Gson gson;
+
     MoviesErrorResponse moviesErrorResponse;
     int code;
-
-    String responseString;
     String statusMessage;
+    NetworkCommunicator networkCommunicator;
+    Request request = new Request();
+    String id;
+    Gson gson;
+    String cityName;
+    WeatherResponse weatherResponse;
+    String responseString;
+   WeatherListener weatherListener;
+    UpdatedWeatherDetails  updatedWeatherDetails = new UpdatedWeatherDetails();
 
-    public void getPosters(Context context, MovieAdapter movieAdapter) {
+    public void getWeather(String cityName) {
 
-        this.context = context;
-        this.movieAdapter = movieAdapter;
-        request = new Request();
-        request.setUrl(UrlProvider.POPULAR_URL);
-        request.setHeaders(getHeaders());
+        this.cityName = cityName;
+        request.setUrl(UrlProvider.WEATHER_URL + cityName);
+        request.setHeader(getHeader());
         networkCommunicator = new NetworkCommunicator();
         networkCommunicator.sendRequest(this, request);
     }
 
+
     @Override
     public void onSuccess(byte[] responseBody) {
 
-        moviePosterParser = new MoviePosterParser();
-        movieImageAdapter = moviePosterParser.parser(context,responseBody);
-        movieAdapter.setImageAdapter(movieImageAdapter);
+        responseString = new String(responseBody);
+        gson = new Gson();
+        weatherResponse = gson.fromJson(responseString, WeatherResponse.class);
+        WeatherResponse.MainBean mainBean = new WeatherResponse.MainBean();
+        updatedWeatherDetails.setWeather(mainBean.getTemp());
+        weatherListener.onSuccess(updatedWeatherDetails);
     }
 
     @Override
@@ -57,8 +65,9 @@ public class PopularMovieManager extends BaseManager implements NetworkListener 
         moviesErrorResponse = gson.fromJson(responseString,MoviesErrorResponse.class);
         code = moviesErrorResponse.getStatus_code();
         statusMessage = moviesErrorResponse.getStatus_message();
-        Log.d("PopularMoviesManager","CODE "+code);
+        Log.d("PopularMoviesManager", "CODE " + code);
         Log.d("PopularMoviesManager","STATUS MESSAGE "+statusMessage);
-        Toast.makeText(context,statusMessage,Toast.LENGTH_LONG).show();
+        Toast.makeText(context, statusMessage, Toast.LENGTH_LONG).show();
+
     }
 }

@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.machine2.movietime.MovieDatabase;
 import com.example.machine2.movietime.MovieDetailsManager;
 import com.example.machine2.movietime.MovieTrailerManager;
-import com.example.machine2.movietime.MoviesResponse;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.Request;
 import com.example.machine2.movietime.TrailerAdapter;
@@ -49,7 +48,6 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
     String release_date;
     String overview;
     String posters;
-    String image;
 
     Integer runtime;
     double rating;
@@ -57,11 +55,6 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
     MovieTrailerManager movieTrailerManager;
     SharedPreferences preferences;
     MovieDatabase db = new MovieDatabase(this);
-    Request request = new Request();
-    Map<String, String> paramMap;
-    RequestParams params;
-    MoviesResponse.ResultsBean item;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +77,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         dialogShow();
 
         movieDetailsManager = new MovieDetailsManager();
-        movieDetailsManager.movieManager(this, id);
+        movieDetailsManager.getMovieDetails(this, id);
 
         movieTrailerManager = new MovieTrailerManager();
         movieTrailerManager.getTrailerManager(this, this, id);
@@ -148,8 +141,8 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         overview = detailResponse.getDescription();
         posters = detailResponse.getImage();
         titles.setText(title);
-        durations.setText(String.valueOf(runtime));
-        Rating.setText(String.valueOf(rating));
+        durations.setText(String.valueOf(runtime)+" minutes");
+        Rating.setText(String.valueOf(rating)+"/10");
         releasedate.setText(release_date);
         descriptions.setText(overview);
         Picasso.with(this).load(posters).resize(394, 400).into(poster);

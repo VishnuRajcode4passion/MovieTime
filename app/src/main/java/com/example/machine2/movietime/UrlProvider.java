@@ -13,4 +13,5 @@ public class UrlProvider {
     public static String MOVIE_DETAILS_URL = "http://api.themoviedb.org/3/movie/";
     public static String MOVIE_TRAILER_URL = "https://api.themoviedb.org/3/movie/";
     public static  String IMAGE_URL ="https://image.tmdb.org/t/p/w500/";
+    public static String WEATHER_URL="http://api.openweathermap.org/data/2.5/weather?";
 }

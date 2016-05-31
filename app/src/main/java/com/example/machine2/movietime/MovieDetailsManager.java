@@ -1,5 +1,6 @@
 package com.example.machine2.movietime;
 
+import com.example.machine2.movietime.controllers.BaseManager;
 import com.example.machine2.movietime.network.DetailsAdapter;
 import com.example.machine2.movietime.network.MovieAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
@@ -22,7 +23,7 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener{
     DetailsAdapter detailsAdapter;
     UpdatedMovieDetails updatedMovieDetails = new UpdatedMovieDetails();
 
-    public void movieManager(DetailsAdapter detailsAdapter, String id) {
+    public void getMovieDetails(DetailsAdapter detailsAdapter, String id) {
 
         this.detailsAdapter = detailsAdapter;
         this.id = id;

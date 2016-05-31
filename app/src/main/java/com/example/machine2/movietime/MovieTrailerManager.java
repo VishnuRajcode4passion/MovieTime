@@ -2,6 +2,8 @@ package com.example.machine2.movietime;
 
 import android.content.Context;
 
+import com.example.machine2.movietime.controllers.BaseManager;
+import com.example.machine2.movietime.models.MovieTrailerResponse;
 import com.example.machine2.movietime.network.DetailsAdapter;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;
@@ -10,14 +12,14 @@ import com.google.gson.Gson;
 /**
  * Created by machine2 on 27/05/16.
  */
-public class MovieTrailerManager extends  BaseManager implements NetworkListener {
+public class MovieTrailerManager extends BaseManager implements NetworkListener {
 
     NetworkCommunicator networkCommunicator;
     Request request = new Request();
     String id;
     Gson gson;
     Context context;
-    MovieTrailerResponse  movieTrailerResponse;
+    MovieTrailerResponse movieTrailerResponse;
     String responseString;
     DetailsAdapter detailsAdapter;
     TrailerAdapter trailerAdapter;

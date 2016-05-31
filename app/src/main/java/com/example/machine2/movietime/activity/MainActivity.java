@@ -14,14 +14,13 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.FavoriteAdapter;
-import com.example.machine2.movietime.FavoriteManager;
+import com.example.machine2.movietime.controllers.FavoriteManager;
 import com.example.machine2.movietime.MovieDatabase;
 import com.example.machine2.movietime.MovieImageAdapter;
 import com.example.machine2.movietime.PopularMovieManager;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.TopRatedMovieManager;
 import com.example.machine2.movietime.network.MovieAdapter;
-import com.example.machine2.movietime.network.NetworkListener;
 
 import java.util.ArrayList;
 
@@ -116,12 +115,6 @@ public class MainActivity extends BaseActivity implements MovieAdapter, Navigati
 
         } else if (id == R.id.favorite) {
 
-//            db = new MovieDatabase(this);
-//            db.open();
-//            ArrayList<String> image = db.getPoster();
-//            ArrayList<String> Movieid = db.getId();
-//            favoriteManager = new FavoriteManager(this, image, Movieid);
-//            favoriteManager.getPosters(movieAdapter, Mid);
             dialogShow();
             db = new MovieDatabase(this);
             db.open();
@@ -129,11 +122,14 @@ public class MainActivity extends BaseActivity implements MovieAdapter, Navigati
             ArrayList<String> ids = db.getId();
             favoriteManager = new FavoriteManager();
             favoriteManager.getPosters(this, this, image, ids);
-//            Picasso.with(context).load(image).resize(410,400).into(poster);
             db.close();
             title = "Favourite";
 
-        } else if (id == R.id.logout) {
+        } else if (id == R.id.search) {
+
+            WeatherActivity weatherActivity = new WeatherActivity();
+
+
         }
 
         getSupportActionBar().setTitle(title);

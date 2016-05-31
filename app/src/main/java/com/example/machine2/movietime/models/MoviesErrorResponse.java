@@ -1,4 +1,4 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.models;
 
 /**
  * Created by machine3 on 5/26/16.

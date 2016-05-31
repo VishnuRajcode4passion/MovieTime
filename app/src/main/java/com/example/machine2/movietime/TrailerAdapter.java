@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.machine2.movietime.models.MovieTrailerResponse;
+
 import java.util.List;
 
 /**
