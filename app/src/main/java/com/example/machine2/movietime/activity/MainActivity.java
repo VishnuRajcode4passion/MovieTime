@@ -85,6 +85,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter, Navigati
 
 
         dialogDismiss();
+
         gridView.setAdapter(imageAdapter);
     }
 
@@ -92,30 +93,34 @@ public class MainActivity extends BaseActivity implements MovieAdapter, Navigati
     public void setFavorite(FavoriteAdapter favoriteAdapter) {
 
         dialogDismiss();
+
         gridView.setAdapter(favoriteAdapter);
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-
-//        MenuSelector menuSelector = new MenuSelector(this,movie_id);
-//        String title = menuSelector.getItem(item);
         int id = item.getItemId();
+
         if (id == R.id.topRated) {
+
             dialogShow();
+
             topRatedMovieManager = new TopRatedMovieManager();
             topRatedMovieManager.getPosters(this, this);
             title = "Top Rated";
 
         } else if (id == R.id.popular) {
+
             dialogShow();
+
             popularMovieManager.getPosters(this, this);
             title = "Popular";
 
         } else if (id == R.id.favorite) {
 
             dialogShow();
+
             db = new MovieDatabase(this);
             db.open();
             ArrayList<String> image = db.getPoster();
