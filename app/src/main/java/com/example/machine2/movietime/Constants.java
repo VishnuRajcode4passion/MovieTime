@@ -6,5 +6,6 @@ package com.example.machine2.movietime;
 public class Constants {
 
     public static final String API_TOKEN = "Nti4kWY-qRHTYq3dsbeip0P1tbGCzs2BAY163ManCAb";
+    public static final String prefText = "tgpref";
 
 }

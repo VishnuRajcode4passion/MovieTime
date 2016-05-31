@@ -11,20 +11,17 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.machine2.movietime.Constants;
 import com.example.machine2.movietime.MovieDatabase;
+import com.example.machine2.movietime.MovieDatabaseManager;
 import com.example.machine2.movietime.MovieDetailsManager;
 import com.example.machine2.movietime.MovieTrailerManager;
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.Request;
 import com.example.machine2.movietime.TrailerAdapter;
 import com.example.machine2.movietime.UpdatedMovieDetails;
 import com.example.machine2.movietime.network.DetailsAdapter;
-import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
-
-import java.util.Map;
 
 /**
  * Created by machine2 on 26/05/16.
@@ -53,11 +50,14 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
     double rating;
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
+    MovieDatabaseManager databaseManager;
+
     SharedPreferences preferences;
     MovieDatabase db = new MovieDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_page);
 
@@ -82,6 +82,11 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         movieTrailerManager = new MovieTrailerManager();
         movieTrailerManager.getTrailerManager(this, this, id);
 
+        databaseManager = new MovieDatabaseManager();
+
+
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -100,18 +105,24 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if ((buttonView.isChecked())) {
+
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("tgpref", true); // value to store
+                    editor.putBoolean(Constants.prefText, true); // value to store
                     editor.commit();
+
+
                 } else {
+
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("tgpref", false); // value to store
+                    editor.putBoolean(Constants.prefText, false); // value to store
                     editor.commit();
+
+
                 }
             }
         });
         preferences = getPreferences(MODE_PRIVATE);
-        boolean tgpref = preferences.getBoolean("tgpref", false);  //default is true
+        boolean tgpref = preferences.getBoolean(Constants.prefText, false);  //default is true
         if (tgpref == true) //if (tgpref) may be enough, not sure
         {
             favorite.setChecked(true);
@@ -153,12 +164,12 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         listView.setAdapter(trailerAdapter);
     }
 
-    public void addFavorite(View view) {
 
-        db = new MovieDatabase(this);
-        db.open();
-        db.insert(posters, id);
-        Toast.makeText(getApplicationContext(), "Added to Favoruite", Toast.LENGTH_LONG).show();
-        db.close();
+    public void addFavorite() {
+
+     databaseManager.getFavorite(posters,id,db);
+
+
     }
+
 }

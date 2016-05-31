@@ -23,6 +23,7 @@ public class MovieDatabase {
             + MovieUrl + "  TEXT UNIQUE," + MovieId + " TEXT UNIQUE)";
 
     private final Context context;
+   // MovieDatabaseManager context;
     private SQLiteDatabase db;
     private Dbhelp dbhelp;
     ArrayList<String> urlArrayList = new ArrayList<String>();
@@ -68,12 +69,14 @@ public class MovieDatabase {
     //inserting data into database
     public long insert(String poster, String id)
     {
+
         ContentValues values = new ContentValues();
         values.put(MovieUrl, poster);
-        values.put(MovieId,id);
+        values.put(MovieId, id);
         System.out.println("image url " + poster);
         System.out.println("id " + id);
         return db.insert(Table,null,values);
+
     }
     //fetching all the data from the database
     public ArrayList getPoster()
@@ -107,7 +110,7 @@ public class MovieDatabase {
         return idArrayList;
     }
     //deleting the corrosponding data from the database
-    public void delete(long id) {
+    public void delete(String id) {
         db.delete(Table,Favoriteid +" = " + id,null);
     }
 
