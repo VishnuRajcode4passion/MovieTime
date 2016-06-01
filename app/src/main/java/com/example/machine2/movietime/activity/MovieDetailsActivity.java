@@ -160,7 +160,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
     }
 
 
-    public void addFavorite() {
+    public void addFavorite(View view) {
 
      databaseManager.getFavorite(posters,id,db);
 
