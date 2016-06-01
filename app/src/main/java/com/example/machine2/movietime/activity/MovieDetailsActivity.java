@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
  * Created by machine2 on 26/05/16.
  */
 public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter {
+
     ImageView poster;
     TextView durations;
     ImageView BackArrow;
@@ -73,11 +74,13 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         bundle = getIntent().getExtras();
         id = bundle.getString("selectedId");
 
+        dialogShow();
+
         movieDetailsManager = new MovieDetailsManager();
         movieDetailsManager.getMovieDetails(this, id);
 
         movieTrailerManager = new MovieTrailerManager();
-        movieTrailerManager.movieManager(this, this, id);
+        movieTrailerManager.getTrailerManager(this, this, id);
 
         databaseManager = new MovieDatabaseManager();
 
@@ -137,9 +140,11 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         });
     }
 
-
     @Override
     public void setMovieDetails(UpdatedMovieDetails detailResponse) {
+
+        dialogDismiss();
+
         title = detailResponse.gettitle();
         runtime = detailResponse.getDuration();
         rating = detailResponse.getRatings();
@@ -147,8 +152,8 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         overview = detailResponse.getDescription();
         posters = detailResponse.getImage();
         titles.setText(title);
-        durations.setText(String.valueOf(runtime));
-        Rating.setText(String.valueOf(rating));
+        durations.setText(String.valueOf(runtime)+" minutes");
+        Rating.setText(String.valueOf(rating)+"/10");
         releasedate.setText(release_date);
         descriptions.setText(overview);
         Picasso.with(this).load(posters).resize(394, 400).into(poster);
