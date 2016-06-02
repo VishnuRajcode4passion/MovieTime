@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.FavoriteAdapter;
+import com.example.machine2.movietime.Loginactivity;
 import com.example.machine2.movietime.controllers.FavoriteManager;
 import com.example.machine2.movietime.MovieDatabase;
 import com.example.machine2.movietime.MovieImageAdapter;
@@ -130,9 +131,10 @@ public class MainActivity extends BaseActivity implements MovieAdapter, Navigati
             db.close();
             title = "Favourite";
 
-        } else if (id == R.id.search) {
+        } else if (id == R.id.logout) {
 
-            WeatherActivity weatherActivity = new WeatherActivity();
+          Intent intent = new Intent(this, Loginactivity.class);
+           startActivity(intent);
 
 
         }
