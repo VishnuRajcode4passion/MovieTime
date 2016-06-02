@@ -133,10 +133,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter, Navigati
         } else if (id == R.id.search) {
 
             WeatherActivity weatherActivity = new WeatherActivity();
-
-
         }
-
         getSupportActionBar().setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
         return true;

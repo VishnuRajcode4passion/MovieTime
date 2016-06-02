@@ -1,7 +1,6 @@
 package com.example.machine2.movietime.activity;
 
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -10,20 +9,24 @@ import android.support.v7.app.AppCompatActivity;
 public class BaseActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
-    SharedPreferences preferences;
+
     public void dialogShow() {
+        this.dialogShow("Processing...");
+    }
+
+    public void dialogShow(String title) {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Processing...");
+        progressDialog.setTitle(title);
         progressDialog.setMessage("Please wait.");
-     //   progressDialog.setCancelable(false);
+        progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
     }
+
     public void dialogDismiss() {
 
         progressDialog.dismiss();
     }
-
 }
 
 
