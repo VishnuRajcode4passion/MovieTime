@@ -56,6 +56,7 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
         updatedMovieDetails.setRatings(detailResponse.getVote_average());
         updatedMovieDetails.setReleseDate(detailResponse.getRelease_date());
         updatedMovieDetails.setDescription(detailResponse.getOverview());
+
         movieDetailsListener.setMovieDetails(updatedMovieDetails);
     }
 

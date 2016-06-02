@@ -23,7 +23,7 @@ import com.facebook.login.widget.LoginButton;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class LoginactivityFragment extends Fragment {
+public class LoginActivityFragment extends Fragment {
 
     LoginButton loginButton;
     CallbackManager callbackManager;
@@ -55,7 +55,7 @@ public class LoginactivityFragment extends Fragment {
         }
     };
 
-    public LoginactivityFragment() {
+    public LoginActivityFragment() {
     }
 
     @Override
