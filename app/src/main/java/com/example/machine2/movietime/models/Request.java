@@ -1,4 +1,4 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.models;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public class Request {
         return url;
     }
 
-    void setUrl(String url) {
+    public void setUrl(String url) {
 
         this.url = url;
     }

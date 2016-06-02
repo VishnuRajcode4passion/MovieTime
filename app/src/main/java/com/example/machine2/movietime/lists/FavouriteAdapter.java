@@ -1,4 +1,4 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.lists;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.machine2.movietime.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by machine2 on 27/05/16.
  */
-public class FavoriteAdapter extends BaseAdapter {
+public class FavouriteAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> results;
     ArrayList<String> ids;
@@ -24,12 +25,11 @@ public class FavoriteAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
 
-    public FavoriteAdapter(Context context, ArrayList<String> results, ArrayList<String> ids) {
+    public FavouriteAdapter(Context context, ArrayList<String> results, ArrayList<String> ids) {
         // TODO Auto-generated constructor stub
         this.context = context;
         this.results=results;
         this.ids = ids;
-        System.out.println("RESULTS " + results);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -57,8 +57,8 @@ public class FavoriteAdapter extends BaseAdapter {
     //a single row with required views is inflated into listview as many times depending on the count of items.
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         // TODO Auto-generated method stub
-        System.out.println("INSIDE GET VIEW ");
         View rowView;
         rowView = inflater.inflate(R.layout.single_row_image_adapter, null);
         img = (ImageView) rowView.findViewById(R.id.imageView);

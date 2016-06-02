@@ -1,10 +1,12 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.controllers;
 
 import android.content.Context;
 
-import com.example.machine2.movietime.controllers.BaseManager;
+import com.example.machine2.movietime.models.Request;
+import com.example.machine2.movietime.lists.MovieTrailerAdapter;
+import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MovieTrailerResponse;
-import com.example.machine2.movietime.network.DetailsAdapter;
+import com.example.machine2.movietime.network.MovieDetailsListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;
 import com.google.gson.Gson;
@@ -21,13 +23,13 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
     Context context;
     MovieTrailerResponse movieTrailerResponse;
     String responseString;
-    DetailsAdapter detailsAdapter;
-    TrailerAdapter trailerAdapter;
+    MovieDetailsListener movieDetailsListener;
+    MovieTrailerAdapter movieTrailerAdapter;
 
-    public void getTrailerManager(Context context, DetailsAdapter detailsAdapter, String id) {
+    public void getTrailerManager(Context context, MovieDetailsListener movieDetailsListener, String id) {
 
         this.context = context;
-        this.detailsAdapter = detailsAdapter;
+        this.movieDetailsListener = movieDetailsListener;
         this.id = id;
         String trailerId = id+"/videos?";
         request.setUrl(UrlProvider.MOVIE_TRAILER_URL+trailerId);
@@ -43,8 +45,8 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
         responseString = new String(responseBody);
         gson = new Gson();
         movieTrailerResponse = gson.fromJson(responseString, MovieTrailerResponse.class);
-        trailerAdapter = new TrailerAdapter(context, movieTrailerResponse.getResults());
-        detailsAdapter.movieTrailer(trailerAdapter);
+        movieTrailerAdapter = new MovieTrailerAdapter(context, movieTrailerResponse.getResults());
+        movieDetailsListener.movieTrailer(movieTrailerAdapter);
     }
 
     @Override

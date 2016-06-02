@@ -4,6 +4,7 @@ package com.example.machine2.movietime;
  * Created by machine2 on 31/05/16.
  */
 public class MovieDatabaseManager {
+
     String posters;
     String id;
 
@@ -16,6 +17,4 @@ public class MovieDatabaseManager {
         //Toast.makeText(get, "Added to Favoruite", Toast.LENGTH_LONG).show();
         db.close();
     }
-
-
 }

@@ -5,23 +5,24 @@ package com.example.machine2.movietime;
  */
 import android.content.Context;
 
-import com.example.machine2.movietime.models.MoviesResponse;
+import com.example.machine2.movietime.lists.MovieImageAdapter;
+import com.example.machine2.movietime.models.MoviesPosterResponse;
 import com.google.gson.Gson;
 
 public class MoviePosterParser {
 
     Gson gson;
-    MoviesResponse moviesResponse;
+    MoviesPosterResponse moviesPosterResponse;
     MovieImageAdapter imageAdapter;
     String responseString;
 
-    //parser method for parsing json to gson and getting the results from Gson class.
-    MovieImageAdapter parser(Context context, byte[] responseBody) {
+    //parse method for parsing json to gson and getting the results from Gson class.
+    public MovieImageAdapter parse(Context context, byte[] responseBody) {
 
         responseString = new String(responseBody);
         gson = new Gson();
-        moviesResponse = gson.fromJson(responseString, MoviesResponse.class);
-        imageAdapter = new MovieImageAdapter(context, moviesResponse.getResults());
+        moviesPosterResponse = gson.fromJson(responseString, MoviesPosterResponse.class);
+        imageAdapter = new MovieImageAdapter(context, moviesPosterResponse.getResults());
         return imageAdapter;
     }
 }

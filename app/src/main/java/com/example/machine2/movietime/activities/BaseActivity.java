@@ -1,4 +1,4 @@
-package com.example.machine2.movietime.activity;
+package com.example.machine2.movietime.activities;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,23 +10,28 @@ public class BaseActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-    public void dialogShow() {
-        this.dialogShow("Processing...");
+    public void showDialog() {
+
+        showDialog("Processing...", "Please wait.");
     }
 
-    public void dialogShow(String title) {
+    public void showDialog(String title, String message) {
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(title);
-        progressDialog.setMessage("Please wait.");
+        progressDialog.setMessage(message);
         progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
         progressDialog.show();
     }
 
-    public void dialogDismiss() {
+    public void dismissDialog() {
 
         progressDialog.dismiss();
     }
 }
+
+
+
+
 
 
