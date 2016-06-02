@@ -1,0 +1,69 @@
+package com.example.machine2.movietime.controllers;
+
+import android.content.Context;
+
+import com.example.machine2.movietime.MovieDetailsParser;
+import com.example.machine2.movietime.MoviePosterParser;
+import com.example.machine2.movietime.MoviesErrorParser;
+import com.example.machine2.movietime.lists.MovieImageAdapter;
+import com.example.machine2.movietime.models.Request;
+import com.example.machine2.movietime.models.UpdatedMovieDetails;
+import com.example.machine2.movietime.UrlProvider;
+import com.example.machine2.movietime.models.MovieDetailResponse;
+import com.example.machine2.movietime.network.MovieDetailsListener;
+import com.example.machine2.movietime.network.MoviePosterListener;
+import com.example.machine2.movietime.network.NetworkCommunicator;
+import com.example.machine2.movietime.network.NetworkListener;
+import com.google.gson.Gson;
+
+/**
+ * Created by machine2 on 26/05/16.
+ */
+public class MovieDetailsManager extends BaseManager implements NetworkListener {
+
+    String id;
+    MovieDetailResponse detailResponse;
+    MovieDetailsListener movieDetailsListener;
+    MovieDetailsParser movieDetailsParser;
+    NetworkCommunicator networkCommunicator;
+    Request request;
+    String statusMessage;
+    MoviesErrorParser moviesErrorParser;
+    UpdatedMovieDetails updatedMovieDetails = new UpdatedMovieDetails();
+
+    public void getMovieDetails(MovieDetailsListener movieDetailsListener, String id) {
+
+        this.movieDetailsListener = movieDetailsListener;
+        this.id = id;
+
+        request = new Request();
+        request.setUrl(UrlProvider.MOVIE_DETAILS_URL + id);
+        request.setHeaders(getHeaders());
+
+        networkCommunicator = new NetworkCommunicator();
+        networkCommunicator.sendRequest(this, request);
+    }
+
+    @Override
+    public void onSuccess(byte[] responseBody) {
+
+        movieDetailsParser = new MovieDetailsParser();
+        detailResponse = movieDetailsParser.parse(responseBody);
+
+        updatedMovieDetails.settitle(detailResponse.getOriginal_title());
+        updatedMovieDetails.setImage(detailResponse.getPoster_path());
+        updatedMovieDetails.setDuration(detailResponse.getRuntime());
+        updatedMovieDetails.setRatings(detailResponse.getVote_average());
+        updatedMovieDetails.setReleseDate(detailResponse.getRelease_date());
+        updatedMovieDetails.setDescription(detailResponse.getOverview());
+        movieDetailsListener.setMovieDetails(updatedMovieDetails);
+    }
+
+    @Override
+    public void onFailure(byte[] responseBody) {
+
+        moviesErrorParser = new MoviesErrorParser();
+        statusMessage = moviesErrorParser.parse(responseBody);
+        movieDetailsListener.setErrorMessage(statusMessage);
+    }
+}

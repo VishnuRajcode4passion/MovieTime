@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.machine2.movietime.activity.MainActivity;
+import com.example.machine2.movietime.activities.MainActivity;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -115,7 +115,6 @@ public class LoginactivityFragment extends Fragment {
         Profile profile = Profile.getCurrentProfile();
         displayWelcomeMessage(profile);
 
-
     }
 
     @Override
@@ -126,7 +125,7 @@ public class LoginactivityFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+   public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }

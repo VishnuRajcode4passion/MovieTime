@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by machine3 on 5/20/16.
  */
-public class MoviesResponse {
+public class MoviesPosterResponse {
 
         /**
          * page : 1

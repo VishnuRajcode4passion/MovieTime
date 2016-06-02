@@ -1,4 +1,4 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.lists;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.models.MovieTrailerResponse;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by machine2 on 27/05/16.
  */
-public class TrailerAdapter extends BaseAdapter{
+public class MovieTrailerAdapter extends BaseAdapter{
     Context context;
     List<MovieTrailerResponse.ResultsBean> results;
     MovieTrailerResponse.ResultsBean item;
@@ -23,7 +24,7 @@ public class TrailerAdapter extends BaseAdapter{
 
     private static LayoutInflater inflater = null;
 
-    public TrailerAdapter(Context context, List<MovieTrailerResponse.ResultsBean> results) {
+    public MovieTrailerAdapter(Context context, List<MovieTrailerResponse.ResultsBean> results) {
         this.context = context;
         this.results=results;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
