@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.machine2.movietime.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class Loginactivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
