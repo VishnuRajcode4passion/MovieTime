@@ -138,9 +138,10 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
             db.close();
             title = "Favourite";
 
-        } else if (id == R.id.search) {
+        } else if (id == R.id.logout) {
 
-            WeatherActivity weatherActivity = new WeatherActivity();
+           Intent intent = new Intent(this,Loginactivity.class);
+            startActivity(intent);
         }
         getSupportActionBar().setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
