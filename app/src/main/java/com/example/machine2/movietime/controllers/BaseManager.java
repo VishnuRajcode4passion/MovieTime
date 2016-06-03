@@ -1,5 +1,7 @@
 package com.example.machine2.movietime.controllers;
 
+import com.example.machine2.movietime.Constants;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ public class BaseManager {
     public Map<String, String> getHeaders() {
 
         mHeaders = new HashMap<>();
-        mHeaders.put("api_key", "efc0d91dd29ee74d0c55029e31266793");
+        mHeaders.put("api_key", Constants.MOVIE_API_TOKEN);
         return mHeaders;
     }
     public Map<String, String> getHeader() {

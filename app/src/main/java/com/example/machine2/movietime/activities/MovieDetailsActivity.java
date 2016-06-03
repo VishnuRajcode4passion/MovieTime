@@ -16,9 +16,9 @@ import android.widget.Toast;
 import com.example.machine2.movietime.Constants;
 import com.example.machine2.movietime.MovieDatabase;
 import com.example.machine2.movietime.MovieDatabaseManager;
+import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.controllers.MovieDetailsManager;
 import com.example.machine2.movietime.controllers.MovieTrailerManager;
-import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.lists.MovieTrailerAdapter;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.example.machine2.movietime.network.MovieDetailsListener;
@@ -49,6 +49,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
     Integer runtime;
     double rating;
+
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
     MovieDatabaseManager databaseManager;
@@ -71,7 +72,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         releaseDate = (TextView) findViewById(R.id.year_of_relese);
         listView = (ListView) findViewById(R.id.listView);
         favorite = (CheckBox) findViewById(R.id.checkBox_favorite);
-
+        favorite.setChecked(false);
         bundle = getIntent().getExtras();
         id = bundle.getString("selectedId");
 
@@ -104,19 +105,21 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
                 if ((buttonView.isChecked())) {
 
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(Constants.prefText, true); // value to store
+                    editor.putBoolean(Constants.PREF_TEXT, true); // value to store
                     editor.commit();
+                    favorite.setChecked(true);
                 } else {
 
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(Constants.prefText, false); // value to store
+                    editor.putBoolean(Constants.PREF_TEXT, false); // value to store
                     editor.commit();
+                    favorite.setChecked(false);
                 }
             }
         });
 
         preferences = getPreferences(MODE_PRIVATE);
-        boolean tgpref = preferences.getBoolean(Constants.prefText, false);  //default is true
+        boolean tgpref = preferences.getBoolean(Constants.PREF_TEXT, false);  //default is true
         if (tgpref == true) {
             favorite.setChecked(true);
         } else {
@@ -145,7 +148,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         overview = detailResponse.getDescription();
         posters = detailResponse.getImage();
         titles.setText(title);
-        durations.setText(String.valueOf(runtime)+" minutes");
+        durations.setText(String.valueOf(runtime) + " minutes");
         Rating.setText(String.valueOf(rating) + "/10");
         releaseDate.setText(release_date);
         descriptions.setText(overview);
@@ -169,6 +172,15 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
     public void addFavorite(View view) {
 
-     databaseManager.getFavorite(posters,id,db);
+        if (favorite.isChecked() == false) {
+
+           databaseManager.removeFavorites();
+
+        }
+        else  {
+
+            databaseManager.setFavorite(posters, id, db);
+
+        }
     }
 }

@@ -110,8 +110,10 @@ public class MovieDatabase {
         return idArrayList;
     }
     //deleting the corrosponding data from the database
-    public void delete(String id) {
-        db.delete(Table,Favoriteid +" = " + id,null);
+    public void delete(long id) {
+        System.out.println("id"+id);
+     //   db.execSQL("delete from "+Table+ " where "+MovieUrl+ " = "+url);
+       db.delete(Table,MovieId+" = " + id,null);
     }
 
 
