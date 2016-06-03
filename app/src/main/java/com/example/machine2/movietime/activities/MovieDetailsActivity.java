@@ -23,6 +23,7 @@ import com.example.machine2.movietime.MovieTrailerManager;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.TrailerAdapter;
 import com.example.machine2.movietime.UpdatedMovieDetails;
+import com.example.machine2.movietime.activities.BaseActivity;
 import com.example.machine2.movietime.network.DetailsAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -105,7 +106,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
                     Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
                     animation1.setDuration(4000);
                     view.startAnimation(animation1);
-                    listView.setText
+
                     startActivity(intent);
                 }
 
@@ -153,7 +154,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(getApplicationContext(), com.example.machine2.movietime.activity.MainActivity.class);
                 startActivity(intent);
 
             }
