@@ -6,8 +6,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".LoginactivityFragment"
-    tools:showIn="@layout/activity_loginactivity_fragment">
+    tools:context="com.example.machine2.movietime.LoginactivityFragmentFragment"
+    tools:showIn="@layout/activity_loginactivity_fragment"
+    android:background="@drawable/bg">
 
 
     <TextView
@@ -24,7 +25,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="52dp"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/technology"
+        android:layout_below="@+id/details"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MovieTime"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

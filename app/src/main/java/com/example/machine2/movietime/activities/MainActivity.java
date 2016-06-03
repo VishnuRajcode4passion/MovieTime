@@ -1,4 +1,4 @@
-package com.example.machine2.movietime.activities;
+package com.example.machine2.movietime.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,20 +12,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.machine2.movietime.lists.FavouriteAdapter;
-import com.example.machine2.movietime.controllers.FavouriteManager;
+import com.example.machine2.movietime.FavoriteAdapter;
+import com.example.machine2.movietime.Flip3DAnimation;
 import com.example.machine2.movietime.MovieDatabase;
-import com.example.machine2.movietime.lists.MovieImageAdapter;
-import com.example.machine2.movietime.controllers.PopularMoviesManager;
+import com.example.machine2.movietime.MovieImageAdapter;
+import com.example.machine2.movietime.PopularMovieManager;
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
-import com.example.machine2.movietime.network.MoviePosterListener;
+import com.example.machine2.movietime.TopRatedMovieManager;
+import com.example.machine2.movietime.controllers.FavoriteManager;
+import com.example.machine2.movietime.network.MovieAdapter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements MovieAdapter, NavigationView.OnNavigationItemSelectedListener {
 
     //variable declaration
     GridView gridView;
@@ -37,9 +37,9 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     TextView MovieId;
     Intent intent;
     String title;
-    TopRatedMoviesManager topRatedMoviesManager;
-    PopularMoviesManager popularMoviesManager;
-    FavouriteManager favouriteManager;
+    TopRatedMovieManager topRatedMovieManager;
+    PopularMovieManager popularMovieManager;
+    FavoriteManager favoriteManager;
     MovieDatabase db;
 
     @Override
@@ -57,15 +57,15 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         getSupportActionBar().setTitle("Popular");
 
         //calling the progress dialog from the Base activty
-        showDialog();
+        dialogShow();
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        popularMoviesManager = new PopularMoviesManager();
-        popularMoviesManager.getPosters(this, this);
+        popularMovieManager = new PopularMovieManager();
+        popularMovieManager.getPosters(this, this);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,34 +75,37 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
                 movie_id = MovieId.getText().toString();
                 intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movie_id);
+
+                applyRotation(view);
                 startActivity(intent);
+
+
             }
         });
+    }
+    private void applyRotation(View view)
+    {
+        final Flip3DAnimation rotation = new Flip3DAnimation(view);
+        rotation.applyPropertiesInRotation();
+        view.startAnimation(rotation);
     }
 
     //sets gridview..
     @Override
-    public void refreshPoster(MovieImageAdapter imageAdapter) {
+    public void setImageAdapter(MovieImageAdapter imageAdapter) {
 
-        dismissDialog();
+
+        dialogDismiss();
 
         gridView.setAdapter(imageAdapter);
     }
 
     @Override
-    public void setFavorite(FavouriteAdapter favouriteAdapter) {
+    public void setFavorite(FavoriteAdapter favoriteAdapter) {
 
-        dismissDialog();
+        dialogDismiss();
 
-        gridView.setAdapter(favouriteAdapter);
-    }
-
-    @Override
-    public void setErrorMessage(String statusMessage) {
-
-        dismissDialog();
-
-        Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
+        gridView.setAdapter(favoriteAdapter);
     }
 
     @Override
@@ -112,37 +115,39 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
         if (id == R.id.topRated) {
 
-            showDialog();
+            dialogShow();
 
-            topRatedMoviesManager = new TopRatedMoviesManager();
-            topRatedMoviesManager.getPosters(this, this);
+            topRatedMovieManager = new TopRatedMovieManager();
+            topRatedMovieManager.getPosters(this, this);
             title = "Top Rated";
 
         } else if (id == R.id.popular) {
 
-            showDialog();
+            dialogShow();
 
-            popularMoviesManager.getPosters(this, this);
+            popularMovieManager.getPosters(this, this);
             title = "Popular";
 
         } else if (id == R.id.favorite) {
 
-            showDialog();
+            dialogShow();
 
             db = new MovieDatabase(this);
             db.open();
             ArrayList<String> image = db.getPoster();
             ArrayList<String> ids = db.getId();
-            favouriteManager = new FavouriteManager();
-            favouriteManager.getPosters(this, this, image, ids);
+            favoriteManager = new FavoriteManager();
+            favoriteManager.getPosters(this, this, image, ids);
             db.close();
             title = "Favourite";
 
-        } else if (id == R.id.logout) {
+        } else if (id == R.id.search) {
 
-           Intent intent = new Intent(this,Loginactivity.class);
-            startActivity(intent);
+            WeatherActivity weatherActivity = new WeatherActivity();
+
+
         }
+
         getSupportActionBar().setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
         return true;

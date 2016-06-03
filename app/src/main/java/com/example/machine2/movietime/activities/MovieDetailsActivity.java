@@ -1,41 +1,52 @@
-package com.example.machine2.movietime.activities;
+package com.example.machine2.movietime.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.machine2.movietime.Constants;
 import com.example.machine2.movietime.MovieDatabase;
 import com.example.machine2.movietime.MovieDatabaseManager;
+<<<<<<< HEAD
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.controllers.MovieDetailsManager;
 import com.example.machine2.movietime.controllers.MovieTrailerManager;
 import com.example.machine2.movietime.lists.MovieTrailerAdapter;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.example.machine2.movietime.network.MovieDetailsListener;
+=======
+import com.example.machine2.movietime.MovieDetailsManager;
+import com.example.machine2.movietime.MovieTrailerManager;
+import com.example.machine2.movietime.R;
+import com.example.machine2.movietime.TrailerAdapter;
+import com.example.machine2.movietime.UpdatedMovieDetails;
+import com.example.machine2.movietime.network.DetailsAdapter;
+>>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by machine2 on 26/05/16.
  */
-public class MovieDetailsActivity extends BaseActivity implements MovieDetailsListener {
+public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter {
 
     ImageView poster;
     TextView durations;
-    ImageView backArrow;
+    ImageView BackArrow;
     TextView Rating;
     TextView titles;
     TextView descriptions;
-    TextView releaseDate;
+    TextView releasedate;
     ListView listView;
     Bundle bundle;
     CheckBox favorite;
@@ -48,6 +59,8 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
     String posters;
 
     Integer runtime;
+
+
     double rating;
 
     MovieDetailsManager movieDetailsManager;
@@ -63,20 +76,20 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_page);
 
-        backArrow = (ImageView) findViewById(R.id.goBackArrow);
+        BackArrow = (ImageView) findViewById(R.id.goBackArrow);
         poster = (ImageView) findViewById(R.id.movie_poster);
         durations = (TextView) findViewById(R.id.durationOfTheMovie);
         Rating = (TextView) findViewById(R.id.rating);
         titles = (TextView) findViewById(R.id.Title_of_movie);
         descriptions = (TextView) findViewById(R.id.movie_description);
-        releaseDate = (TextView) findViewById(R.id.year_of_relese);
+        releasedate = (TextView) findViewById(R.id.year_of_relese);
         listView = (ListView) findViewById(R.id.listView);
         favorite = (CheckBox) findViewById(R.id.checkBox_favorite);
         favorite.setChecked(false);
         bundle = getIntent().getExtras();
         id = bundle.getString("selectedId");
 
-        showDialog();
+        dialogShow();
 
         movieDetailsManager = new MovieDetailsManager();
         movieDetailsManager.getMovieDetails(this, id);
@@ -86,16 +99,34 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         databaseManager = new MovieDatabaseManager();
 
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView v = (TextView) view.findViewById(R.id.textView6);
                 trailerLink = (String) v.getText();
+
+
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(trailerLink));
+
                 if (intent.resolveActivity(getPackageManager()) != null) {
+
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(4000);
+                    view.startAnimation(animation1);
+                    listView.setText
                     startActivity(intent);
                 }
+
+            }
+        });
+
+        poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom);
+                poster.startAnimation(animation);
             }
         });
 
@@ -107,41 +138,59 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(Constants.PREF_TEXT, true); // value to store
                     editor.commit();
+<<<<<<< HEAD
                     favorite.setChecked(true);
+=======
+
+
+>>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
                 } else {
 
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(Constants.PREF_TEXT, false); // value to store
                     editor.commit();
+<<<<<<< HEAD
                     favorite.setChecked(false);
+=======
+
+
+>>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
                 }
             }
         });
-
         preferences = getPreferences(MODE_PRIVATE);
+<<<<<<< HEAD
         boolean tgpref = preferences.getBoolean(Constants.PREF_TEXT, false);  //default is true
         if (tgpref == true) {
+=======
+        boolean tgpref = preferences.getBoolean(Constants.prefText, false);  //default is true
+        if (tgpref == true) //if (tgpref) may be enough, not sure
+        {
+>>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
             favorite.setChecked(true);
         } else {
             favorite.setChecked(false);
         }
 
-        backArrow.setOnClickListener(new View.OnClickListener() {
+        BackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
                 intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+
             }
         });
+
     }
+
 
     @Override
     public void setMovieDetails(UpdatedMovieDetails detailResponse) {
 
-        dismissDialog();
+        dialogDismiss();
 
-        title = detailResponse.getTitle();
+        title = detailResponse.gettitle();
         runtime = detailResponse.getDuration();
         rating = detailResponse.getRatings();
         release_date = detailResponse.getReleaseDate();
@@ -150,28 +199,23 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         titles.setText(title);
         durations.setText(String.valueOf(runtime) + " minutes");
         Rating.setText(String.valueOf(rating) + "/10");
-        releaseDate.setText(release_date);
+        releasedate.setText(release_date);
         descriptions.setText(overview);
         Picasso.with(this).load(posters).resize(394, 400).into(poster);
     }
 
     @Override
-    public void movieTrailer(MovieTrailerAdapter movieTrailerAdapter) {
-
-        listView.setAdapter(movieTrailerAdapter);
-    }
-
-    @Override
-    public void setErrorMessage(String statusMessage) {
-
-        dismissDialog();
-
-        Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
+    public void movieTrailer(TrailerAdapter trailerAdapter) {
+        listView.setAdapter(trailerAdapter);
     }
 
 
     public void addFavorite(View view) {
 
+        databaseManager.getFavorite(posters, id, db);
+
+
+<<<<<<< HEAD
         if (favorite.isChecked() == false) {
 
            databaseManager.removeFavorites();
@@ -182,5 +226,8 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             databaseManager.setFavorite(posters, id, db);
 
         }
+=======
+>>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
     }
+
 }

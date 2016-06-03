@@ -31,11 +31,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
 
-        android:layout_height="140dp"
+        android:layout_height="110dp"
         android:background="#84d438">
         <TextView
             android:layout_width="match_parent"
-            android:textSize="28sp"
+            android:textSize="25sp"
             android:textColor="#ffffff"
             android:layout_height="100dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -57,8 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="135dp">
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="144dp"
+                android:layout_width="160dp"
+                android:layout_height="154dp"
                 android:id="@+id/movie_poster"
                 android:layout_alignParentTop="true"
                 android:layout_alignBottom="@+id/durationOfTheMovie" />
@@ -138,6 +138,8 @@
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:listSelector="@android:color/transparent"
             android:layout_height="match_parent"></ListView>
     </RelativeLayout>
 </LinearLayout>
