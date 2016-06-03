@@ -14,12 +14,13 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.FavoriteAdapter;
-import com.example.machine2.movietime.controllers.FavoriteManager;
+import com.example.machine2.movietime.Flip3DAnimation;
 import com.example.machine2.movietime.MovieDatabase;
 import com.example.machine2.movietime.MovieImageAdapter;
 import com.example.machine2.movietime.PopularMovieManager;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.TopRatedMovieManager;
+import com.example.machine2.movietime.controllers.FavoriteManager;
 import com.example.machine2.movietime.network.MovieAdapter;
 
 import java.util.ArrayList;
@@ -74,9 +75,19 @@ public class MainActivity extends BaseActivity implements MovieAdapter, Navigati
                 movie_id = MovieId.getText().toString();
                 intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movie_id);
+
+                applyRotation(view);
                 startActivity(intent);
+
+
             }
         });
+    }
+    private void applyRotation(View view)
+    {
+        final Flip3DAnimation rotation = new Flip3DAnimation(view);
+        rotation.applyPropertiesInRotation();
+        view.startAnimation(rotation);
     }
 
     //sets gridview..

@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -47,6 +50,8 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
     String posters;
 
     Integer runtime;
+
+
     double rating;
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
@@ -85,22 +90,36 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         databaseManager = new MovieDatabaseManager();
 
 
-
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView v = (TextView) view.findViewById(R.id.textView6);
                 trailerLink = (String) v.getText();
+
+
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(trailerLink));
+
                 if (intent.resolveActivity(getPackageManager()) != null) {
+
+                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
+                    animation1.setDuration(4000);
+                    view.startAnimation(animation1);
+                    listView.setText
                     startActivity(intent);
                 }
 
             }
         });
+
+        poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom);
+                poster.startAnimation(animation);
+            }
+        });
+
         favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -136,9 +155,12 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
                 Intent intent;
                 intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+
             }
         });
+
     }
+
 
     @Override
     public void setMovieDetails(UpdatedMovieDetails detailResponse) {
@@ -152,8 +174,8 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
         overview = detailResponse.getDescription();
         posters = detailResponse.getImage();
         titles.setText(title);
-        durations.setText(String.valueOf(runtime)+" minutes");
-        Rating.setText(String.valueOf(rating)+"/10");
+        durations.setText(String.valueOf(runtime) + " minutes");
+        Rating.setText(String.valueOf(rating) + "/10");
         releasedate.setText(release_date);
         descriptions.setText(overview);
         Picasso.with(this).load(posters).resize(394, 400).into(poster);
@@ -167,7 +189,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
 
     public void addFavorite(View view) {
 
-     databaseManager.getFavorite(posters,id,db);
+        databaseManager.getFavorite(posters, id, db);
 
 
     }
