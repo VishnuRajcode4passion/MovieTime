@@ -18,21 +18,11 @@ import android.widget.TextView;
 import com.example.machine2.movietime.Constants;
 import com.example.machine2.movietime.MovieDatabase;
 import com.example.machine2.movietime.MovieDatabaseManager;
-<<<<<<< HEAD
 import com.example.machine2.movietime.R;
+import com.example.machine2.movietime.activities.BaseActivity;
 import com.example.machine2.movietime.controllers.MovieDetailsManager;
 import com.example.machine2.movietime.controllers.MovieTrailerManager;
-import com.example.machine2.movietime.lists.MovieTrailerAdapter;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
-import com.example.machine2.movietime.network.MovieDetailsListener;
-=======
-import com.example.machine2.movietime.MovieDetailsManager;
-import com.example.machine2.movietime.MovieTrailerManager;
-import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.TrailerAdapter;
-import com.example.machine2.movietime.UpdatedMovieDetails;
-import com.example.machine2.movietime.network.DetailsAdapter;
->>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
 import com.squareup.picasso.Picasso;
 
 /**
@@ -138,35 +128,31 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(Constants.PREF_TEXT, true); // value to store
                     editor.commit();
-<<<<<<< HEAD
+
                     favorite.setChecked(true);
-=======
 
 
->>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
+
+
                 } else {
 
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(Constants.PREF_TEXT, false); // value to store
                     editor.commit();
-<<<<<<< HEAD
+
                     favorite.setChecked(false);
-=======
 
 
->>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
+
+
                 }
             }
         });
         preferences = getPreferences(MODE_PRIVATE);
-<<<<<<< HEAD
+
         boolean tgpref = preferences.getBoolean(Constants.PREF_TEXT, false);  //default is true
         if (tgpref == true) {
-=======
-        boolean tgpref = preferences.getBoolean(Constants.prefText, false);  //default is true
-        if (tgpref == true) //if (tgpref) may be enough, not sure
-        {
->>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
+
             favorite.setChecked(true);
         } else {
             favorite.setChecked(false);
@@ -176,7 +162,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(getApplicationContext(), com.example.machine2.movietime.activity.MainActivity.class);
                 startActivity(intent);
 
             }
@@ -212,10 +198,10 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
 
     public void addFavorite(View view) {
 
-        databaseManager.getFavorite(posters, id, db);
+        databaseManager.setFavorite(posters, id, db);
 
 
-<<<<<<< HEAD
+
         if (favorite.isChecked() == false) {
 
            databaseManager.removeFavorites();
@@ -226,8 +212,7 @@ public class MovieDetailsActivity extends BaseActivity implements DetailsAdapter
             databaseManager.setFavorite(posters, id, db);
 
         }
-=======
->>>>>>> 937269c0be8572afaa84fa63fa3ccb3f499988f3
+
     }
 
 }
