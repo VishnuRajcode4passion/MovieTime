@@ -1,4 +1,4 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.activities.MainActivity;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -31,13 +32,14 @@ public class LoginActivityFragment extends Fragment {
     AccessTokenTracker tracker;
     ProfileTracker profileTracker;
     AccessToken accessToken;
+    Profile profile;
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
 
             accessToken = loginResult.getAccessToken();
-            Profile profile = Profile.getCurrentProfile();
+            profile = Profile.getCurrentProfile();
             displayWelcomeMessage(profile);
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
@@ -112,7 +114,7 @@ public class LoginActivityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Profile profile = Profile.getCurrentProfile();
+        profile = Profile.getCurrentProfile();
         displayWelcomeMessage(profile);
 
     }

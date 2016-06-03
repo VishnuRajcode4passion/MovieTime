@@ -8,7 +8,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:minHeight="?attr/actionBarSize"
-        android:background="#50b314"
+        android:background="?attr/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
@@ -21,7 +21,7 @@
             android:layout_width="220dp"
             android:layout_height="30dp"
             android:textStyle="bold"
-            android:text=" Movie Details"
+            android:text="@string/movieDetails"
             android:textAppearance="?android:textAppearanceLarge"
             android:id="@+id/editText"
             android:layout_toEndOf="@+id/goBackArrow"/>
@@ -32,14 +32,13 @@
         android:layout_width="match_parent"
 
         android:layout_height="140dp"
-        android:background="#84d438">
+        android:background="#99ea4b">
         <TextView
             android:layout_width="match_parent"
             android:textSize="28sp"
             android:textColor="#ffffff"
             android:layout_height="100dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:hint="title"
             android:id="@+id/Title_of_movie"
             android:layout_alignParentStart="true"
             android:layout_marginStart="47dp"
@@ -66,7 +65,6 @@
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="30dp"
-                android:text="Year"
                 android:id="@+id/year_of_relese"
                 android:textColor="#000000"
                 android:layout_gravity="center_horizontal"
@@ -78,7 +76,7 @@
             <CheckBox
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Favorite"
+                android:text="@string/favourite"
                 android:id="@+id/checkBox_favorite"
                 style="?android:attr/starStyle"
                 android:textColor="#000000"
@@ -90,7 +88,6 @@
             <TextView
                 android:layout_width="75dp"
                 android:id="@+id/rating"
-                android:hint="Rating"
                 android:textColor="#000000"
                 android:layout_height="30dp"
                 android:layout_below="@+id/year_of_relese"
@@ -101,7 +98,6 @@
                 android:textColor="#000000"
                 android:layout_height="30dp"
                 android:id="@+id/durationOfTheMovie"
-                android:hint="Duration"
                 android:layout_below="@id/checkBox_favorite"
                 android:layout_alignParentEnd="true"
                 android:layout_alignStart="@+id/checkBox_favorite" />
@@ -139,6 +135,7 @@
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></ListView>
+
     </RelativeLayout>
 </LinearLayout>
 

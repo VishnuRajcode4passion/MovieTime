@@ -2,6 +2,7 @@ package com.example.machine2.movietime.network;
 
 import android.util.Log;
 
+import com.example.machine2.movietime.interfaces.NetworkListener;
 import com.example.machine2.movietime.models.Request;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;

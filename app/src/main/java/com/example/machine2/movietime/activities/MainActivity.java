@@ -14,14 +14,14 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.machine2.movietime.lists.FavouriteAdapter;
+import com.example.machine2.movietime.adapters.FavouriteAdapter;
 import com.example.machine2.movietime.controllers.FavouriteManager;
-import com.example.machine2.movietime.MovieDatabase;
-import com.example.machine2.movietime.lists.MovieImageAdapter;
+import com.example.machine2.movietime.database.MovieDatabase;
+import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
-import com.example.machine2.movietime.network.MoviePosterListener;
+import com.example.machine2.movietime.interfaces.MoviePosterListener;
 
 import java.util.ArrayList;
 
@@ -33,14 +33,18 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     NavigationView navigationView;
-    String movie_id;
     TextView MovieId;
     Intent intent;
-    String title;
     TopRatedMoviesManager topRatedMoviesManager;
     PopularMoviesManager popularMoviesManager;
     FavouriteManager favouriteManager;
-    MovieDatabase db;
+    MovieDatabase movieDatabase;
+
+    ArrayList<String> image;
+    ArrayList<String> ids;
+
+    String movieId;
+    String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +76,9 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MovieId = (TextView) view.findViewById(R.id.textView);
-                movie_id = MovieId.getText().toString();
+                movieId = MovieId.getText().toString();
                 intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
-                intent.putExtra("selectedId", movie_id);
+                intent.putExtra("selectedId", movieId);
                 startActivity(intent);
             }
         });
@@ -90,7 +94,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     }
 
     @Override
-    public void setFavorite(FavouriteAdapter favouriteAdapter) {
+    public void setFavourite(FavouriteAdapter favouriteAdapter) {
 
         dismissDialog();
 
@@ -103,6 +107,14 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         dismissDialog();
 
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -129,20 +141,21 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
             showDialog();
 
-            db = new MovieDatabase(this);
-            db.open();
-            ArrayList<String> image = db.getPoster();
-            ArrayList<String> ids = db.getId();
+            movieDatabase = new MovieDatabase(this);
+            movieDatabase.open();
+            image = movieDatabase.getPoster();
+            ids = movieDatabase.getId();
             favouriteManager = new FavouriteManager();
             favouriteManager.getPosters(this, this, image, ids);
-            db.close();
+            movieDatabase.close();
             title = "Favourite";
 
         } else if (id == R.id.logout) {
 
-           Intent intent = new Intent(this,Loginactivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+
         getSupportActionBar().setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
         return true;

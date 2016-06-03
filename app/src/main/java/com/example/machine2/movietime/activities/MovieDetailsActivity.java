@@ -14,14 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.machine2.movietime.Constants;
-import com.example.machine2.movietime.MovieDatabase;
-import com.example.machine2.movietime.MovieDatabaseManager;
+import com.example.machine2.movietime.database.MovieDatabase;
+import com.example.machine2.movietime.database.MovieDatabaseManager;
 import com.example.machine2.movietime.controllers.MovieDetailsManager;
 import com.example.machine2.movietime.controllers.MovieTrailerManager;
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.lists.MovieTrailerAdapter;
+import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
-import com.example.machine2.movietime.network.MovieDetailsListener;
+import com.example.machine2.movietime.interfaces.MovieDetailsListener;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -88,11 +88,14 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 TextView v = (TextView) view.findViewById(R.id.textView6);
                 trailerLink = (String) v.getText();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(trailerLink));
+
                 if (intent.resolveActivity(getPackageManager()) != null) {
+
                     startActivity(intent);
                 }
             }
@@ -101,22 +104,23 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if ((buttonView.isChecked())) {
 
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(Constants.prefText, true); // value to store
+                    editor.putBoolean(Constants.PREFERENCES_TEXT, true); // value to store
                     editor.commit();
                 } else {
 
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(Constants.prefText, false); // value to store
+                    editor.putBoolean(Constants.PREFERENCES_TEXT, false); // value to store
                     editor.commit();
                 }
             }
         });
 
         preferences = getPreferences(MODE_PRIVATE);
-        boolean tgpref = preferences.getBoolean(Constants.prefText, false);  //default is true
+        boolean tgpref = preferences.getBoolean(Constants.PREFERENCES_TEXT, false);  //default is true
         if (tgpref == true) {
             favorite.setChecked(true);
         } else {
@@ -126,6 +130,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent;
                 intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
@@ -144,8 +149,9 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         release_date = detailResponse.getReleaseDate();
         overview = detailResponse.getDescription();
         posters = detailResponse.getImage();
+
         titles.setText(title);
-        durations.setText(String.valueOf(runtime)+" minutes");
+        durations.setText(String.valueOf(runtime) + " minutes");
         Rating.setText(String.valueOf(rating) + "/10");
         releaseDate.setText(release_date);
         descriptions.setText(overview);
@@ -169,6 +175,8 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
     public void addFavorite(View view) {
 
-     databaseManager.getFavorite(posters,id,db);
+        databaseManager.setFavourite(posters, id, db);
     }
+
+
 }
