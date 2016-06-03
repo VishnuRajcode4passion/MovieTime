@@ -112,8 +112,8 @@ public class MovieDatabase {
     }
 
     //deleting the corrosponding data from the database
-    public void delete(String id) {
+    public void delete(long id) {
 
-        sqLiteDatabase.delete(Table, FavoriteId + " = " + id, null);
+        sqLiteDatabase.delete(Table, MovieId + " = " + id, null);
     }
 }
