@@ -1,6 +1,6 @@
-package com.example.machine2.movietime.network;
+package com.example.machine2.movietime.interfaces;
 
-import com.example.machine2.movietime.lists.MovieTrailerAdapter;
+import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
 
 /**

@@ -1,4 +1,4 @@
-package com.example.machine2.movietime.network;
+package com.example.machine2.movietime.interfaces;
 
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 

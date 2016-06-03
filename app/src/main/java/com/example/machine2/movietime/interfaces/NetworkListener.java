@@ -1,4 +1,4 @@
-package com.example.machine2.movietime.network;
+package com.example.machine2.movietime.interfaces;
 
 /**
  * Created by machine3 on 5/20/16.

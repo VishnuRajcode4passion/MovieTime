@@ -3,13 +3,13 @@ package com.example.machine2.movietime.controllers;
 import android.content.Context;
 
 import com.example.machine2.movietime.MoviesErrorParser;
-import com.example.machine2.movietime.lists.MovieImageAdapter;
+import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.MoviePosterParser;
 import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.UrlProvider;
-import com.example.machine2.movietime.network.MoviePosterListener;
+import com.example.machine2.movietime.interfaces.MoviePosterListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.network.NetworkListener;
+import com.example.machine2.movietime.interfaces.NetworkListener;
 
 /**
  * Created by machine2 on 26/05/16.

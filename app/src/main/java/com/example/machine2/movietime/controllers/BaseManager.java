@@ -16,13 +16,15 @@ public class BaseManager {
     public Map<String, String> getHeaders() {
 
         mHeaders = new HashMap<>();
-        mHeaders.put("api_key", Constants.MOVIE_API_TOKEN);
+
+        mHeaders.put("api_key", Constants.MOVIE_API_KEY);
         return mHeaders;
     }
+
     public Map<String, String> getHeader() {
 
         mHeaders = new HashMap<>();
-        mHeaders.put("api_key", "45df4fca7d202600be0e657e2d0a9dcd");
+        mHeaders.put("api_key", Constants.WEATHER_API_KEY);
         return mHeaders;
     }
 }

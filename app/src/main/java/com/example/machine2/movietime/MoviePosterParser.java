@@ -5,7 +5,7 @@ package com.example.machine2.movietime;
  */
 import android.content.Context;
 
-import com.example.machine2.movietime.lists.MovieImageAdapter;
+import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.models.MoviesPosterResponse;
 import com.google.gson.Gson;
 

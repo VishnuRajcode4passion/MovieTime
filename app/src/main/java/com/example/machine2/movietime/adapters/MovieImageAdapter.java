@@ -1,4 +1,4 @@
-package com.example.machine2.movietime.lists;
+package com.example.machine2.movietime.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

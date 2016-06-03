@@ -43,7 +43,7 @@
         <!--android:name="com.example.machine2.movietime.MyApplication">-->
 
         <activity
-            android:name=".activities.Loginactivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
