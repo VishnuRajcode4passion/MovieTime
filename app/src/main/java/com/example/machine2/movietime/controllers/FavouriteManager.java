@@ -2,16 +2,10 @@ package com.example.machine2.movietime.controllers;
 
 import android.content.Context;
 
-import com.example.machine2.movietime.lists.FavouriteAdapter;
-import com.example.machine2.movietime.MovieDatabase;
+import com.example.machine2.movietime.adapters.FavouriteAdapter;
 import com.example.machine2.movietime.models.MovieDetailResponse;
-import com.example.machine2.movietime.lists.MovieImageAdapter;
-import com.example.machine2.movietime.models.Request;
-import com.example.machine2.movietime.models.UpdatedMovieDetails;
-import com.example.machine2.movietime.network.MovieDetailsListener;
-import com.example.machine2.movietime.network.MoviePosterListener;
-import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.network.NetworkListener;
+import com.example.machine2.movietime.interfaces.MoviePosterListener;
+import com.example.machine2.movietime.interfaces.NetworkListener;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -34,7 +28,7 @@ public class FavouriteManager extends BaseManager implements NetworkListener {
 
     public void getPosters(Context context, MoviePosterListener moviePosterListener, ArrayList<String> image, ArrayList<String> ids) {
         favouriteAdapter = new FavouriteAdapter(context,image,ids);
-        moviePosterListener.setFavorite(favouriteAdapter);
+        moviePosterListener.setFavourite(favouriteAdapter);
     }
 
     @Override
@@ -44,7 +38,7 @@ public class FavouriteManager extends BaseManager implements NetworkListener {
         gson = new Gson();
         detailResponse = gson.fromJson(responseString, MovieDetailResponse.class);
         favouriteAdapter = new FavouriteAdapter(context, images, mid);
-        moviePosterListener.setFavorite(favouriteAdapter);
+        moviePosterListener.setFavourite(favouriteAdapter);
     }
 
     @Override

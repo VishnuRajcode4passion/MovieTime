@@ -3,12 +3,12 @@ package com.example.machine2.movietime.controllers;
 import android.content.Context;
 
 import com.example.machine2.movietime.models.Request;
-import com.example.machine2.movietime.lists.MovieTrailerAdapter;
+import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MovieTrailerResponse;
-import com.example.machine2.movietime.network.MovieDetailsListener;
+import com.example.machine2.movietime.interfaces.MovieDetailsListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.network.NetworkListener;
+import com.example.machine2.movietime.interfaces.NetworkListener;
 import com.google.gson.Gson;
 
 /**

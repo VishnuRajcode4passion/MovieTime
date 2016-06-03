@@ -1,13 +1,8 @@
 package com.example.machine2.movietime;
 
-import android.content.Context;
 import android.util.Log;
 
-import com.example.machine2.movietime.lists.MovieImageAdapter;
 import com.example.machine2.movietime.models.MoviesErrorResponse;
-import com.example.machine2.movietime.models.Request;
-import com.example.machine2.movietime.network.MoviePosterListener;
-import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.google.gson.Gson;
 
 /**

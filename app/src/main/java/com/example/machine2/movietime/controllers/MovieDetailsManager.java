@@ -1,20 +1,14 @@
 package com.example.machine2.movietime.controllers;
 
-import android.content.Context;
-
 import com.example.machine2.movietime.MovieDetailsParser;
-import com.example.machine2.movietime.MoviePosterParser;
 import com.example.machine2.movietime.MoviesErrorParser;
-import com.example.machine2.movietime.lists.MovieImageAdapter;
 import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MovieDetailResponse;
-import com.example.machine2.movietime.network.MovieDetailsListener;
-import com.example.machine2.movietime.network.MoviePosterListener;
+import com.example.machine2.movietime.interfaces.MovieDetailsListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.network.NetworkListener;
-import com.google.gson.Gson;
+import com.example.machine2.movietime.interfaces.NetworkListener;
 
 /**
  * Created by machine2 on 26/05/16.
@@ -56,6 +50,7 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
         updatedMovieDetails.setRatings(detailResponse.getVote_average());
         updatedMovieDetails.setReleseDate(detailResponse.getRelease_date());
         updatedMovieDetails.setDescription(detailResponse.getOverview());
+
         movieDetailsListener.setMovieDetails(updatedMovieDetails);
     }
 

@@ -4,17 +4,17 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.machine2.movietime.lists.MovieImageAdapter;
+import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.MoviePosterParser;
 import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MoviesErrorResponse;
 import com.example.machine2.movietime.models.WeatherResponse;
-import com.example.machine2.movietime.network.MoviePosterListener;
+import com.example.machine2.movietime.interfaces.MoviePosterListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.network.NetworkListener;
-import com.example.machine2.movietime.network.WeatherListener;
+import com.example.machine2.movietime.interfaces.NetworkListener;
+import com.example.machine2.movietime.interfaces.WeatherListener;
 import com.google.gson.Gson;
 
 /**
