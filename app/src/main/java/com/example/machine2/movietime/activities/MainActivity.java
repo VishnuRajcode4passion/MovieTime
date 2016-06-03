@@ -20,6 +20,8 @@ import com.example.machine2.movietime.MovieImageAdapter;
 import com.example.machine2.movietime.PopularMovieManager;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.TopRatedMovieManager;
+import com.example.machine2.movietime.activities.BaseActivity;
+import com.example.machine2.movietime.activities.WeatherActivity;
 import com.example.machine2.movietime.controllers.FavoriteManager;
 import com.example.machine2.movietime.network.MovieAdapter;
 
@@ -73,7 +75,7 @@ public class MainActivity extends BaseActivity implements MovieAdapter, Navigati
 
                 MovieId = (TextView) view.findViewById(R.id.textView);
                 movie_id = MovieId.getText().toString();
-                intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                intent = new Intent(MainActivity.this, com.example.machine2.movietime.activity.MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movie_id);
 
                 applyRotation(view);
