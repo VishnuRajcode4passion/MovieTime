@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Created by machine3 on 5/25/16.
  */
-public class Request {
+public class Requests {
 
     String url;
     Map<String, String> headers;

@@ -22,7 +22,7 @@ import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
-import com.example.machine2.movietime.interfaces.MoviePosterListener;
+import com.example.machine2.movietime.controllers.MoviePosterListener;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
     TopRatedMoviesManager topRatedMoviesManager;
     PopularMoviesManager popularMoviesManager;
-    MovieDatabaseManager movieDatabaseManager;
     FavouriteManager favouriteManager;
     MovieDatabase movieDatabase;
 
@@ -154,8 +153,6 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
             movieDatabase.close();
             title = getString(R.string.favourite);
 
-//            movieDatabaseManager = new MovieDatabaseManager();
-//            movieDatabaseManager.getFavourite();
         } else if (id == R.id.logout) {
 
             Intent intent = new Intent(this, LoginActivity.class);

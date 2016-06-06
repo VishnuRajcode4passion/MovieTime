@@ -9,7 +9,7 @@ import android.widget.EditText;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 import com.example.machine2.movietime.controllers.WeatherManager;
-import com.example.machine2.movietime.interfaces.WeatherListener;
+import com.example.machine2.movietime.controllers.WeatherListener;
 
 /**
  * Created by machine2 on 30/05/16.

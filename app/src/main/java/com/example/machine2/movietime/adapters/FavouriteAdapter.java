@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
+import com.example.machine2.movietime.UrlProvider;
+import com.example.machine2.movietime.models.MoviesPosterResponse;
+import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,8 +23,6 @@ public class FavouriteAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> results;
     ArrayList<String> ids;
-    ImageView img;
-    TextView textView;
 
     private static LayoutInflater inflater = null;
 
@@ -59,15 +60,30 @@ public class FavouriteAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         // TODO Auto-generated method stub
-        View rowView;
-        rowView = inflater.inflate(R.layout.single_row_image_adapter, null);
-        img = (ImageView) rowView.findViewById(R.id.imageView);
-        //Loading image from  url into imageView
-        Picasso.with(context).load(String.valueOf(results.get(position))).resize(394, 400).into(img);
-        textView = (TextView) rowView.findViewById(R.id.textView);
-        textView.setText(ids.get(position));
-        return rowView;
-    }
+        class ViewHolder {
 
+            ImageView img;
+            TextView movieId;
+        }
+
+        ViewHolder holder;
+
+        if (convertView == null) {
+
+            convertView = inflater.inflate(R.layout.single_row_image_adapter, null);
+            holder = new ViewHolder();
+            holder.img = (ImageView) convertView.findViewById(R.id.imageView);
+            holder.movieId = (TextView) convertView.findViewById(R.id.textView);
+            convertView.setTag(holder);
+        } else {
+
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        //Loading image from  url into imageView
+        Picasso.with(context).load(String.valueOf(results.get(position))).resize(394, 400).into(holder.img);
+        holder.movieId.setText(ids.get(position));
+        return convertView;
+    }
 }
 

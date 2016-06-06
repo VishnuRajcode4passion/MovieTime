@@ -1,14 +1,14 @@
 package com.example.machine2.movietime.controllers;
 
 import android.content.Context;
+
+import com.example.machine2.movietime.models.Requests;
 import com.example.machine2.movietime.parser.MoviesErrorParser;
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.parser.MoviePosterParser;
-import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.UrlProvider;
-import com.example.machine2.movietime.interfaces.MoviePosterListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.interfaces.NetworkListener;
+import com.example.machine2.movietime.network.NetworkListener;
 
 /**
  * Created by machine3 on 5/20/16.
@@ -22,12 +22,12 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
 
 
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
-        Request request;
+        Requests request;
 
         this.context = context;
         this.moviePosterListener = moviePosterListener;
 
-        request = new Request();
+        request = new Requests();
         request.setUrl(UrlProvider.POPULAR_URL);
         request.setHeaders(getHeaders());
 

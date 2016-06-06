@@ -1,4 +1,4 @@
-package com.example.machine2.movietime.interfaces;
+package com.example.machine2.movietime.controllers;
 
 import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;

@@ -2,13 +2,13 @@ package com.example.machine2.movietime.controllers;
 
 import android.content.Context;
 
-import com.example.machine2.movietime.models.Request;
+import com.example.machine2.movietime.models.Requests;
 import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MovieTrailerResponse;
-import com.example.machine2.movietime.interfaces.MovieDetailsListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.interfaces.NetworkListener;
+import com.example.machine2.movietime.network.NetworkListener;
+import com.example.machine2.movietime.parser.MoviesErrorParser;
 import com.google.gson.Gson;
 
 /**
@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 public class MovieTrailerManager extends BaseManager implements NetworkListener {
 
     NetworkCommunicator networkCommunicator;
-    Request request = new Request();
+    Requests request = new Requests();
     Gson gson;
     Context context;
     MovieTrailerResponse movieTrailerResponse;
@@ -53,6 +53,12 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
 
     @Override
     public void onFailure(byte[] responseBody) {
+
+        String statusMessage;
+        MoviesErrorParser moviesErrorParser;
+        moviesErrorParser = new MoviesErrorParser();
+        statusMessage = moviesErrorParser.parse(responseBody);
+        movieDetailsListener.setErrorMessage(statusMessage);
 
     }
 }
