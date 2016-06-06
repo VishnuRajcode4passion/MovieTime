@@ -1,7 +1,6 @@
 package com.example.machine2.movietime.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -13,15 +12,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.machine2.movietime.Constants;
-import com.example.machine2.movietime.database.MovieDatabase;
-import com.example.machine2.movietime.database.MovieDatabaseManager;
-import com.example.machine2.movietime.controllers.MovieDetailsManager;
-import com.example.machine2.movietime.controllers.MovieTrailerManager;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
-import com.example.machine2.movietime.models.UpdatedMovieDetails;
+import com.example.machine2.movietime.controllers.MovieDatabaseManager;
+import com.example.machine2.movietime.controllers.MovieDetailsManager;
+import com.example.machine2.movietime.controllers.MovieTrailerManager;
+import com.example.machine2.movietime.database.MovieDatabase;
 import com.example.machine2.movietime.interfaces.MovieDetailsListener;
+import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -40,17 +38,12 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
     Bundle bundle;
     CheckBox favorite;
 
-    SharedPreferences preferences;
-
     String id;
     String posters;
 
-
-    double rating;
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
     MovieDatabaseManager databaseManager;
-
 
     MovieDatabase db = new MovieDatabase(this);
 
@@ -83,12 +76,19 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         databaseManager = new MovieDatabaseManager();
 
+        String state = databaseManager.getState(id, db);
+        System.out.println("STATE3 "+state);
+        if(state != null) {
+
+            if (state.equals("checked")) {
+                favorite.setChecked(true);
+            }
+        }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String trailerLink;
-
                 TextView v = (TextView) view.findViewById(R.id.textView6);
                 trailerLink = (String) v.getText();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -105,28 +105,15 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                if ((buttonView.isChecked() == true)) {
 
-                if ((buttonView.isChecked())) {
-
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(Constants.PREFERENCES_TEXT, true); // value to store
-                    editor.commit();
+                    databaseManager.setFavorite(posters, id, "checked", db);
                 } else {
 
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(Constants.PREFERENCES_TEXT, false); // value to store
-                    editor.commit();
+                    databaseManager.removeFavorites(id,db);
                 }
             }
         });
-
-        preferences = getPreferences(MODE_PRIVATE);
-        boolean tgpref = preferences.getBoolean(Constants.PREFERENCES_TEXT, false);  //default is true
-        if (tgpref == true) {
-            favorite.setChecked(true);
-        } else {
-            favorite.setChecked(false);
-        }
 
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,20 +132,20 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         String title;
         String release_date;
         String overview;
-
-        Integer Movieruntime;
+        Integer runtime;
+        double rating;
 
         dismissDialog();
 
         title = detailResponse.getTitle();
-        Movieruntime = detailResponse.getDuration();
+        runtime = detailResponse.getDuration();
         rating = detailResponse.getRatings();
         release_date = detailResponse.getReleaseDate();
         overview = detailResponse.getDescription();
         posters = detailResponse.getImage();
 
         titles.setText(title);
-        durations.setText(String.valueOf(Movieruntime) + " minutes");
+        durations.setText(String.valueOf(runtime) + " minutes");
         Rating.setText(String.valueOf(rating) + "/10");
         releaseDate.setText(release_date);
         descriptions.setText(overview);
@@ -178,23 +165,4 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
-
-
-    public void addFavorite(View view) {
-
-        if (((CheckBox) view).isChecked()) {
-
-            databaseManager.setFavorite(posters, id, db);
-
-        }
-        else {
-
-            databaseManager.removeFavorites(id);
-
-        }
-
-    }
-
-
-
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.machine2.movietime.adapters.FavouriteAdapter;
 import com.example.machine2.movietime.controllers.FavouriteManager;
+import com.example.machine2.movietime.controllers.MovieDatabaseManager;
 import com.example.machine2.movietime.database.MovieDatabase;
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.controllers.PopularMoviesManager;
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
     TopRatedMoviesManager topRatedMoviesManager;
     PopularMoviesManager popularMoviesManager;
+    MovieDatabaseManager movieDatabaseManager;
     FavouriteManager favouriteManager;
     MovieDatabase movieDatabase;
 
@@ -152,6 +154,8 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
             movieDatabase.close();
             title = getString(R.string.favourite);
 
+//            movieDatabaseManager = new MovieDatabaseManager();
+//            movieDatabaseManager.getFavourite();
         } else if (id == R.id.logout) {
 
             Intent intent = new Intent(this, LoginActivity.class);

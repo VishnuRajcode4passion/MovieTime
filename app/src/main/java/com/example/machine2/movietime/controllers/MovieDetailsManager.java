@@ -1,7 +1,7 @@
 package com.example.machine2.movietime.controllers;
 
-import com.example.machine2.movietime.MovieDetailsParser;
-import com.example.machine2.movietime.MoviesErrorParser;
+import com.example.machine2.movietime.parser.MovieDetailsParser;
+import com.example.machine2.movietime.parser.MoviesErrorParser;
 import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.example.machine2.movietime.UrlProvider;

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
@@ -16,12 +17,13 @@ public class MovieDatabase {
     public static final String FavoriteId = "_id";
     public static final String MovieUrl = "movie_url";
     public static final String MovieId = "movie_id";
+    public static final String FavouriteState = "favourite_state";
     public static final String Database = "moviedb";
     public static final String Table = "movietbl";
-    public static final Integer Version = 4;
+    public static final Integer Version = 5;
     public static final String Query = "CREATE TABLE " + Table + "("
             + FavoriteId + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-            + MovieUrl + "  TEXT UNIQUE," + MovieId + " TEXT UNIQUE)";
+            + MovieUrl + "  TEXT UNIQUE," + MovieId + " TEXT UNIQUE ," + FavouriteState + " TEXT)";
 
     private SQLiteDatabase sqLiteDatabase;
     private DbHelper dbHelper;
@@ -36,6 +38,27 @@ public class MovieDatabase {
     public MovieDatabase(Context context) {
 
         dbHelper = new DbHelper(context);
+    }
+
+    public String getFavouriteState(String id) throws SQLiteException {
+
+        //    sqLiteDatabase.execSQL("select " +FavouriteState+ " from "+ Table+ " where " +MovieId+ " = "+id);
+        String columns[] = new String[]{
+                FavoriteId, MovieUrl, MovieId, FavouriteState
+        };
+
+        Cursor cursor = sqLiteDatabase.query(Table, columns, MovieId + "=" + id, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            try {
+                String state = cursor.getString(3);
+                System.out.println("STATE " + state);
+                return state;
+            } catch (Exception e) {
+            }
+
+        }
+        return null;
     }
 
     public static class DbHelper extends SQLiteOpenHelper {
@@ -65,24 +88,29 @@ public class MovieDatabase {
     }
 
     public void close() {
+
         dbHelper.close();
     }
 
     //inserting data into database
-    public long insert(String poster, String id) {
+    public long insert(String poster, String id, String favouriteState) {
 
         values = new ContentValues();
         values.put(MovieUrl, poster);
         values.put(MovieId, id);
+        values.put(FavouriteState, favouriteState);
         System.out.println("image url " + poster);
         System.out.println("id " + id);
+        System.out.println("favourite state " + favouriteState);
         return sqLiteDatabase.insert(Table, null, values);
     }
 
     //fetching all the data from the database
     public ArrayList getPoster() {
 
-        column = new String[]{FavoriteId, MovieUrl, MovieId};
+        column = new String[]{
+                FavoriteId, MovieUrl, MovieId
+        };
         movieData = sqLiteDatabase.query(Table, column, null, null, null, null, null);
         //   String result="";
         int Movie_url = movieData.getColumnIndex(MovieUrl);
