@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MoviesPosterResponse;
+import com.example.machine2.movietime.models.Request;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
@@ -21,15 +21,13 @@ import java.util.Map;
 /**
  * Created by machine3 on 5/20/16.
  */
-public class MovieImageAdapter extends BaseAdapter {
+public class MovieImageAdapter extends BaseAdapter{
 
     Context context;
     List<MoviesPosterResponse.ResultsBean> results;
     MoviesPosterResponse.ResultsBean item;
     Map<String, String> paramMap;
     RequestParams params;
-
-
 
     private static LayoutInflater inflater = null;
     private Request request = new Request();
@@ -62,10 +60,8 @@ public class MovieImageAdapter extends BaseAdapter {
         return position;
     }
 
-    //a single row with required views is inflated into listview as many times depending on the count of items.
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
+    public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         TextView movieId;
 
@@ -97,4 +93,6 @@ public class MovieImageAdapter extends BaseAdapter {
         movieId.setText(String.valueOf(id));
         return rowView;
     }
+
+
 }
