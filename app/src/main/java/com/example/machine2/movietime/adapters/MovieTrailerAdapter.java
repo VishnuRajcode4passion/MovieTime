@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
+import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MovieTrailerResponse;
 
 import java.util.List;
@@ -19,8 +20,6 @@ public class MovieTrailerAdapter extends BaseAdapter{
     Context context;
     List<MovieTrailerResponse.ResultsBean> results;
     MovieTrailerResponse.ResultsBean item;
-    String key;
-    String trailerLink;
 
     private static LayoutInflater inflater = null;
 
@@ -56,13 +55,19 @@ public class MovieTrailerAdapter extends BaseAdapter{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
+        String key;
+        String trailerLink;
+        String Trailer;
+        UrlProvider urlProvider = new UrlProvider();
+
         View rowView;
         rowView = inflater.inflate(R.layout.single_row_trailer_adapter, null);
         TextView textView = (TextView) rowView.findViewById(R.id.textView5);
         TextView trailer = (TextView) rowView.findViewById(R.id.textView6);
         item = (MovieTrailerResponse.ResultsBean) getItem(position);
         key = item.getKey();
-        trailerLink = "https://www.youtube.com/watch?v="+key;
+        Trailer = urlProvider.TRAILER_LINK;
+        trailerLink = Trailer+key;
         textView.setText("Trailer "+(position+1));
         trailer.setText(trailerLink);
         return rowView;

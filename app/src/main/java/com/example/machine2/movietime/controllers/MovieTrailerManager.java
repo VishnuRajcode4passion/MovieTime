@@ -18,20 +18,19 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
 
     NetworkCommunicator networkCommunicator;
     Request request = new Request();
-    String id;
     Gson gson;
     Context context;
     MovieTrailerResponse movieTrailerResponse;
-    String responseString;
     MovieDetailsListener movieDetailsListener;
-    MovieTrailerAdapter movieTrailerAdapter;
+
 
     public void getTrailerManager(Context context, MovieDetailsListener movieDetailsListener, String id) {
+        String Trailerid;
 
         this.context = context;
         this.movieDetailsListener = movieDetailsListener;
-        this.id = id;
-        String trailerId = id+"/videos?";
+        Trailerid = id;
+        String trailerId = Trailerid+"/videos?";
         request.setUrl(UrlProvider.MOVIE_TRAILER_URL+trailerId);
         System.out.println(" Trailer url "+ UrlProvider.MOVIE_TRAILER_URL+trailerId);
         request.setHeaders(getHeaders());
@@ -42,7 +41,10 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
     @Override
     public void onSuccess(byte[] responseBody) {
 
+        String responseString;
         responseString = new String(responseBody);
+        MovieTrailerAdapter movieTrailerAdapter;
+
         gson = new Gson();
         movieTrailerResponse = gson.fromJson(responseString, MovieTrailerResponse.class);
         movieTrailerAdapter = new MovieTrailerAdapter(context, movieTrailerResponse.getResults());

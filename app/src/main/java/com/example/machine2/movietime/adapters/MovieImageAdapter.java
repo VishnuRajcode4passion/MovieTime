@@ -29,12 +29,7 @@ public class MovieImageAdapter extends BaseAdapter {
     Map<String, String> paramMap;
     RequestParams params;
 
-    ImageView imageView;
-    TextView movieId;
 
-    String posterUrl;
-    String imageUrl;
-    String image;
 
     private static LayoutInflater inflater = null;
     private Request request = new Request();
@@ -71,7 +66,15 @@ public class MovieImageAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
+        ImageView imageView;
+        TextView movieId;
+
+        String posterUrl;
+        String imageUrl;
+        String image;
+
         // TODO Auto-generated method stub
+
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView;
         rowView = inflater.inflate(R.layout.single_row_image_adapter, null);
@@ -89,6 +92,7 @@ public class MovieImageAdapter extends BaseAdapter {
         image = posterUrl + imageUrl + params;
 
         //Loading image from  url into imageView
+
         Picasso.with(context).load(image).resize(394, 400).into(imageView);
         movieId.setText(String.valueOf(id));
         return rowView;

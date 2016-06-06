@@ -40,15 +40,9 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
     Bundle bundle;
     CheckBox favorite;
 
-    String title;
     String id;
-    String trailerLink;
-    String release_date;
-    String overview;
     String posters;
 
-    Integer runtime;
-    double rating;
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
     MovieDatabaseManager databaseManager;
@@ -96,6 +90,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                String trailerLink;
                 TextView v = (TextView) view.findViewById(R.id.textView6);
                 trailerLink = (String) v.getText();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -135,6 +130,12 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
     @Override
     public void setMovieDetails(UpdatedMovieDetails detailResponse) {
+
+        String title;
+        String release_date;
+        String overview;
+        Integer runtime;
+        double rating;
 
         dismissDialog();
 

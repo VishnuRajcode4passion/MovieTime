@@ -11,13 +11,13 @@ import com.google.gson.Gson;
 
 public class MoviePosterParser {
 
-    Gson gson;
-    MoviesPosterResponse moviesPosterResponse;
-    MovieImageAdapter imageAdapter;
-    String responseString;
-
     //parse method for parsing json to gson and getting the results from Gson class.
     public MovieImageAdapter parse(Context context, byte[] responseBody) {
+
+        MoviesPosterResponse moviesPosterResponse;
+        MovieImageAdapter imageAdapter;
+        String responseString;
+        Gson gson;
 
         responseString = new String(responseBody);
         gson = new Gson();

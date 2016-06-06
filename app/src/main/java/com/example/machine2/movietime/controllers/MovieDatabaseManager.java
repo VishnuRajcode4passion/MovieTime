@@ -30,10 +30,6 @@ public class MovieDatabaseManager {
         db.close();
     }
 
-    public void getFavourite() {
-
-    }
-
     public String getState(String id, MovieDatabase db) {
 
         db.open();

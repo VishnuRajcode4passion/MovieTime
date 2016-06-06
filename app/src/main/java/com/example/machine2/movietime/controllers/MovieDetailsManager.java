@@ -18,14 +18,14 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
     String id;
     MovieDetailResponse detailResponse;
     MovieDetailsListener movieDetailsListener;
-    MovieDetailsParser movieDetailsParser;
     NetworkCommunicator networkCommunicator;
-    Request request;
-    String statusMessage;
-    MoviesErrorParser moviesErrorParser;
+
+
     UpdatedMovieDetails updatedMovieDetails = new UpdatedMovieDetails();
 
     public void getMovieDetails(MovieDetailsListener movieDetailsListener, String id) {
+
+        Request request;
 
         this.movieDetailsListener = movieDetailsListener;
         this.id = id;
@@ -41,6 +41,7 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
     @Override
     public void onSuccess(byte[] responseBody) {
 
+        MovieDetailsParser movieDetailsParser;
         movieDetailsParser = new MovieDetailsParser();
         detailResponse = movieDetailsParser.parse(responseBody);
 
@@ -57,7 +58,10 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
     @Override
     public void onFailure(byte[] responseBody) {
 
+        String statusMessage;
+        MoviesErrorParser moviesErrorParser;
         moviesErrorParser = new MoviesErrorParser();
+
         statusMessage = moviesErrorParser.parse(responseBody);
         movieDetailsListener.setErrorMessage(statusMessage);
     }
