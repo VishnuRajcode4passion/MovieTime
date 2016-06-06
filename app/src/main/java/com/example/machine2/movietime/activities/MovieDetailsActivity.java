@@ -40,20 +40,18 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
     Bundle bundle;
     CheckBox favorite;
 
-    String title;
+    SharedPreferences preferences;
+
     String id;
-    String trailerLink;
-    String release_date;
-    String overview;
     String posters;
 
-    Integer runtime;
+
     double rating;
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
     MovieDatabaseManager databaseManager;
 
-    SharedPreferences preferences;
+
     MovieDatabase db = new MovieDatabase(this);
 
     @Override
@@ -89,6 +87,8 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                String trailerLink;
+
                 TextView v = (TextView) view.findViewById(R.id.textView6);
                 trailerLink = (String) v.getText();
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -104,6 +104,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
 
                 if ((buttonView.isChecked())) {
 
@@ -141,17 +142,23 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
     @Override
     public void setMovieDetails(UpdatedMovieDetails detailResponse) {
 
+        String title;
+        String release_date;
+        String overview;
+
+        Integer Movieruntime;
+
         dismissDialog();
 
         title = detailResponse.getTitle();
-        runtime = detailResponse.getDuration();
+        Movieruntime = detailResponse.getDuration();
         rating = detailResponse.getRatings();
         release_date = detailResponse.getReleaseDate();
         overview = detailResponse.getDescription();
         posters = detailResponse.getImage();
 
         titles.setText(title);
-        durations.setText(String.valueOf(runtime) + " minutes");
+        durations.setText(String.valueOf(Movieruntime) + " minutes");
         Rating.setText(String.valueOf(rating) + "/10");
         releaseDate.setText(release_date);
         descriptions.setText(overview);
@@ -175,14 +182,14 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
     public void addFavorite(View view) {
 
-        if (favorite.isChecked() == false) {
-
-            databaseManager.removeFavorites();
-
-        }
-        else  {
+        if (((CheckBox) view).isChecked()) {
 
             databaseManager.setFavorite(posters, id, db);
+
+        }
+        else {
+
+            databaseManager.removeFavorites(id);
 
         }
 

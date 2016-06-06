@@ -20,16 +20,16 @@ public class TopRatedMoviesManager extends BaseManager implements NetworkListene
     MovieImageAdapter movieImageAdapter;
     NetworkCommunicator networkCommunicator;
     Context context;
-    MoviePosterParser moviePosterParser;
-    String statusMessage;
-    MoviesErrorParser moviesErrorParser;
-    Request request = new Request();
+
+
+
 
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
 
         this.context = context;
         this.moviePosterListener = moviePosterListener;
 
+        Request request = new Request();
         request.setUrl(UrlProvider.TOP_RATED_URL);
         request.setHeaders(getHeaders());
 
@@ -40,6 +40,7 @@ public class TopRatedMoviesManager extends BaseManager implements NetworkListene
     @Override
     public void onSuccess(byte[] responseBody) {
 
+        MoviePosterParser moviePosterParser;
         moviePosterParser = new MoviePosterParser();
         movieImageAdapter = moviePosterParser.parse(context, responseBody);
         moviePosterListener.refreshPoster(movieImageAdapter);
@@ -48,6 +49,8 @@ public class TopRatedMoviesManager extends BaseManager implements NetworkListene
     @Override
     public void onFailure(byte[] responseBody) {
 
+        String statusMessage;
+        MoviesErrorParser moviesErrorParser;
         moviesErrorParser = new MoviesErrorParser();
         statusMessage = moviesErrorParser.parse(responseBody);
         moviePosterListener.setErrorMessage(statusMessage);

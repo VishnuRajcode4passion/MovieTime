@@ -5,22 +5,24 @@ package com.example.machine2.movietime.database;
  */
 public class MovieDatabaseManager {
 
-    String posters;
+
     String id;
     MovieDatabase db;
 
-
     public void setFavorite(String posters, String id, MovieDatabase db) {
 
-        this.posters = posters;
+        String poster;
+
+        poster = posters;
         this.id = id;
         this.db = db;
         db.open();
-        db.insert(posters, id);
+        db.insert(poster, id);
         db.close();
     }
-    public void removeFavorites()
+    public void removeFavorites(String id)
     {
+        this.id = id;
         db.open();
         long l = Long.parseLong(id);
         db.delete(l);

@@ -32,22 +32,19 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     Toolbar toolbar;
     DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
-    NavigationView navigationView;
-    TextView MovieId;
-    Intent intent;
+
     TopRatedMoviesManager topRatedMoviesManager;
     PopularMoviesManager popularMoviesManager;
     FavouriteManager favouriteManager;
     MovieDatabase movieDatabase;
-
-    ArrayList<String> image;
-    ArrayList<String> ids;
 
     String movieId;
     String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        NavigationView navigationView;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity_main);
@@ -58,7 +55,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView = (GridView) findViewById(R.id.gridview);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Popular");
+        getSupportActionBar().setTitle(getString(R.string.popular));
 
         //calling the progress dialog from the Base activty
         showDialog();
@@ -74,6 +71,8 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView MovieId;
+                Intent intent;
 
                 MovieId = (TextView) view.findViewById(R.id.textView);
                 movieId = MovieId.getText().toString();
@@ -128,16 +127,19 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
             topRatedMoviesManager = new TopRatedMoviesManager();
             topRatedMoviesManager.getPosters(this, this);
-            title = "Top Rated";
+            title = getString(R.string.topRated);
 
         } else if (id == R.id.popular) {
 
             showDialog();
 
             popularMoviesManager.getPosters(this, this);
-            title = "Popular";
+            title = getString(R.string.popular);
 
         } else if (id == R.id.favorite) {
+
+            ArrayList<String> image;
+            ArrayList<String> ids;
 
             showDialog();
 
@@ -148,7 +150,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
             favouriteManager = new FavouriteManager();
             favouriteManager.getPosters(this, this, image, ids);
             movieDatabase.close();
-            title = "Favourite";
+            title = getString(R.string.favourite);
 
         } else if (id == R.id.logout) {
 

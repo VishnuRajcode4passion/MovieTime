@@ -19,12 +19,10 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
     MovieImageAdapter movieImageAdapter;
     NetworkCommunicator networkCommunicator;
     Context context;
-    MoviePosterParser moviePosterParser;
-    Request request;
-    String statusMessage;
-    MoviesErrorParser moviesErrorParser;
+
 
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
+        Request request;
 
         this.context = context;
         this.moviePosterListener = moviePosterListener;
@@ -40,6 +38,7 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
     @Override
     public void onSuccess(byte[] responseBody) {
 
+        MoviePosterParser moviePosterParser;
         moviePosterParser = new MoviePosterParser();
         movieImageAdapter = moviePosterParser.parse(context, responseBody);
         moviePosterListener.refreshPoster(movieImageAdapter);
@@ -48,6 +47,8 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
     @Override
     public void onFailure(byte[] responseBody) {
 
+        String statusMessage;
+        MoviesErrorParser moviesErrorParser;
         moviesErrorParser = new MoviesErrorParser();
         statusMessage = moviesErrorParser.parse(responseBody);
         moviePosterListener.setErrorMessage(statusMessage);
