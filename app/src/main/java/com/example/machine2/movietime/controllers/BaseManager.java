@@ -16,6 +16,7 @@ public class BaseManager {
     public Map<String, String> getHeaders() {
 
         mHeaders = new HashMap<>();
+
         mHeaders.put("api_key", Constants.MOVIE_API_KEY);
         return mHeaders;
     }

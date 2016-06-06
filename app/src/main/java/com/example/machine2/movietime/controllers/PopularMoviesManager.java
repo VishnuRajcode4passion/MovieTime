@@ -1,9 +1,9 @@
 package com.example.machine2.movietime.controllers;
 
 import android.content.Context;
-import com.example.machine2.movietime.MoviesErrorParser;
+import com.example.machine2.movietime.parser.MoviesErrorParser;
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
-import com.example.machine2.movietime.MoviePosterParser;
+import com.example.machine2.movietime.parser.MoviePosterParser;
 import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.interfaces.MoviePosterListener;

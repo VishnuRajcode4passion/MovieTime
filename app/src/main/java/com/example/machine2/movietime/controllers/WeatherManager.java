@@ -5,7 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
-import com.example.machine2.movietime.MoviePosterParser;
+import com.example.machine2.movietime.parser.MoviePosterParser;
 import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 import com.example.machine2.movietime.UrlProvider;

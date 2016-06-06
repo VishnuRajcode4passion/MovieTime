@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.machine2.movietime.Constants;
 import com.example.machine2.movietime.database.MovieDatabase;
-import com.example.machine2.movietime.database.MovieDatabaseManager;
+import com.example.machine2.movietime.controllers.MovieDatabaseManager;
 import com.example.machine2.movietime.controllers.MovieDetailsManager;
 import com.example.machine2.movietime.controllers.MovieTrailerManager;
 import com.example.machine2.movietime.R;
@@ -53,7 +53,6 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
     MovieTrailerManager movieTrailerManager;
     MovieDatabaseManager databaseManager;
 
-    SharedPreferences preferences;
     MovieDatabase db = new MovieDatabase(this);
 
     @Override
@@ -85,6 +84,14 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         databaseManager = new MovieDatabaseManager();
 
+        String state = databaseManager.getState(id, db);
+        System.out.println("STATE3 "+state);
+        if(state != null) {
+
+            if (state.equals("checked")) {
+                favorite.setChecked(true);
+            }
+        }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -105,27 +112,15 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if ((buttonView.isChecked())) {
+                if ((buttonView.isChecked() == true)) {
 
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(Constants.PREFERENCES_TEXT, true); // value to store
-                    editor.commit();
+                    databaseManager.setFavorite(posters, id, "checked", db);
                 } else {
 
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean(Constants.PREFERENCES_TEXT, false); // value to store
-                    editor.commit();
+                    databaseManager.removeFavorites(id,db);
                 }
             }
         });
-
-        preferences = getPreferences(MODE_PRIVATE);
-        boolean tgpref = preferences.getBoolean(Constants.PREFERENCES_TEXT, false);  //default is true
-        if (tgpref == true) {
-            favorite.setChecked(true);
-        } else {
-            favorite.setChecked(false);
-        }
 
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,12 +166,4 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
-
-
-    public void addFavorite(View view) {
-
-        databaseManager.setFavourite(posters, id, db);
-    }
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.machine2.movietime;
+package com.example.machine2.movietime.parser;
 
 /**
  * Created by machine3 on 5/20/16.
