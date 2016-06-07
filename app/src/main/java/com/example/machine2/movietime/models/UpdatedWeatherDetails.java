@@ -5,13 +5,14 @@ package com.example.machine2.movietime.models;
  */
 public class UpdatedWeatherDetails {
 
-    double temp;
 
-    public double getWeather() {
+    double temp;
+    public double getTemp()
+    {
         return temp;
     }
 
-    public void setWeather(double temp) {
-        this.temp = temp;
+    public void setTemp(double temp) {
+       this.temp = temp;
     }
 }

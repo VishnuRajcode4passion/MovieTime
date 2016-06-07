@@ -32,8 +32,7 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.android.support:cardview-v7:23.0.+'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
-    compile 'com.mcxiaoke.volley:library:1.0.17'
+    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
+    compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
+    compile 'com.nhaarman.listviewanimations:lib-core-slh:3.1.0@aar'
 }
-
-
-

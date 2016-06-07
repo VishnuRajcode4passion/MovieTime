@@ -1,7 +1,6 @@
 package com.example.machine2.movietime.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.models.Requests;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MoviesPosterResponse;
+import com.example.machine2.movietime.models.Requests;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
