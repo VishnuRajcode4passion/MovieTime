@@ -1,7 +1,6 @@
 package com.example.machine2.movietime.models;
 
 import com.example.machine2.movietime.UrlProvider;
-import com.example.machine2.movietime.models.Request;
 import com.loopj.android.http.RequestParams;
 
 import java.util.Map;
@@ -18,7 +17,7 @@ public class UpdatedMovieDetails {
     String overview;
     Map<String, String> paramMap;
     RequestParams params;
-    Request request = new Request();
+    Requests request = new Requests();
     UrlProvider urlProvider;
     int runtime;
     double vote_average;

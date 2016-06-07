@@ -14,7 +14,7 @@
 
         <item
             android:id="@+id/favorite"
-            android:title="Favorite"
+            android:title="Favourite"
             android:icon="@drawable/star"/>
     </group>
 

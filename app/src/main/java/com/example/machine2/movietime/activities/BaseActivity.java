@@ -3,6 +3,8 @@ package com.example.machine2.movietime.activities;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.machine2.movietime.Constants;
+
 /**
  * Created by machine3 on 5/20/16.
  */
@@ -10,9 +12,10 @@ public class BaseActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
+    //to show dialog
     public void showDialog() {
 
-        showDialog("Processing...", "Please wait.");
+        showDialog(Constants.PROGRESS_TITLE, Constants.PROGRESS_MESSAGE);
     }
 
     public void showDialog(String title, String message) {
@@ -23,7 +26,7 @@ public class BaseActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
-
+    //to dismiss dialog
     public void dismissDialog() {
 
         progressDialog.dismiss();

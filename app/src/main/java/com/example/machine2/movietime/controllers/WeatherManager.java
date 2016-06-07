@@ -4,41 +4,31 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.machine2.movietime.adapters.MovieImageAdapter;
-import com.example.machine2.movietime.MoviePosterParser;
-import com.example.machine2.movietime.models.Request;
+import com.example.machine2.movietime.models.Requests;
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MoviesErrorResponse;
 import com.example.machine2.movietime.models.WeatherResponse;
-import com.example.machine2.movietime.interfaces.MoviePosterListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.interfaces.NetworkListener;
-import com.example.machine2.movietime.interfaces.WeatherListener;
+import com.example.machine2.movietime.network.NetworkListener;
 import com.google.gson.Gson;
 
 /**
  * Created by machine2 on 30/05/16.
  */
 public class WeatherManager extends BaseManager implements NetworkListener {
-    MoviePosterListener movieAdapter;
-    MovieImageAdapter movieImageAdapter;
-
 
     Context context;
-    MoviePosterParser moviePosterParser;
-
     MoviesErrorResponse moviesErrorResponse;
     int code;
     String statusMessage;
     NetworkCommunicator networkCommunicator;
-    Request request = new Request();
-    String id;
+    Requests request = new Requests();
     Gson gson;
     String cityName;
     WeatherResponse weatherResponse;
     String responseString;
-   WeatherListener weatherListener;
+    WeatherListener weatherListener;
     UpdatedWeatherDetails updatedWeatherDetails = new UpdatedWeatherDetails();
 
     public void getWeather(String cityName) {
@@ -49,7 +39,6 @@ public class WeatherManager extends BaseManager implements NetworkListener {
         networkCommunicator = new NetworkCommunicator();
         networkCommunicator.sendRequest(this, request);
     }
-
 
     @Override
     public void onSuccess(byte[] responseBody) {
@@ -73,6 +62,5 @@ public class WeatherManager extends BaseManager implements NetworkListener {
         Log.d("PopularMoviesManager", "CODE " + code);
         Log.d("PopularMoviesManager","STATUS MESSAGE "+statusMessage);
         Toast.makeText(context, statusMessage, Toast.LENGTH_LONG).show();
-
     }
 }

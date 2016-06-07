@@ -12,14 +12,16 @@ public class BaseManager {
 
     Map<String, String> mHeaders;
 
-    //add baseManager headers
+    //api key for MovieDB api
     public Map<String, String> getHeaders() {
 
         mHeaders = new HashMap<>();
+
         mHeaders.put("api_key", Constants.MOVIE_API_KEY);
         return mHeaders;
     }
 
+    //api key for OpenWeatherMap api.
     public Map<String, String> getHeader() {
 
         mHeaders = new HashMap<>();
