@@ -156,7 +156,13 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
 //            movieDatabaseManager = new MovieDatabaseManager();
 //            movieDatabaseManager.getFavourite();
-        } else if (id == R.id.logout) {
+        }
+        else if (id == R.id.search) {
+
+            Intent intent = new Intent(this, WeatherActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.logout) {
 
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

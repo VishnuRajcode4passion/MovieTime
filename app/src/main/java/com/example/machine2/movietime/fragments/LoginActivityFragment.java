@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.activities.MainActivity;
+import com.example.machine2.movietime.activities.WeatherActivity;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -41,7 +41,7 @@ public class LoginActivityFragment extends Fragment {
             accessToken = loginResult.getAccessToken();
             profile = Profile.getCurrentProfile();
             displayWelcomeMessage(profile);
-            Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(getActivity(), WeatherActivity.class);
             startActivity(intent);
 
         }

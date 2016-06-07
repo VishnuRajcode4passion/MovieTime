@@ -24,7 +24,7 @@ public class NetworkCommunicator {
     public void sendRequest(final NetworkListener networkListener, Request request) {
 
         url = request.getUrl();
-        params = new RequestParams(request.getHeaders());
+        params = new RequestParams(request.getHeader());
         client = new AsyncHttpClient();
         client.get(url, params, new AsyncHttpResponseHandler() {
 

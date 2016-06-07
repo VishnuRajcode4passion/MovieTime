@@ -1,78 +1,55 @@
 package com.example.machine2.movietime.controllers;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.example.machine2.movietime.adapters.MovieImageAdapter;
-import com.example.machine2.movietime.parser.MoviePosterParser;
+import com.example.machine2.movietime.UrlProvider;
+import com.example.machine2.movietime.interfaces.NetworkListener;
+import com.example.machine2.movietime.interfaces.WeatherDetailsListener;
 import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
-import com.example.machine2.movietime.UrlProvider;
-import com.example.machine2.movietime.models.MoviesErrorResponse;
 import com.example.machine2.movietime.models.WeatherResponse;
-import com.example.machine2.movietime.interfaces.MoviePosterListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.interfaces.NetworkListener;
-import com.example.machine2.movietime.interfaces.WeatherListener;
-import com.google.gson.Gson;
+import com.example.machine2.movietime.parser.MoviesErrorParser;
+import com.example.machine2.movietime.parser.WeatherDetailParser;
 
 /**
  * Created by machine2 on 30/05/16.
  */
 public class WeatherManager extends BaseManager implements NetworkListener {
-    MoviePosterListener movieAdapter;
-    MovieImageAdapter movieImageAdapter;
-
-
-    Context context;
-    MoviePosterParser moviePosterParser;
-
-    MoviesErrorResponse moviesErrorResponse;
-    int code;
-    String statusMessage;
+    WeatherDetailsListener weatherDetailsListener;
+    String city_name;
+    WeatherResponse.MainBean weatherResponse;
     NetworkCommunicator networkCommunicator;
-    Request request = new Request();
-    String id;
-    Gson gson;
-    String cityName;
-    WeatherResponse weatherResponse;
-    String responseString;
-   WeatherListener weatherListener;
     UpdatedWeatherDetails updatedWeatherDetails = new UpdatedWeatherDetails();
+    public void getWeather(WeatherDetailsListener weatherDetailsListener, String city_name) {
+        Request request;
 
-    public void getWeather(String cityName) {
-
-        this.cityName = cityName;
-        request.setUrl(UrlProvider.WEATHER_URL + cityName);
+        this.weatherDetailsListener = weatherDetailsListener;
+        this.city_name = city_name;
+        request = new Request();
+        request.setUrl(UrlProvider.WEATHER_URL+city_name);
         request.setHeader(getHeader());
+
         networkCommunicator = new NetworkCommunicator();
         networkCommunicator.sendRequest(this, request);
     }
 
-
     @Override
     public void onSuccess(byte[] responseBody) {
 
-        responseString = new String(responseBody);
-        gson = new Gson();
-        weatherResponse = gson.fromJson(responseString, WeatherResponse.class);
-        WeatherResponse.MainBean mainBean = new WeatherResponse.MainBean();
-        updatedWeatherDetails.setWeather(mainBean.getTemp());
-        weatherListener.onSuccess(updatedWeatherDetails);
+        WeatherDetailParser weatherDetailParser;
+        weatherDetailParser = new WeatherDetailParser();
+        weatherResponse =weatherDetailParser.parse(responseBody);
+        updatedWeatherDetails.setTemp(weatherResponse.getTemp());
+
+       weatherDetailsListener.setWeatherDetails(updatedWeatherDetails);
     }
 
     @Override
     public void onFailure(byte[] responseBody) {
 
-        responseString = new String(responseBody);
-        gson = new Gson();
-        moviesErrorResponse = gson.fromJson(responseString,MoviesErrorResponse.class);
-        code = moviesErrorResponse.getStatus_code();
-        statusMessage = moviesErrorResponse.getStatus_message();
-        Log.d("PopularMoviesManager", "CODE " + code);
-        Log.d("PopularMoviesManager","STATUS MESSAGE "+statusMessage);
-        Toast.makeText(context, statusMessage, Toast.LENGTH_LONG).show();
+        String statusMessage;
+        MoviesErrorParser moviesErrorParser;
+        moviesErrorParser = new MoviesErrorParser();
+        statusMessage = moviesErrorParser.parse(responseBody);
 
     }
 }
