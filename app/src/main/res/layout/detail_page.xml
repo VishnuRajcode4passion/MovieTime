@@ -89,7 +89,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/movie_poster"
                 android:checked="false"
-                android:onClick="addFavorite"
+
                 android:text="Favorite"
                 android:textColor="#000000" />
 
