@@ -40,7 +40,6 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
     String id;
     String posters;
-
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
     MovieDatabaseManager databaseManager;
@@ -174,4 +173,5 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
+    
 }
