@@ -12,14 +12,18 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by machine3 on 5/20/16.
  */
-public class NetworkCommunicator  {
+//Network class for creating connections
+
+public class NetworkCommunicator {
 
     //Variables declarations
     AsyncHttpClient client;
     RequestParams params;
     String url;
 
-    //method created for sending requestUrl to server
+
+    // method created for sending requestUrl to server
+
     public void sendRequest(final NetworkListener networkListener, Requests request) {
 
         url = request.getUrl();
@@ -74,4 +78,6 @@ public class NetworkCommunicator  {
 //        };
 //        requestQueue.add(jor);
 //    }
+
+
 }

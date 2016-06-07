@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 /**
  * Created by machine3 on 6/2/16.
  */
+//parser class for error handling
 public class MoviesErrorParser {
 
     Gson gson;
@@ -16,6 +17,7 @@ public class MoviesErrorParser {
 
     String responseString;
     String statusMessage;
+//method for getting the error responses
 
     public String parse(byte[] responseBody) {
 

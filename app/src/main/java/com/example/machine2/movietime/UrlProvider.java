@@ -3,6 +3,7 @@ package com.example.machine2.movietime;
 /**
  * Created by machine3 on 5/24/16.
  */
+//class for declaring URL'S
 public class UrlProvider {
 
     //URLs to be passed.

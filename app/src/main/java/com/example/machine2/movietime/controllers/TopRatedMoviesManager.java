@@ -13,12 +13,16 @@ import com.example.machine2.movietime.network.NetworkListener;
 /**
  * Created by machine2 on 26/05/16.
  */
+//Manager classm defined for the Toprated Movie
+
 public class TopRatedMoviesManager extends BaseManager implements NetworkListener {
 
     MoviePosterListener moviePosterListener;
     MovieImageAdapter movieImageAdapter;
     NetworkCommunicator networkCommunicator;
     Context context;
+
+//Method declaration for the top rated movies
 
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
 
@@ -32,6 +36,7 @@ public class TopRatedMoviesManager extends BaseManager implements NetworkListene
         networkCommunicator = new NetworkCommunicator();
         networkCommunicator.sendRequest(this, request);
     }
+//implementing the NetworkListener for set the topratedMovie posters
 
     @Override
     public void onSuccess(byte[] responseBody) {

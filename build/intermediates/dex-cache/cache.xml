@@ -30,6 +30,13 @@
         <dex dex="/Users/machine2/MovieTime/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_91bcc45c0f0028715a5a04562d2764bb1d4f2328.jar" />
     </item>
     <item
+        jar="/Users/machine2/MovieTime/app/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="/Users/machine2/MovieTime/app/build/intermediates/pre-dexed/debug/com.android.volley-volley-1.0.0_b78b104c5d7a3bca8eb69d27774204f5ef9cdf2f.jar" />
+    </item>
+    <item
         jar="/Users/machine2/MovieTime/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.0.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.2"

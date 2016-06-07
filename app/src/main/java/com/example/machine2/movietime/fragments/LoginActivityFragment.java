@@ -28,6 +28,8 @@ import java.util.Arrays;
 /**
  * A placeholder fragment containing a simple view.
  */
+//fragment for the login activity
+
 public class LoginActivityFragment extends Fragment {
 
     LoginButton loginButton;
@@ -38,16 +40,22 @@ public class LoginActivityFragment extends Fragment {
     AccessToken accessToken;
     Profile profile;
 
+//facebook login
+
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
-
+            accessToken = loginResult.getAccessToken();
+            profile = Profile.getCurrentProfile();
+            displayWelcomeMessage(profile);
             if(AccessToken.getCurrentAccessToken()!=null)
             {
                 Log.v("User is login", "YES");
                 loginButton.setVisibility(View.INVISIBLE);
+
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
+                getActivity().finish();
 
             }
             else
@@ -110,11 +118,14 @@ public class LoginActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_loginactivity_fragment, container, false);
     }
+
+    //set the display messages
+
     public void displayWelcomeMessage(Profile profile)
     {
         if(profile!=null)
         {
-            textDetails.setText("Welcome"+"\t"+profile.getName());
+            textDetails.setText("Login As"+":"+profile.getName());
         }
 
     }
@@ -130,7 +141,7 @@ public class LoginActivityFragment extends Fragment {
         textDetails = (TextView) view.findViewById(R.id.details);
 
     }
-
+//resuming the data of the user before login
     @Override
     public void onResume() {
         super.onResume();
@@ -138,7 +149,7 @@ public class LoginActivityFragment extends Fragment {
         displayWelcomeMessage(profile);
 
     }
-
+//dismiss the data
     @Override
     public void onStop() {
         super.onStop();
@@ -150,5 +161,7 @@ public class LoginActivityFragment extends Fragment {
    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
+
 }

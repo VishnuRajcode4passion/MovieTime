@@ -12,8 +12,10 @@ import java.util.ArrayList;
 /**
  * Created by machine2 on 27/05/16.
  */
+//Database created for the MovieTime
 public class MovieDatabase {
 
+//naming the database ,table and defining the fields in the table
     public static final String FavoriteId = "_id";
     public static final String MovieUrl = "movie_url";
     public static final String MovieId = "movie_id";
@@ -80,19 +82,20 @@ public class MovieDatabase {
             onCreate(db);
         }
     }
-
+//open method for wring the data into the database
     public MovieDatabase open() {
 
         sqLiteDatabase = dbHelper.getWritableDatabase();
         return this;
     }
-
+//close method
     public void close() {
 
         dbHelper.close();
     }
 
     //inserting data into database
+
     public long insert(String poster, String id, String favouriteState) {
 
         values = new ContentValues();
@@ -106,13 +109,14 @@ public class MovieDatabase {
     }
 
     //fetching all the data from the database
+
     public ArrayList getPoster() {
 
         column = new String[]{
                 FavoriteId, MovieUrl, MovieId
         };
         movieData = sqLiteDatabase.query(Table, column, null, null, null, null, null);
-        //   String result="";
+
         int Movie_url = movieData.getColumnIndex(MovieUrl);
 
         for (movieData.moveToFirst(); !movieData.isAfterLast(); movieData.moveToNext()) {
@@ -140,6 +144,7 @@ public class MovieDatabase {
     }
 
     //deleting the corrosponding data from the database
+
     public void delete(long id) {
 
         sqLiteDatabase.delete(Table, MovieId + " = " + id, null);
