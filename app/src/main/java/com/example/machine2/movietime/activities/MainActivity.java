@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -27,18 +29,34 @@ import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener  {
 
     //variable declaration
     GridView gridView;
+
     Toolbar toolbar;
+
     DrawerLayout drawer;
+
     ActionBarDrawerToggle toggle;
 
+    NavigationView navigationView;
+
+    TextView MovieId;
+
+    Intent intent;
+
     TopRatedMoviesManager topRatedMoviesManager;
+
     PopularMoviesManager popularMoviesManager;
+
     FavouriteManager favouriteManager;
+
     MovieDatabase movieDatabase;
+
+    ArrayList<String> image;
+
+    ArrayList<String> ids;
 
     String movieId;
     String title;
@@ -46,18 +64,22 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        NavigationView navigationView;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity_main);
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         gridView = (GridView) findViewById(R.id.gridview);
 
+        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in);
+
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getString(R.string.popular));
+        getSupportActionBar().setTitle("Popular");
 
         //calling the progress dialog from the Base activty
         showDialog();
@@ -73,24 +95,31 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView MovieId;
-                Intent intent;
 
                 MovieId = (TextView) view.findViewById(R.id.textView);
+
                 movieId = MovieId.getText().toString();
                 intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movieId);
+
+
+                gridView.startAnimation(animation);
+
                 startActivity(intent);
             }
         });
+
+
     }
+
+
+
 
     //sets gridview..
     @Override
     public void refreshPoster(MovieImageAdapter imageAdapter) {
 
         dismissDialog();
-
         gridView.setAdapter(imageAdapter);
     }
 
@@ -129,30 +158,31 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
             topRatedMoviesManager = new TopRatedMoviesManager();
             topRatedMoviesManager.getPosters(this, this);
-            title = getString(R.string.topRated);
+            title = "Top Rated";
 
         } else if (id == R.id.popular) {
 
             showDialog();
 
             popularMoviesManager.getPosters(this, this);
-            title = getString(R.string.popular);
+            title = "Popular";
 
         } else if (id == R.id.favorite) {
-
-            ArrayList<String> image;
-            ArrayList<String> ids;
 
             showDialog();
 
             movieDatabase = new MovieDatabase(this);
             movieDatabase.open();
+
             image = movieDatabase.getPoster();
             ids = movieDatabase.getId();
+
             favouriteManager = new FavouriteManager();
             favouriteManager.getPosters(this, this, image, ids);
+
             movieDatabase.close();
-            title = getString(R.string.favourite);
+
+            title = "Favourite";
 
 
 //            movieDatabaseManager = new MovieDatabaseManager();

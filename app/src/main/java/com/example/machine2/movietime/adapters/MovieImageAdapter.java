@@ -67,6 +67,7 @@ public class MovieImageAdapter extends BaseAdapter {
         // TODO Auto-generated method stub
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        //class to hold all the views in a single row.
         class ViewHolder {
 
             ImageView imageView;

@@ -19,6 +19,7 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
     MovieDetailsListener movieDetailsListener;
     NetworkCommunicator networkCommunicator;
 
+    //to get the all details of a particular movie by sending all the information to the network communicator class.
     public void getMovieDetails(MovieDetailsListener movieDetailsListener, String id) {
 
         Requests request;
