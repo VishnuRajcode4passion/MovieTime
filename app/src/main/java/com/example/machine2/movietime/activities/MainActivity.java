@@ -14,15 +14,16 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.machine2.movietime.adapters.FavouriteAdapter;
-import com.example.machine2.movietime.controllers.FavouriteManager;
-import com.example.machine2.movietime.controllers.MovieDatabaseManager;
-import com.example.machine2.movietime.database.MovieDatabase;
-import com.example.machine2.movietime.adapters.MovieImageAdapter;
-import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
+import com.example.machine2.movietime.adapters.FavouriteAdapter;
+import com.example.machine2.movietime.adapters.MovieImageAdapter;
+import com.example.machine2.movietime.controllers.FavouriteManager;
 import com.example.machine2.movietime.controllers.MoviePosterListener;
+import com.example.machine2.movietime.controllers.PopularMoviesManager;
+import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
+import com.example.machine2.movietime.database.MovieDatabase;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
@@ -164,8 +165,11 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         }
         else if (id == R.id.logout) {
 
+            FacebookSdk.sdkInitialize(getApplicationContext());
+            LoginManager.getInstance().logOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+
         }
 
         getSupportActionBar().setTitle(title);
