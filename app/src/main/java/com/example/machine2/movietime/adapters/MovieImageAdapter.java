@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MoviesPosterResponse;
-import com.example.machine2.movietime.models.Request;
+import com.example.machine2.movietime.models.Requests;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by machine3 on 5/20/16.
  */
-public class MovieImageAdapter extends BaseAdapter{
+public class MovieImageAdapter extends BaseAdapter {
 
     Context context;
     List<MoviesPosterResponse.ResultsBean> results;
@@ -30,7 +30,7 @@ public class MovieImageAdapter extends BaseAdapter{
     RequestParams params;
 
     private static LayoutInflater inflater = null;
-    private Request request = new Request();
+    private Requests request = new Requests();
 
     public MovieImageAdapter(Context context, List<MoviesPosterResponse.ResultsBean> results) {
 
@@ -60,39 +60,49 @@ public class MovieImageAdapter extends BaseAdapter{
         return position;
     }
 
+    //a single row with required views is inflated into listview as many times depending on the count of items.
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        TextView movieId;
-
-        String posterUrl;
-        String imageUrl;
-        String image;
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         // TODO Auto-generated method stub
-
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView;
-        rowView = inflater.inflate(R.layout.single_row_image_adapter, null);
+
+        class ViewHolder {
+
+            ImageView imageView;
+            TextView movieId;
+            String posterUrl;
+            String imageUrl;
+            String image;
+        }
+
+        ViewHolder holder;
+
+        if (convertView == null) {
+
+            convertView = inflater.inflate(R.layout.single_row_image_adapter, null);
+            holder = new ViewHolder();
+            holder.movieId = (TextView) convertView.findViewById(R.id.textView);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+            convertView.setTag(holder);
+        } else {
+
+            holder = (ViewHolder) convertView.getTag();
+        }
+
         item = (MoviesPosterResponse.ResultsBean) getItem(position);
-        posterUrl = UrlProvider.POSTER_URL;
-
-        movieId = (TextView) rowView.findViewById(R.id.textView);
-        imageView = (ImageView) rowView.findViewById(R.id.imageView);
-
         int id = item.getId();
-        imageUrl = item.getPoster_path();
 
+        holder.posterUrl = UrlProvider.POSTER_URL;
+        holder.imageUrl = item.getPoster_path();
         paramMap = request.getHeaders();
         params = new RequestParams(paramMap);
-        image = posterUrl + imageUrl + params;
+        holder.image = holder.posterUrl + holder.imageUrl + params;
 
         //Loading image from  url into imageView
+        Picasso.with(context).load(holder.image).resize(394, 400).into(holder.imageView);
+        holder.movieId.setText(String.valueOf(id));
 
-        Picasso.with(context).load(image).resize(394, 400).into(imageView);
-        movieId.setText(String.valueOf(id));
-        return rowView;
+        return convertView;
     }
-
-
 }

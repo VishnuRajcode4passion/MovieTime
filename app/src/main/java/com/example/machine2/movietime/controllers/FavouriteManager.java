@@ -3,10 +3,6 @@ package com.example.machine2.movietime.controllers;
 import android.content.Context;
 
 import com.example.machine2.movietime.adapters.FavouriteAdapter;
-import com.example.machine2.movietime.models.MovieDetailResponse;
-import com.example.machine2.movietime.interfaces.MoviePosterListener;
-import com.example.machine2.movietime.interfaces.NetworkListener;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 

@@ -1,12 +1,12 @@
 package com.example.machine2.movietime.controllers;
 
 import com.example.machine2.movietime.UrlProvider;
-import com.example.machine2.movietime.interfaces.NetworkListener;
 import com.example.machine2.movietime.interfaces.WeatherDetailsListener;
-import com.example.machine2.movietime.models.Request;
+import com.example.machine2.movietime.models.Requests;
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 import com.example.machine2.movietime.models.WeatherResponse;
 import com.example.machine2.movietime.network.NetworkCommunicator;
+import com.example.machine2.movietime.network.NetworkListener;
 import com.example.machine2.movietime.parser.MoviesErrorParser;
 import com.example.machine2.movietime.parser.WeatherDetailParser;
 
@@ -20,11 +20,11 @@ public class WeatherManager extends BaseManager implements NetworkListener {
     NetworkCommunicator networkCommunicator;
     UpdatedWeatherDetails updatedWeatherDetails = new UpdatedWeatherDetails();
     public void getWeather(WeatherDetailsListener weatherDetailsListener, String city_name) {
-        Request request;
+        Requests request;
 
         this.weatherDetailsListener = weatherDetailsListener;
         this.city_name = city_name;
-        request = new Request();
+        request = new Requests();
         request.setUrl(UrlProvider.WEATHER_URL+city_name);
         request.setHeader(getHeader());
 

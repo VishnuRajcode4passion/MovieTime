@@ -1,14 +1,13 @@
 package com.example.machine2.movietime.controllers;
 
+import com.example.machine2.movietime.models.Requests;
 import com.example.machine2.movietime.parser.MovieDetailsParser;
 import com.example.machine2.movietime.parser.MoviesErrorParser;
-import com.example.machine2.movietime.models.Request;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MovieDetailResponse;
-import com.example.machine2.movietime.interfaces.MovieDetailsListener;
 import com.example.machine2.movietime.network.NetworkCommunicator;
-import com.example.machine2.movietime.interfaces.NetworkListener;
+import com.example.machine2.movietime.network.NetworkListener;
 
 /**
  * Created by machine2 on 26/05/16.
@@ -20,17 +19,14 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
     MovieDetailsListener movieDetailsListener;
     NetworkCommunicator networkCommunicator;
 
-
-    UpdatedMovieDetails updatedMovieDetails = new UpdatedMovieDetails();
-
     public void getMovieDetails(MovieDetailsListener movieDetailsListener, String id) {
 
-        Request request;
+        Requests request;
 
         this.movieDetailsListener = movieDetailsListener;
         this.id = id;
 
-        request = new Request();
+        request = new Requests();
         request.setUrl(UrlProvider.MOVIE_DETAILS_URL + id);
         request.setHeaders(getHeaders());
 
@@ -41,6 +37,7 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
     @Override
     public void onSuccess(byte[] responseBody) {
 
+        UpdatedMovieDetails updatedMovieDetails = new UpdatedMovieDetails();
         MovieDetailsParser movieDetailsParser;
         movieDetailsParser = new MovieDetailsParser();
         detailResponse = movieDetailsParser.parse(responseBody);
@@ -61,7 +58,6 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
         String statusMessage;
         MoviesErrorParser moviesErrorParser;
         moviesErrorParser = new MoviesErrorParser();
-
         statusMessage = moviesErrorParser.parse(responseBody);
         movieDetailsListener.setErrorMessage(statusMessage);
     }

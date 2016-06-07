@@ -12,14 +12,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.machine2.movietime.R;
-import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
+
+import com.example.machine2.movietime.database.MovieDatabase;
 import com.example.machine2.movietime.controllers.MovieDatabaseManager;
 import com.example.machine2.movietime.controllers.MovieDetailsManager;
 import com.example.machine2.movietime.controllers.MovieTrailerManager;
-import com.example.machine2.movietime.database.MovieDatabase;
-import com.example.machine2.movietime.interfaces.MovieDetailsListener;
+import com.example.machine2.movietime.R;
+import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
+import com.example.machine2.movietime.controllers.MovieDetailsListener;
 import com.squareup.picasso.Picasso;
 
 /**
