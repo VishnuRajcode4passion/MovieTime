@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -76,6 +74,9 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         listView = (ListView) findViewById(R.id.listView);
         favorite = (CheckBox) findViewById(R.id.checkBox_favorite);
 
+
+
+
         bundle = getIntent().getExtras();
         id = bundle.getString("selectedId");
 
@@ -100,17 +101,16 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
                 if (intent.resolveActivity(getPackageManager()) != null) {
 
-
-                    Animation animation1 = new AlphaAnimation(0.3f, 1.0f);
-                    animation1.setDuration(4000);
-                    view.startAnimation(animation1);
-
-
+                    
 
                     startActivity(intent);
                 }
+
+
             }
         });
+
+
 
         favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -147,7 +147,26 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
                 startActivity(intent);
             }
         });
+
+        poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+//                Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in);
+//                poster.startAnimation(animation);
+
+            }
+        });
     }
+
+//    public void applyRotation(View view)
+//    {
+//        final Flip3DAnimation rotation = new Flip3DAnimation(view);
+//        rotation.applyPropertiesInRotation();
+//        view.startAnimation(rotation);
+//    }
+
 
     @Override
     public void setMovieDetails(UpdatedMovieDetails detailResponse) {

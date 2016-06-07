@@ -9,40 +9,51 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.machine2.movietime.adapters.FavouriteAdapter;
-import com.example.machine2.movietime.controllers.FavouriteManager;
-import com.example.machine2.movietime.database.MovieDatabase;
-import com.example.machine2.movietime.adapters.MovieImageAdapter;
-import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.R;
-
+import com.example.machine2.movietime.adapters.FavouriteAdapter;
+import com.example.machine2.movietime.adapters.MovieImageAdapter;
+import com.example.machine2.movietime.controllers.FavouriteManager;
+import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
+import com.example.machine2.movietime.database.MovieDatabase;
 import com.example.machine2.movietime.interfaces.MoviePosterListener;
-
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener  {
 
     //variable declaration
     GridView gridView;
+
     Toolbar toolbar;
+
     DrawerLayout drawer;
+
     ActionBarDrawerToggle toggle;
+
     NavigationView navigationView;
+
     TextView MovieId;
+
     Intent intent;
+
     TopRatedMoviesManager topRatedMoviesManager;
+
     PopularMoviesManager popularMoviesManager;
+
     FavouriteManager favouriteManager;
+
     MovieDatabase movieDatabase;
 
     ArrayList<String> image;
+
     ArrayList<String> ids;
 
     String movieId;
@@ -54,10 +65,16 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity_main);
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         gridView = (GridView) findViewById(R.id.gridview);
+
+        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Popular");
@@ -83,17 +100,24 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
                 intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movieId);
 
+
+                gridView.startAnimation(animation);
+
                 startActivity(intent);
             }
         });
+
+
     }
+
+
+
 
     //sets gridview..
     @Override
     public void refreshPoster(MovieImageAdapter imageAdapter) {
 
         dismissDialog();
-
         gridView.setAdapter(imageAdapter);
     }
 
@@ -147,11 +171,15 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
             movieDatabase = new MovieDatabase(this);
             movieDatabase.open();
+
             image = movieDatabase.getPoster();
             ids = movieDatabase.getId();
+
             favouriteManager = new FavouriteManager();
             favouriteManager.getPosters(this, this, image, ids);
+
             movieDatabase.close();
+
             title = "Favourite";
 
         } else if (id == R.id.logout) {
