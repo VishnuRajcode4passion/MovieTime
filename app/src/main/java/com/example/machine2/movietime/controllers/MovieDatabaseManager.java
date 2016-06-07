@@ -12,6 +12,7 @@ public class MovieDatabaseManager {
     MovieDatabase db;
     String favouriteState;
 
+    //to insert favourite movie into data base.
     public void setFavorite(String posters, String id, String b, MovieDatabase db) {
 
         this.favouriteState = b;
@@ -22,6 +23,8 @@ public class MovieDatabaseManager {
         db.insert(posters, id, favouriteState);
         db.close();
     }
+
+    //to delete favourite movie from database
     public void removeFavorites(String id, MovieDatabase db) {
 
         db.open();
@@ -30,6 +33,7 @@ public class MovieDatabaseManager {
         db.close();
     }
 
+     //to get the state,ie. whether a particular movie is marked as checked or not.
     public String getState(String id, MovieDatabase db) {
 
         db.open();

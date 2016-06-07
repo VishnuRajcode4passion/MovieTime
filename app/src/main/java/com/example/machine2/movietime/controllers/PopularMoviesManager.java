@@ -20,7 +20,7 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
     NetworkCommunicator networkCommunicator;
     Context context;
 
-
+    //to pass the information regarding popular movies to network communicator and sets the results in gridview.
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
         Requests request;
 
@@ -35,6 +35,7 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
         networkCommunicator.sendRequest(this, request);
     }
 
+    //when the request was successful,the response body is obtained from network communicator class and the posters are set in grid view.
     @Override
     public void onSuccess(byte[] responseBody) {
 
@@ -44,6 +45,7 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
         moviePosterListener.refreshPoster(movieImageAdapter);
     }
 
+    //to display the error message ,if there is problem in fetching the contents from server.
     @Override
     public void onFailure(byte[] responseBody) {
 

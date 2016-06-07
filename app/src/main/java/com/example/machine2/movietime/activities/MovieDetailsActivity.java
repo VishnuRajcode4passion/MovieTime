@@ -63,6 +63,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         listView = (ListView) findViewById(R.id.listView);
         favorite = (CheckBox) findViewById(R.id.checkBox_favorite);
 
+        //to receive the id  of particular movie passed from the MainActivity
         bundle = getIntent().getExtras();
         id = bundle.getString("selectedId");
 
@@ -76,6 +77,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         databaseManager = new MovieDatabaseManager();
 
+        //to mark the favourite button as checked ,if the movie is added as favourite into database.
         String state = databaseManager.getState(id, db);
         System.out.println("STATE3 "+state);
         if(state != null) {
@@ -84,6 +86,8 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
                 favorite.setChecked(true);
             }
         }
+
+        //to view the trailers of movies in youtube.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -101,6 +105,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             }
         });
 
+        //to mark a particular movie as favourite or not.
         favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -115,6 +120,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             }
         });
 
+        //to go back to posters screen
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +132,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         });
     }
 
+    //to show all the details of a movie in the UI.
     @Override
     public void setMovieDetails(UpdatedMovieDetails detailResponse) {
 
@@ -152,12 +159,14 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         Picasso.with(this).load(posters).resize(394, 400).into(poster);
     }
 
+    //to show the trailer links of a particular movie in UI screen
     @Override
     public void movieTrailer(MovieTrailerAdapter movieTrailerAdapter) {
 
         listView.setAdapter(movieTrailerAdapter);
     }
 
+    //to display the error message ,if there is problem in fetching the contents from server.
     @Override
     public void setErrorMessage(String statusMessage) {
 

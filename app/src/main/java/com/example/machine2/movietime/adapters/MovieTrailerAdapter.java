@@ -18,13 +18,16 @@ import java.util.List;
  * Created by machine2 on 27/05/16.
  */
 public class MovieTrailerAdapter extends BaseAdapter {
+
     Context context;
     List<MovieTrailerResponse.ResultsBean> results;
     MovieTrailerResponse.ResultsBean item;
 
     private static LayoutInflater inflater = null;
 
+    // constructor created.
     public MovieTrailerAdapter(Context context, List<MovieTrailerResponse.ResultsBean> results) {
+
         this.context = context;
         this.results = results;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,6 +58,7 @@ public class MovieTrailerAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
+        //class to hold all the views in a single row.
         class ViewHolder {
 
             String key;
@@ -79,9 +83,11 @@ public class MovieTrailerAdapter extends BaseAdapter {
 
         UrlProvider urlProvider = new UrlProvider();
         item = (MovieTrailerResponse.ResultsBean) getItem(position);
+        //to get the trailer link and keys of a particular movie.
         holder.key = item.getKey();
         holder.Trailer = urlProvider.TRAILER_LINK;
         holder.trailerLink = holder.Trailer + holder.key;
+        //to set the trailers in a list view
         holder.textView.setText("Trailer " + (position + 1));
         holder.trailer.setText(holder.trailerLink);
         return convertView;

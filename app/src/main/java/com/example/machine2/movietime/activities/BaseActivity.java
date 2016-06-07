@@ -12,6 +12,7 @@ public class BaseActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
+    //to show dialog
     public void showDialog() {
 
         showDialog(Constants.PROGRESS_TITLE, Constants.PROGRESS_MESSAGE);
@@ -25,7 +26,7 @@ public class BaseActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
-
+    //to dismiss dialog
     public void dismissDialog() {
 
         progressDialog.dismiss();

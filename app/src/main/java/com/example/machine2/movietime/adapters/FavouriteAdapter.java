@@ -60,6 +60,7 @@ public class FavouriteAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         // TODO Auto-generated method stub
+        //class to hold all the views in a single row.
         class ViewHolder {
 
             ImageView img;

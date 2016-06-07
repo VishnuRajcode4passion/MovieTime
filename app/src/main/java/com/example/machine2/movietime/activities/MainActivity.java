@@ -39,7 +39,6 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     FavouriteManager favouriteManager;
     MovieDatabase movieDatabase;
 
-    String movieId;
     String title;
 
     @Override
@@ -69,12 +68,14 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         popularMoviesManager = new PopularMoviesManager();
         popularMoviesManager.getPosters(this, this);
 
+        //when a paticular poster is selected,then its movie id is passed to movie details activity.
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String movieId;
                 TextView MovieId;
                 Intent intent;
-
                 MovieId = (TextView) view.findViewById(R.id.textView);
                 movieId = MovieId.getText().toString();
                 intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         });
     }
 
-    //sets gridview..
+    //sets posters in grid view
     @Override
     public void refreshPoster(MovieImageAdapter imageAdapter) {
 
@@ -93,6 +94,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView.setAdapter(imageAdapter);
     }
 
+    //set favourite posters in grid view.
     @Override
     public void setFavourite(FavouriteAdapter favouriteAdapter) {
 
@@ -101,6 +103,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView.setAdapter(favouriteAdapter);
     }
 
+    //to display the error message ,if there is problem in fetching the contents from server.
     @Override
     public void setErrorMessage(String statusMessage) {
 
@@ -109,6 +112,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
 
+    //when back button is pressed ,navigate this activity to the login activity.
     @Override
     public void onBackPressed() {
 
@@ -117,6 +121,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         startActivity(intent);
     }
 
+    //when an item in navigation menu is selected, its corresponding title and posters are set in grid view.
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
