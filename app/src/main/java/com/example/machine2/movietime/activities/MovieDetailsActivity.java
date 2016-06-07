@@ -173,5 +173,5 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
-    
+
 }
