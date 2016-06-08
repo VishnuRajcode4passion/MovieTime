@@ -53,7 +53,7 @@ public class LoginActivityFragment extends Fragment {
                 Log.v("User is login", "YES");
                 loginButton.setVisibility(View.INVISIBLE);
 
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getActivity(),MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
 
@@ -64,11 +64,6 @@ public class LoginActivityFragment extends Fragment {
                 LoginManager.getInstance().logInWithReadPermissions(getActivity(), (Arrays.asList("public_profile", "user_friends", "user_birthday", "user_about_me", "email")));
             }
 
-//            accessToken = loginResult.getAccessToken();
-//            profile = Profile.getCurrentProfile();
-//            displayWelcomeMessage(profile);
-//            Intent intent = new Intent(getActivity(), MainActivity.class);
-//            startActivity(intent);
 
         }
 

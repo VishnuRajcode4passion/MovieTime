@@ -18,35 +18,36 @@ public class WeatherManager extends BaseManager implements NetworkListener {
 
     //variable declarations
 
+
     WeatherDetailsListener weatherDetailsListener;
     String city_name;
-    WeatherResponse.MainBean weatherResponse;
+    WeatherResponse weatherResponse = new WeatherResponse();
     NetworkCommunicator networkCommunicator;
-    UpdatedWeatherDetails updatedWeatherDetails = new UpdatedWeatherDetails();
+
 
     //method for getting the URL and headers
     public void getWeather(WeatherDetailsListener weatherDetailsListener, String city_name) {
         Requests request;
-
         this.weatherDetailsListener = weatherDetailsListener;
         this.city_name = city_name;
         request = new Requests();
         request.setUrl(UrlProvider.WEATHER_URL+city_name);
         request.setHeader(getHeader());
-
         networkCommunicator = new NetworkCommunicator();
         networkCommunicator.sendRequest(this, request);
     }
 //implemeting the methods ofNetworkListener.
     @Override
     public void onSuccess(byte[] responseBody) {
-
+        UpdatedWeatherDetails updatedWeatherDetails = new UpdatedWeatherDetails();
         WeatherDetailParser weatherDetailParser;
         weatherDetailParser = new WeatherDetailParser();
-        weatherResponse =weatherDetailParser.parse(responseBody);
-        updatedWeatherDetails.setTemp(weatherResponse.getTemp());
+        weatherResponse = weatherDetailParser.parse(responseBody);
+        System.out.println("weatherResponse  " + weatherResponse);
+        System.out.println("weatherResponse.getMain()" + weatherResponse.getDescription());
+        updatedWeatherDetails.setTemp(weatherResponse.getMain());
+        weatherDetailsListener.setWeatherDetails(updatedWeatherDetails);
 
-       weatherDetailsListener.setWeatherDetails(updatedWeatherDetails);
     }
 
     @Override
@@ -58,4 +59,7 @@ public class WeatherManager extends BaseManager implements NetworkListener {
         statusMessage = moviesErrorParser.parse(responseBody);
 
     }
+
+
 }
+

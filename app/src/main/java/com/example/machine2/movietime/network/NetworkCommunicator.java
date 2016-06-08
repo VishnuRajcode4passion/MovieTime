@@ -35,6 +35,7 @@ public class NetworkCommunicator {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
                 Log.d("NetworkCommunicator", "Headers " + headers);
+                Log.d("NetworkCommunicator", "RESULT  " + (url+params));
                 networkListener.onSuccess(responseBody);
             }
 
