@@ -12,13 +12,16 @@ public class MovieDatabaseManager {
     MovieDatabase db;
     String favouriteState;
 
-    //to insert favourite movie into data base.
-    public void setFavorite(String posters, String id, String b, MovieDatabase db) {
+    public MovieDatabaseManager(MovieDatabase db) {
+        this.db=db;
+    }
 
-        this.favouriteState = b;
+    //to insert favourite movie into data base.
+    public void setFavorite(String posters, String id, String check_state) {
+
+        this.favouriteState = check_state;
         this.posters = posters;
         this.id = id;
-        this.db = db;
         db.open();
         db.insert(posters, id, favouriteState);
         db.close();
@@ -34,7 +37,7 @@ public class MovieDatabaseManager {
     }
 
      //to get the state,ie. whether a particular movie is marked as checked or not.
-    public String getState(String id, MovieDatabase db) {
+    public String getState(String id) {
 
         db.open();
         String state = db.getFavouriteState(id);

@@ -16,6 +16,7 @@ import com.google.gson.Gson;
  */
 public class MovieTrailerManager extends BaseManager implements NetworkListener {
 
+//variable declarations
     NetworkCommunicator networkCommunicator;
     Requests request = new Requests();
     Gson gson;
@@ -23,7 +24,7 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
     MovieTrailerResponse movieTrailerResponse;
     MovieDetailsListener movieDetailsListener;
 
-
+//method for getting the trailer URL and header
     public void getTrailerManager(Context context, MovieDetailsListener movieDetailsListener, String id) {
 
         String trailerid;
@@ -37,7 +38,7 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
         networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
-
+//implementing the NetworkListener to get MovieTrailerResponses
     @Override
     public void onSuccess(byte[] responseBody) {
 

@@ -6,6 +6,7 @@ import com.example.machine2.movietime.adapters.MovieImageAdapter;
 /**
  * Created by machine3 on 5/20/16.
  */
+//interface for poster management
 public interface MoviePosterListener {
 
     void refreshPoster(MovieImageAdapter imageAdapter);

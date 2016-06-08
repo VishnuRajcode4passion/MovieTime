@@ -75,10 +75,10 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         movieTrailerManager = new MovieTrailerManager();
         movieTrailerManager.getTrailerManager(this, this, id);
 
-        databaseManager = new MovieDatabaseManager();
+        databaseManager = new MovieDatabaseManager(this);
 
         //to check the state of favourite button during loading the MovieDetailsActivity.
-        String state = databaseManager.getState(id, db);
+        String state = databaseManager.getState(id);
         System.out.println("STATE3 "+state);
         if(state != null) {
 
@@ -112,7 +112,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
                 if ((buttonView.isChecked() == true)) {
 
-                    databaseManager.setFavorite(posters, id, "checked", db);
+                    databaseManager.setFavorite(posters, id, "checked");
                 } else {
 
                     databaseManager.removeFavorites(id,db);
