@@ -29,7 +29,7 @@ public class TopRatedMoviesManager extends BaseManager implements NetworkListene
         request.setUrl(UrlProvider.TOP_RATED_URL);
         request.setHeaders(getHeaders());
 
-        networkCommunicator = new NetworkCommunicator();
+        networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
 

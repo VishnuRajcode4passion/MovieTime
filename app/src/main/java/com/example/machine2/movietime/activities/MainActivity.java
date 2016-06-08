@@ -29,7 +29,7 @@ import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener  {
+public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener {
 
     //variable declaration
     GridView gridView;
@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
         gridView = (GridView) findViewById(R.id.gridview);
 
-        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in);
+        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Popular");
@@ -92,6 +92,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         popularMoviesManager = new PopularMoviesManager();
         popularMoviesManager.getPosters(this, this);
 
+        //to pass the movie id of particular movie to the movie details activity and to zoom the clicked poster.
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -102,20 +103,14 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
                 intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movieId);
 
-
                 gridView.startAnimation(animation);
 
                 startActivity(intent);
             }
         });
-
-
     }
 
-
-
-
-    //sets gridview..
+    //set  posters in  gridview..
     @Override
     public void refreshPoster(MovieImageAdapter imageAdapter) {
 
@@ -123,6 +118,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView.setAdapter(imageAdapter);
     }
 
+    //set favourite movie posters in grid view.
     @Override
     public void setFavourite(FavouriteAdapter favouriteAdapter) {
 
@@ -131,6 +127,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView.setAdapter(favouriteAdapter);
     }
 
+    // //to display the error message ,if there is problem in fetching the contents from server.
     @Override
     public void setErrorMessage(String statusMessage) {
 
@@ -139,14 +136,16 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
 
+    //to navigate to login activity when back button is pressed.
     @Override
     public void onBackPressed() {
 
         super.onBackPressed();
-        Intent intent = new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
+    //based on item click in navigation menu,corresponding title and posters are set in grid view.
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -183,23 +182,16 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
             movieDatabase.close();
 
             title = "Favourite";
-
-
-//            movieDatabaseManager = new MovieDatabaseManager();
-//            movieDatabaseManager.getFavourite();
-        }
-        else if (id == R.id.search) {
+        } else if (id == R.id.search) {
 
             Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
-        }
-        else if (id == R.id.logout) {
+        } else if (id == R.id.logout) {
 
             FacebookSdk.sdkInitialize(getApplicationContext());
             LoginManager.getInstance().logOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-
         }
 
         getSupportActionBar().setTitle(title);

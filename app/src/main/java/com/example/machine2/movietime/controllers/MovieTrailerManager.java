@@ -25,16 +25,16 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
 
 
     public void getTrailerManager(Context context, MovieDetailsListener movieDetailsListener, String id) {
-        String Trailerid;
 
+        String trailerid;
         this.context = context;
         this.movieDetailsListener = movieDetailsListener;
-        Trailerid = id;
-        String trailerId = Trailerid+"/videos?";
+        trailerid = id;
+        String trailerId = trailerid+"/videos?";
         request.setUrl(UrlProvider.MOVIE_TRAILER_URL+trailerId);
-        System.out.println(" Trailer url "+ UrlProvider.MOVIE_TRAILER_URL+trailerId);
+        System.out.println(" Trailer url " + UrlProvider.MOVIE_TRAILER_URL + trailerId);
         request.setHeaders(getHeaders());
-        networkCommunicator = new NetworkCommunicator();
+        networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
 
@@ -59,6 +59,5 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
         moviesErrorParser = new MoviesErrorParser();
         statusMessage = moviesErrorParser.parse(responseBody);
         movieDetailsListener.setErrorMessage(statusMessage);
-
     }
 }

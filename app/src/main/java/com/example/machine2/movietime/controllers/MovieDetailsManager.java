@@ -1,5 +1,8 @@
 package com.example.machine2.movietime.controllers;
 
+import android.content.Context;
+
+import com.example.machine2.movietime.activities.MovieDetailsActivity;
 import com.example.machine2.movietime.models.Requests;
 import com.example.machine2.movietime.parser.MovieDetailsParser;
 import com.example.machine2.movietime.parser.MoviesErrorParser;
@@ -20,18 +23,17 @@ public class MovieDetailsManager extends BaseManager implements NetworkListener 
     NetworkCommunicator networkCommunicator;
 
     //to get the all details of a particular movie by sending all the information to the network communicator class.
-    public void getMovieDetails(MovieDetailsListener movieDetailsListener, String id) {
+    public void getMovieDetails(Context context, MovieDetailsListener movieDetailsListener, String id) {
 
         Requests request;
 
         this.movieDetailsListener = movieDetailsListener;
         this.id = id;
-
         request = new Requests();
-        request.setUrl(UrlProvider.MOVIE_DETAILS_URL + id);
+        request.setUrl(UrlProvider.MOVIE_DETAILS_URL + id+"?");
         request.setHeaders(getHeaders());
 
-        networkCommunicator = new NetworkCommunicator();
+        networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
 

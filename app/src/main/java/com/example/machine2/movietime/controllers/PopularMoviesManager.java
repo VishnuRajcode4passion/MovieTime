@@ -31,7 +31,7 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
         request.setUrl(UrlProvider.POPULAR_URL);
         request.setHeaders(getHeaders());
 
-        networkCommunicator = new NetworkCommunicator();
+        networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
 

@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.controllers.WeatherManager;
-import com.example.machine2.movietime.interfaces.WeatherDetailsListener;
+import com.example.machine2.movietime.controllers.WeatherDetailsListener;
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 
 /**
