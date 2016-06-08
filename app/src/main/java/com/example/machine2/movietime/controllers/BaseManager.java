@@ -25,7 +25,7 @@ public class BaseManager {
     public Map<String, String> getHeader() {
 
         mHeaders = new HashMap<>();
-        mHeaders.put("api_key", Constants.WEATHER_API_KEY);
+        mHeaders.put("appid", Constants.WEATHER_API_KEY);
         return mHeaders;
     }
 }

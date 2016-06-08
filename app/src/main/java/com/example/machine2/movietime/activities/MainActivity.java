@@ -20,6 +20,7 @@ import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.adapters.FavouriteAdapter;
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.controllers.FavouriteManager;
+import com.example.machine2.movietime.controllers.MovieDatabaseManager;
 import com.example.machine2.movietime.controllers.MoviePosterListener;
 import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
@@ -49,6 +50,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     TopRatedMoviesManager topRatedMoviesManager;
 
     PopularMoviesManager popularMoviesManager;
+    MoviePosterListener moviePosterListener;
 
     FavouriteManager favouriteManager;
 
@@ -79,7 +81,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Popular");
+        getSupportActionBar().setTitle(getString(R.string.popular));
 
         //calling the progress dialog from the Base activty
         showDialog();
@@ -157,32 +159,26 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
             topRatedMoviesManager = new TopRatedMoviesManager();
             topRatedMoviesManager.getPosters(this, this);
-            title = "Top Rated";
+            title = getString(R.string.topRated);
 
         } else if (id == R.id.popular) {
 
             showDialog();
 
             popularMoviesManager.getPosters(this, this);
-            title = "Popular";
+            title = getString(R.string.popular);
 
         } else if (id == R.id.favorite) {
 
             showDialog();
+            title = getString(R.string.favourite);
+            
+            MovieDatabaseManager movieDatabaseManager = new MovieDatabaseManager(this);
+            movieDatabaseManager.getFavourite(this,this);
 
-            movieDatabase = new MovieDatabase(this);
-            movieDatabase.open();
 
-            image = movieDatabase.getPoster();
-            ids = movieDatabase.getId();
-
-            favouriteManager = new FavouriteManager();
-            favouriteManager.getPosters(this, this, image, ids);
-
-            movieDatabase.close();
-
-            title = "Favourite";
-        } else if (id == R.id.search) {
+        }
+        else if (id == R.id.search) {
 
             Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
