@@ -90,7 +90,7 @@ public class NetworkCommunicator {
         header = headers.toString();
         header = header.replaceAll("[{}]", "");
 
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url + headers, null,
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url + header, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
