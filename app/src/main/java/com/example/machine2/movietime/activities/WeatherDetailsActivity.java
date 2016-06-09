@@ -31,7 +31,7 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.displayfragment);
-        
+
         temp = (TextView)findViewById(R.id.textView9);
         main = (TextView)findViewById(R.id.textView8);
         windSpeed = (TextView)findViewById(R.id.textView7);
@@ -72,6 +72,8 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
         main.setText(mains);
         country.setText(city_name+","+country_name);
         windSpeed.setText(String.valueOf(wind_speed+"mps"));
+        
+        //set the image into the imageView
         Picasso.with(this).load(image).resize(30,40).into(weatherImage);
 
         dismissDialog();
