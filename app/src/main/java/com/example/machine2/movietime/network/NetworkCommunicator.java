@@ -73,7 +73,7 @@ public class NetworkCommunicator {
         url = request.getUrl();
         id = request.getId();
 
-        if(id ==1) {
+        if(id == 1) {
 
             headers = request.getHeaders();
         }
@@ -86,7 +86,6 @@ public class NetworkCommunicator {
             headers = null;
         }
 
-        headers = request.getHeaders();
         header = headers.toString();
         header = header.replaceAll("[{}]", "");
 
