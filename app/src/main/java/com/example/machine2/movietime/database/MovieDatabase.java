@@ -54,7 +54,6 @@ public class MovieDatabase {
             cursor.moveToFirst();
             try {
                 String state = cursor.getString(3);
-                System.out.println("STATE " + state);
                 return state;
             } catch (Exception e) {
             }
@@ -102,9 +101,6 @@ public class MovieDatabase {
         values.put(MovieUrl, poster);
         values.put(MovieId, id);
         values.put(FavouriteState, favouriteState);
-        System.out.println("image url " + poster);
-        System.out.println("id " + id);
-        System.out.println("favourite state " + favouriteState);
         return sqLiteDatabase.insert(Table, null, values);
     }
 

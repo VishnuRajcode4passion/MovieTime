@@ -14,11 +14,10 @@ import com.example.machine2.movietime.controllers.WeatherManager;
  */
 public class WeatherActivity extends BaseActivity  {
 
-    double temp;
+
     Button search;
     EditText searchCity;
     String cityName;
-    WeatherManager weatherManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +42,4 @@ public class WeatherActivity extends BaseActivity  {
             }
         });
     }
-
 }

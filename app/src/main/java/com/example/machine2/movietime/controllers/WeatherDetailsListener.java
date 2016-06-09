@@ -8,5 +8,7 @@ import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 //interface for the weather activity
 
 public interface WeatherDetailsListener {
+
     void setWeatherDetails(UpdatedWeatherDetails updatedWeatherDetails);
+    void setErrorMessage(String statusMessage);
 }

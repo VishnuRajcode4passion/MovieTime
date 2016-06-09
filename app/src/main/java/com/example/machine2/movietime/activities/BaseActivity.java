@@ -26,6 +26,7 @@ public class BaseActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
+
     //to dismiss dialog
     public void dismissDialog() {
 

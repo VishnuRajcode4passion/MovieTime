@@ -28,8 +28,9 @@ import com.squareup.picasso.Picasso;
 public class MovieDetailsActivity extends BaseActivity implements MovieDetailsListener {
 
     ImageView poster;
-    TextView durations;
     ImageView backArrow;
+
+    TextView durations;
     TextView Rating;
     TextView titles;
     TextView descriptions;
@@ -40,11 +41,11 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
     String id;
     String posters;
+
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
     MovieDatabaseManager databaseManager;
 
-    MovieDatabase db = new MovieDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +70,17 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         showDialog();
 
         movieDetailsManager = new MovieDetailsManager();
-        movieDetailsManager.getMovieDetails(this,this, id);
+        movieDetailsManager.getMovieDetails(this, this, id);
 
         movieTrailerManager = new MovieTrailerManager();
         movieTrailerManager.getTrailerManager(this, this, id);
-
 
         databaseManager = new MovieDatabaseManager(this);
 
         //to check the state of favourite button during loading the MovieDetailsActivity.
         String state = databaseManager.getState(id);
-        System.out.println("STATE3 "+state);
-        if(state != null) {
 
+        if (state != null) {
             if (state.equals("checked")) {
                 favorite.setChecked(true);
             }
@@ -115,11 +114,12 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
                     databaseManager.setFavorite(posters, id, "checked");
                 } else {
 
-                    databaseManager.removeFavorites(id,db);
+                    databaseManager.removeFavorites(id);
                 }
             }
         });
 
+        //to navigate back to main screen.
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +131,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         });
     }
 
+    //to set the details of a movie.
     @Override
     public void setMovieDetails(UpdatedMovieDetails detailResponse) {
 
@@ -157,12 +158,14 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         Picasso.with(this).load(posters).resize(394, 400).into(poster);
     }
 
+    //to set all the trailers in listview.
     @Override
     public void movieTrailer(MovieTrailerAdapter movieTrailerAdapter) {
 
         listView.setAdapter(movieTrailerAdapter);
     }
 
+    //to display the error message ,if there is problem in fetching the contents from server.
     @Override
     public void setErrorMessage(String statusMessage) {
 
@@ -170,5 +173,4 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
-
 }

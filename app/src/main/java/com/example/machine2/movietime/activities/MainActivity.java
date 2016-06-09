@@ -50,15 +50,6 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     TopRatedMoviesManager topRatedMoviesManager;
 
     PopularMoviesManager popularMoviesManager;
-    MoviePosterListener moviePosterListener;
-
-    FavouriteManager favouriteManager;
-
-    MovieDatabase movieDatabase;
-
-    ArrayList<String> image;
-
-    ArrayList<String> ids;
 
     String movieId;
     String title;
@@ -100,7 +91,6 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MovieId = (TextView) view.findViewById(R.id.textView);
-
                 movieId = MovieId.getText().toString();
                 intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movieId);
@@ -172,13 +162,12 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
             showDialog();
             title = getString(R.string.favourite);
-            
+
             MovieDatabaseManager movieDatabaseManager = new MovieDatabaseManager(this);
-            movieDatabaseManager.getFavourite(this,this);
+            movieDatabaseManager.getFavourite(this, this);
 
 
-        }
-        else if (id == R.id.search) {
+        } else if (id == R.id.search) {
 
             Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);

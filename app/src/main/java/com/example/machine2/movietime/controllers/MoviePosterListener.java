@@ -10,8 +10,6 @@ import com.example.machine2.movietime.adapters.MovieImageAdapter;
 public interface MoviePosterListener {
 
     void refreshPoster(MovieImageAdapter imageAdapter);
-
     void setFavourite(FavouriteAdapter favouriteAdapter);
-
     void setErrorMessage(String statusMessage);
 }

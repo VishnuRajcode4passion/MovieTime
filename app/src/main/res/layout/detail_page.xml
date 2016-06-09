@@ -3,7 +3,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -43,10 +44,10 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_marginStart="47dp"
-            android:hint="title"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center|start" android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 
@@ -59,7 +60,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="135dp">
+            android:layout_height="135dp"
+            >
 
             <ImageView
                 android:id="@+id/movie_poster"
@@ -77,40 +79,39 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_toEndOf="@+id/movie_poster"
                 android:layout_weight="0.20"
-                android:text="Year"
                 android:textColor="#000000" />
 
             <CheckBox
                 android:id="@+id/checkBox_favorite"
-                style="?android:attr/starStyle"
+                android:button="@drawable/star_selector"
+                android:layout_marginTop="1dp"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_below="@+id/rating"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/movie_poster"
                 android:checked="false"
-
-                android:text="Favorite"
+                android:text="Favourite"
                 android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="75dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/year_of_relese"
                 android:layout_toEndOf="@+id/movie_poster"
-                android:hint="Rating"
                 android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/durationOfTheMovie"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignStart="@+id/checkBox_favorite"
                 android:layout_below="@id/checkBox_favorite"
-                android:hint="Duration"
                 android:textColor="#000000" />
         </RelativeLayout>
 
@@ -130,6 +131,9 @@
                     android:id="@+id/movie_description"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="5dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:textColor="#000000"
@@ -143,7 +147,6 @@
         android:layout_width="match_parent"
         android:layout_height="140dp">
 
-
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
@@ -152,8 +155,6 @@
             android:divider="#e7e8ef"
             android:dividerHeight="1dp"
             android:listSelector="#ade263">
-
-
         </ListView>
 
     </RelativeLayout>

@@ -66,6 +66,7 @@ public class MovieTrailerAdapter extends BaseAdapter {
             TextView textView;
             TextView trailer;
         }
+
         ViewHolder holder;
 
         if (convertView == null) {

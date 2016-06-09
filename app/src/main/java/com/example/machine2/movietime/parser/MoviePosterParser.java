@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.example.machine2.movietime.BaseParser;
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
+import com.example.machine2.movietime.adapters.MovieTrailerAdapter;
 import com.example.machine2.movietime.models.MoviesPosterResponse;
 
 public class MoviePosterParser extends BaseParser{
