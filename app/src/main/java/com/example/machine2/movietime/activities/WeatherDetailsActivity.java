@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
  * Created by machine2 on 06/06/16.
  */
 public class WeatherDetailsActivity extends  BaseActivity implements WeatherDetailsListener {
+    
     //variable declarations
 
     TextView temp;
@@ -74,5 +75,6 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
         Picasso.with(this).load(image).resize(30,40).into(weatherImage);
 
         dismissDialog();
+
     }
 }
