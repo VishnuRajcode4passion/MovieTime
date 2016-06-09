@@ -3,9 +3,11 @@ package com.example.machine2.movietime.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
@@ -18,8 +20,11 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import java.util.Arrays;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,22 +34,39 @@ public class LoginActivityFragment extends Fragment {
     LoginButton loginButton;
     CallbackManager callbackManager;
     TextView textDetails;
+    ImageView Profpicture;
     AccessTokenTracker tracker;
     ProfileTracker profileTracker;
     AccessToken accessToken;
     Profile profile;
 
-    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
-        @Override
-        public void onSuccess(LoginResult loginResult) {
 
-            accessToken = loginResult.getAccessToken();
-            profile = Profile.getCurrentProfile();
-            displayWelcomeMessage(profile);
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
+
+    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>()
+    {
+
+        @Override
+        public void onSuccess(LoginResult loginResult)
+        {
+
+            if(AccessToken.getCurrentAccessToken()!=null)
+            {
+                Log.v("User is login", "YES");
+                loginButton.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+
+            }
+            else
+            {
+                Log.v("User is not login","OK");
+                LoginManager.getInstance().logInWithReadPermissions(getActivity(), (Arrays.asList("public_profile", "user_friends", "user_birthday", "user_about_me", "email")));
+            }
+
+
 
         }
+
 
         @Override
         public void onCancel() {
@@ -66,6 +88,8 @@ public class LoginActivityFragment extends Fragment {
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
+
+
         tracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -83,6 +107,7 @@ public class LoginActivityFragment extends Fragment {
         };
         tracker.startTracking();
         profileTracker.startTracking();
+
     }
 
     @Override
@@ -95,6 +120,7 @@ public class LoginActivityFragment extends Fragment {
         if(profile!=null)
         {
             textDetails.setText("Welcome"+"\t"+profile.getName());
+            //Profpicture.setImageResource(profile.getProfilePictureUri(150,1500),);
         }
 
     }

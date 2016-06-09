@@ -20,10 +20,12 @@ import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.adapters.FavouriteAdapter;
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
 import com.example.machine2.movietime.controllers.FavouriteManager;
+import com.example.machine2.movietime.controllers.MoviePosterListener;
 import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
 import com.example.machine2.movietime.database.MovieDatabase;
-import com.example.machine2.movietime.interfaces.MoviePosterListener;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
@@ -38,9 +40,8 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
     ActionBarDrawerToggle toggle;
 
-    NavigationView navigationView;
-
     TextView MovieId;
+    TextView FavAlert;
 
     Intent intent;
 
@@ -59,20 +60,30 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     String movieId;
     String title;
 
+
+    private NavigationView navigationView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity_main);
 
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
 
         gridView = (GridView) findViewById(R.id.gridview);
+
+        //Animation
 
         final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in);
 
@@ -90,6 +101,8 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         popularMoviesManager = new PopularMoviesManager();
         popularMoviesManager.getPosters(this, this);
 
+        //Onclick event of gridview
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -97,10 +110,11 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
                 MovieId = (TextView) view.findViewById(R.id.textView);
 
                 movieId = MovieId.getText().toString();
-                intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movieId);
 
 
+                //call for start animation
                 gridView.startAnimation(animation);
 
                 startActivity(intent);
@@ -137,13 +151,29 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onBackPressed() {
 
-        super.onBackPressed();
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
+
+    int backButtonCount = 0;
+    @Override
+    public void onBackPressed(){
+
+
+
+        if(backButtonCount >= 1)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(this, "Press again to exit.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
     }
+
+
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -165,7 +195,8 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
             popularMoviesManager.getPosters(this, this);
             title = "Popular";
 
-        } else if (id == R.id.favorite) {
+        }
+        else if (id == R.id.favorite) {
 
             showDialog();
 
@@ -182,12 +213,31 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
             title = "Favourite";
 
-        } else if (id == R.id.logout) {
+            if(movieDatabase == null)
+            {
+                FavAlert.setText("Nothing To Show");
 
-            Intent intent = new Intent(this, LoginActivity.class);
+            }
+
+
+//            movieDatabaseManager = new MovieDatabaseManager();
+//            movieDatabaseManager.getFavourite();
+        }
+        else if (id == R.id.search) {
+
+            Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.logout) {
 
+            FacebookSdk.sdkInitialize(getApplicationContext());
+            LoginManager.getInstance().logOut();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         getSupportActionBar().setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
         return true;
