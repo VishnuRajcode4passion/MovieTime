@@ -37,7 +37,7 @@ public class WeatherActivity extends BaseActivity  {
                 if (cityName !=null) {
 
                     Intent intent = new Intent(WeatherActivity.this,WeatherDetailsActivity.class);
-                    intent.putExtra("cityName",cityName);
+                    intent.putExtra("cityname",cityName);
                     startActivity(intent);
                 }
             }

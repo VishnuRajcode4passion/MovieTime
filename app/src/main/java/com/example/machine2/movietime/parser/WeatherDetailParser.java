@@ -6,16 +6,19 @@ import com.google.gson.Gson;
 /**
  * Created by machine2 on 06/06/16.
  */
+//parser class for Weather details
 public class WeatherDetailParser {
     Gson gson;
-    WeatherResponse.MainBean weatherResponse;
+    WeatherResponse weatherResponse;
     String responseString;
 
-    public WeatherResponse.MainBean parse(byte[] responseBody) {
+    //method declaration for getting the weather responses
 
+    public WeatherResponse parse(byte[] responseBody) {
         responseString = new String(responseBody);
         gson = new Gson();
-        weatherResponse = gson.fromJson(responseString, WeatherResponse.MainBean.class);
+        weatherResponse = gson.fromJson(responseString, WeatherResponse.class);
+        System.out.println("WEATHER RESPONSE "+weatherResponse);
         return  weatherResponse;
     }
 }

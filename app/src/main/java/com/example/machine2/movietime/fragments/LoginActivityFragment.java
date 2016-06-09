@@ -23,12 +23,15 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.login.widget.ProfilePictureView;
 
 import java.util.Arrays;
 
 /**
  * A placeholder fragment containing a simple view.
  */
+//fragment for the login activity
+
 public class LoginActivityFragment extends Fragment {
 
     LoginButton loginButton;
@@ -39,6 +42,10 @@ public class LoginActivityFragment extends Fragment {
     ProfileTracker profileTracker;
     AccessToken accessToken;
     Profile profile;
+    String image_url;
+    ProfilePictureView CurrentProfPic;
+
+//facebook login
 
 
 
@@ -46,15 +53,20 @@ public class LoginActivityFragment extends Fragment {
     {
 
         @Override
-        public void onSuccess(LoginResult loginResult)
-        {
-
+        public void onSuccess(LoginResult loginResult) {
+            accessToken = loginResult.getAccessToken();
+            profile = Profile.getCurrentProfile();
+            displayWelcomeMessage(profile);
             if(AccessToken.getCurrentAccessToken()!=null)
             {
                 Log.v("User is login", "YES");
                 loginButton.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                System.out.println("url" + image_url);
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                intent.putExtra("url",image_url);
+
                 startActivity(intent);
+                getActivity().finish();
 
             }
             else
@@ -62,7 +74,6 @@ public class LoginActivityFragment extends Fragment {
                 Log.v("User is not login","OK");
                 LoginManager.getInstance().logInWithReadPermissions(getActivity(), (Arrays.asList("public_profile", "user_friends", "user_birthday", "user_about_me", "email")));
             }
-
 
 
         }
@@ -87,6 +98,8 @@ public class LoginActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+
+
 
 
 
@@ -115,12 +128,21 @@ public class LoginActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_loginactivity_fragment, container, false);
     }
+
+    //set the display messages
+
     public void displayWelcomeMessage(Profile profile)
     {
         if(profile!=null)
         {
+
             textDetails.setText("Welcome"+"\t"+profile.getName());
             //Profpicture.setImageResource(profile.getProfilePictureUri(150,1500),);
+
+            image_url = profile.getProfilePictureUri(150,200).toString();
+
+
+
         }
 
     }
@@ -135,8 +157,9 @@ public class LoginActivityFragment extends Fragment {
         loginButton.registerCallback(callbackManager, callback);
         textDetails = (TextView) view.findViewById(R.id.details);
 
-    }
 
+    }
+//resuming the data of the user before login
     @Override
     public void onResume() {
         super.onResume();
@@ -144,7 +167,7 @@ public class LoginActivityFragment extends Fragment {
         displayWelcomeMessage(profile);
 
     }
-
+//dismiss the data
     @Override
     public void onStop() {
         super.onStop();
@@ -156,5 +179,7 @@ public class LoginActivityFragment extends Fragment {
    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
+
 }

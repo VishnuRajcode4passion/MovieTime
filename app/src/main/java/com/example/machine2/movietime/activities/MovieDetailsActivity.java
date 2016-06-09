@@ -44,7 +44,6 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
     String id;
     String posters;
-
     MovieDetailsManager movieDetailsManager;
     MovieTrailerManager movieTrailerManager;
     MovieDatabaseManager databaseManager;
@@ -69,27 +68,34 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         listView     = (ListView) findViewById(R.id.listView);
         favorite     = (CheckBox) findViewById(R.id.checkBox_favorite);
 
+        //to receive the movie id from MainActivity.
         bundle = getIntent().getExtras();
         id = bundle.getString("selectedId");
 
         showDialog();
 
         movieDetailsManager = new MovieDetailsManager();
-        movieDetailsManager.getMovieDetails(this, id);
+        movieDetailsManager.getMovieDetails(this,this, id);
 
         movieTrailerManager = new MovieTrailerManager();
         movieTrailerManager.getTrailerManager(this, this, id);
 
-        databaseManager = new MovieDatabaseManager();
 
-        String state = databaseManager.getState(id, db);
-        System.out.println("STATE3 " + state);
-        if (state != null) {
+
+        databaseManager = new MovieDatabaseManager(this);
+
+        //to check the state of favourite button during loading the MovieDetailsActivity.
+        String state = databaseManager.getState(id);
+        System.out.println("STATE3 "+state);
+        if(state != null) {
+
 
             if (state.equals("checked")) {
                 favorite.setChecked(true);
             }
         }
+
+        //to show the trailer of a particular movie in youtube.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -110,13 +116,14 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             }
         });
 
+        //when favourite button is checked,insert favourite movie into data base,otherwise delete movie from data
         favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if ((buttonView.isChecked() == true)) {
 
-                    databaseManager.setFavorite(posters, id, "checked", db);
+                    databaseManager.setFavorite(posters, id, "checked");
                 } else {
 
                     databaseManager.removeFavorites(id, db);
@@ -131,7 +138,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
 
                 Intent intent;
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(MovieDetailsActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
@@ -177,4 +184,5 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
 
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
+
 }

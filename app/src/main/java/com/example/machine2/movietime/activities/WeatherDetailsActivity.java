@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.controllers.WeatherManager;
-import com.example.machine2.movietime.interfaces.WeatherDetailsListener;
+import com.example.machine2.movietime.controllers.WeatherDetailsListener;
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 
 /**
@@ -23,10 +23,11 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
         setContentView(R.layout.displayfragment);
         temp = (TextView)findViewById(R.id.textView5);
         bundle = getIntent().getExtras();
-       city_name = bundle.getString("cityName");
+        city_name = bundle.getString("cityname");
+        System.out.println("citys"+city_name);
 
         WeatherManager weatherManager = new WeatherManager();
-        weatherManager.getWeather(this,city_name);
+        weatherManager.getWeather(this,this,city_name);
 
         showDialog();
 
@@ -35,9 +36,10 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
 
     @Override
     public void setWeatherDetails(UpdatedWeatherDetails updatedWeatherDetails) {
-       double temperature;
-        temperature = updatedWeatherDetails.getTemp();
-
-        temp.setText(String.valueOf(temperature));
+      String main;
+        main = updatedWeatherDetails.getTemp();
+        System.out.println("main"+main);
+        temp.setText(main);
+        dismissDialog();
     }
 }

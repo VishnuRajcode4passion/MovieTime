@@ -70,7 +70,7 @@ public class MovieImageAdapter extends BaseAdapter {
         //class to hold all the views in a single row.
         class ViewHolder {
 
-            ImageView imageView;
+            ImageView MoviePosterView;
             TextView movieId;
             String posterUrl;
             String imageUrl;
@@ -84,7 +84,7 @@ public class MovieImageAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.single_row_image_adapter, null);
             holder = new ViewHolder();
             holder.movieId = (TextView) convertView.findViewById(R.id.textView);
-            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+            holder.MoviePosterView = (ImageView) convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         } else {
 
@@ -101,7 +101,7 @@ public class MovieImageAdapter extends BaseAdapter {
         holder.image = holder.posterUrl + holder.imageUrl + params;
 
         //Loading image from  url into imageView
-        Picasso.with(context).load(holder.image).resize(394, 400).into(holder.imageView);
+        Picasso.with(context).load(holder.image).resize(394, 400).into(holder.MoviePosterView);
         holder.movieId.setText(String.valueOf(id));
 
         return convertView;

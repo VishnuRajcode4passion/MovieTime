@@ -12,8 +12,10 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
-    <include layout="@layout/nav_header_news_feed"
-        android:id="@+id/navigation_header"/>
+   <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="match_parent"
+       android:id="@+id/profile_image"/>
 
 
 </LinearLayout>

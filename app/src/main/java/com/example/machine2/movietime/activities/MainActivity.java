@@ -13,23 +13,23 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.adapters.FavouriteAdapter;
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
-import com.example.machine2.movietime.controllers.FavouriteManager;
+import com.example.machine2.movietime.controllers.MovieDatabaseManager;
 import com.example.machine2.movietime.controllers.MoviePosterListener;
 import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
 import com.example.machine2.movietime.database.MovieDatabase;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
-public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener  {
+public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener {
 
     //variable declaration
     GridView gridView;
@@ -43,19 +43,15 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     TextView MovieId;
     TextView FavAlert;
 
+    ImageView CurrentProfPic;
+
     Intent intent;
 
     TopRatedMoviesManager topRatedMoviesManager;
 
     PopularMoviesManager popularMoviesManager;
 
-    FavouriteManager favouriteManager;
-
     MovieDatabase movieDatabase;
-
-    ArrayList<String> image;
-
-    ArrayList<String> ids;
 
     String movieId;
     String title;
@@ -70,6 +66,9 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity_main);
 
+        CurrentProfPic = (ImageView)findViewById(R.id.profile_image);
+
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
 
@@ -83,12 +82,26 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
         gridView = (GridView) findViewById(R.id.gridview);
 
-        //Animation
 
-        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in);
+        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Popular");
+        getSupportActionBar().setTitle(getString(R.string.popular));
+try {
+    Bundle bundle = getIntent().getExtras();
+    String image_url = bundle.getString("url");
+    System.out.println("image" + image_url);
+
+    Picasso.with(getApplicationContext()).load(image_url).into(CurrentProfPic);
+
+
+}
+catch(Exception e)
+        {
+
+        }
+
+
 
         //calling the progress dialog from the Base activty
         showDialog();
@@ -101,7 +114,6 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         popularMoviesManager = new PopularMoviesManager();
         popularMoviesManager.getPosters(this, this);
 
-        //Onclick event of gridview
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -113,21 +125,14 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
                 Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movieId);
 
-
-                //call for start animation
                 gridView.startAnimation(animation);
 
                 startActivity(intent);
             }
         });
-
-
     }
 
-
-
-
-    //sets gridview..
+    //set  posters in  gridview..
     @Override
     public void refreshPoster(MovieImageAdapter imageAdapter) {
 
@@ -135,6 +140,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView.setAdapter(imageAdapter);
     }
 
+    //set favourite movie posters in grid view.
     @Override
     public void setFavourite(FavouriteAdapter favouriteAdapter) {
 
@@ -143,6 +149,7 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         gridView.setAdapter(favouriteAdapter);
     }
 
+    // //to display the error message ,if there is problem in fetching the contents from server.
     @Override
     public void setErrorMessage(String statusMessage) {
 
@@ -153,9 +160,12 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
 
 
+
     int backButtonCount = 0;
+
     @Override
     public void onBackPressed(){
+
 
 
 
@@ -175,8 +185,13 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
 
 
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+
+
+
 
         int id = item.getItemId();
 
@@ -186,55 +201,46 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
             topRatedMoviesManager = new TopRatedMoviesManager();
             topRatedMoviesManager.getPosters(this, this);
-            title = "Top Rated";
+            title = getString(R.string.topRated);
 
         } else if (id == R.id.popular) {
 
             showDialog();
 
             popularMoviesManager.getPosters(this, this);
-            title = "Popular";
+            title = getString(R.string.popular);
 
         }
         else if (id == R.id.favorite) {
 
             showDialog();
+            title = getString(R.string.favourite);
+            
+            MovieDatabaseManager movieDatabaseManager = new MovieDatabaseManager(this);
+            movieDatabaseManager.getFavourite(this,this);
 
-            movieDatabase = new MovieDatabase(this);
-            movieDatabase.open();
 
-            image = movieDatabase.getPoster();
-            ids = movieDatabase.getId();
 
-            favouriteManager = new FavouriteManager();
-            favouriteManager.getPosters(this, this, image, ids);
-
-            movieDatabase.close();
+           // movieDatabase.close();
 
             title = "Favourite";
 
-            if(movieDatabase == null)
-            {
-                FavAlert.setText("Nothing To Show");
-
-            }
 
 
 //            movieDatabaseManager = new MovieDatabaseManager();
 //            movieDatabaseManager.getFavourite();
+
         }
         else if (id == R.id.search) {
 
             Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
-        }
-        else if (id == R.id.logout) {
+        } else if (id == R.id.logout) {
 
             FacebookSdk.sdkInitialize(getApplicationContext());
             LoginManager.getInstance().logOut();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

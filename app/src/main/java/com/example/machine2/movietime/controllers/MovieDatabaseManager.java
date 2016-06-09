@@ -1,6 +1,11 @@
 package com.example.machine2.movietime.controllers;
 
+import android.content.Context;
+
+import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.database.MovieDatabase;
+
+import java.util.ArrayList;
 
 /**
  * Created by machine2 on 31/05/16.
@@ -8,17 +13,26 @@ import com.example.machine2.movietime.database.MovieDatabase;
 public class MovieDatabaseManager {
 
     String posters;
+    String  title;
     String id;
-    MovieDatabase db;
+    Context context;
     String favouriteState;
+    MovieDatabase db;
+    ArrayList<String> image;
+
+    ArrayList<String> ids;
+    public MovieDatabaseManager(Context context)
+     {
+     this.context = context;
+      db = new MovieDatabase(context);
+    }
 
     //to insert favourite movie into data base.
-    public void setFavorite(String posters, String id, String b, MovieDatabase db) {
+    public void setFavorite(String posters, String id, String check_state) {
 
-        this.favouriteState = b;
+        this.favouriteState = check_state;
         this.posters = posters;
         this.id = id;
-        this.db = db;
         db.open();
         db.insert(posters, id, favouriteState);
         db.close();
@@ -34,7 +48,7 @@ public class MovieDatabaseManager {
     }
 
      //to get the state,ie. whether a particular movie is marked as checked or not.
-    public String getState(String id, MovieDatabase db) {
+    public String getState(String id) {
 
         db.open();
         String state = db.getFavouriteState(id);
@@ -42,4 +56,22 @@ public class MovieDatabaseManager {
         System.out.println("STATE2 " + state);
         return state;
     }
+    public void getFavourite(Context context, MoviePosterListener moviePosterListener)
+    {
+
+       FavouriteManager favouriteManager;
+
+        db.open();
+
+        image = db.getPoster();
+        ids = db.getId();
+
+        favouriteManager = new FavouriteManager(moviePosterListener);
+        favouriteManager.getPosters(context, image, ids);
+
+        db.close();
+
+
+    }
 }
+
