@@ -72,7 +72,7 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
         main.setText(mains);
         country.setText(city_name+","+country_name);
         windSpeed.setText(String.valueOf(wind_speed+"mps"));
-        
+
         //set the image into the imageView
         Picasso.with(this).load(image).resize(30,40).into(weatherImage);
 
