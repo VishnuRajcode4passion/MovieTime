@@ -125,7 +125,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             public void onClick(View v) {
 
                 Intent intent;
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(MovieDetailsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

@@ -19,16 +19,12 @@ import android.widget.Toast;
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.adapters.FavouriteAdapter;
 import com.example.machine2.movietime.adapters.MovieImageAdapter;
-import com.example.machine2.movietime.controllers.FavouriteManager;
 import com.example.machine2.movietime.controllers.MovieDatabaseManager;
 import com.example.machine2.movietime.controllers.MoviePosterListener;
 import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
-import com.example.machine2.movietime.database.MovieDatabase;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-
-import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity implements MoviePosterListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,15 +46,6 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
     TopRatedMoviesManager topRatedMoviesManager;
 
     PopularMoviesManager popularMoviesManager;
-    MoviePosterListener moviePosterListener;
-
-    FavouriteManager favouriteManager;
-
-    MovieDatabase movieDatabase;
-
-    ArrayList<String> image;
-
-    ArrayList<String> ids;
 
     String movieId;
     String title;
@@ -82,6 +69,15 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.popular));
+try {
+    Bundle bundle = getIntent().getExtras();
+    String image_url = bundle.getString("url");
+    System.out.println("image" + image_url);
+}
+catch(Exception e)
+        {
+
+        }
 
         //calling the progress dialog from the Base activty
         showDialog();

@@ -39,6 +39,7 @@ public class LoginActivityFragment extends Fragment {
     ProfileTracker profileTracker;
     AccessToken accessToken;
     Profile profile;
+   String image_url;
 
 //facebook login
 
@@ -52,8 +53,9 @@ public class LoginActivityFragment extends Fragment {
             {
                 Log.v("User is login", "YES");
                 loginButton.setVisibility(View.INVISIBLE);
-
+                System.out.println("url" + image_url);
                 Intent intent = new Intent(getActivity(),MainActivity.class);
+                intent.putExtra("url",image_url);
                 startActivity(intent);
                 getActivity().finish();
 
@@ -106,8 +108,6 @@ public class LoginActivityFragment extends Fragment {
         profileTracker.startTracking();
 
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -120,7 +120,10 @@ public class LoginActivityFragment extends Fragment {
     {
         if(profile!=null)
         {
-            textDetails.setText("Login As"+":"+profile.getName());
+            image_url = profile.getProfilePictureUri(150,200).toString();
+
+            textDetails.setText("Login As" + ":" + profile.getName());
+
         }
 
     }
@@ -134,6 +137,7 @@ public class LoginActivityFragment extends Fragment {
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, callback);
         textDetails = (TextView) view.findViewById(R.id.details);
+
 
     }
 //resuming the data of the user before login
