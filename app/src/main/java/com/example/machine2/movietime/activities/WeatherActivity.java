@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.controllers.WeatherManager;
@@ -20,15 +21,19 @@ public class WeatherActivity extends BaseActivity  {
     String cityName;
     WeatherManager weatherManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchfragment);
+
         search = (Button) findViewById(R.id.searchs);
         searchCity = (EditText)findViewById(R.id.search);
 
-               search.setOnClickListener(new View.OnClickListener() {
+
+
+        search.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -42,6 +47,8 @@ public class WeatherActivity extends BaseActivity  {
                 }
             }
         });
+
+
     }
 
 }

@@ -8,8 +8,20 @@ import java.util.Map;
 public class Requests {
 
     String url;
+    Integer id;
+
     Map<String, String> headers;
     Map<String, String> header;
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+
+    }
+    public Integer getId()
+    {
+        return id;
+    }
 
     public String getUrl() {
         return url;

@@ -23,7 +23,6 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.facebook.login.widget.ProfilePictureView;
 
 import java.util.Arrays;
 
@@ -43,7 +42,7 @@ public class LoginActivityFragment extends Fragment {
     AccessToken accessToken;
     Profile profile;
     String image_url;
-    ProfilePictureView CurrentProfPic;
+
 
 //facebook login
 

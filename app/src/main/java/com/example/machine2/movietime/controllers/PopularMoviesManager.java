@@ -23,11 +23,12 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
     //to pass the information regarding popular movies to network communicator and sets the results in gridview.
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
         Requests request;
-
+        Integer requestId=1;
         this.context = context;
         this.moviePosterListener = moviePosterListener;
 
         request = new Requests();
+        request.setId(requestId);
         request.setUrl(UrlProvider.POPULAR_URL);
         request.setHeaders(getHeaders());
 
