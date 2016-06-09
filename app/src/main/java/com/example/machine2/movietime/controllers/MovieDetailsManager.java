@@ -2,29 +2,31 @@ package com.example.machine2.movietime.controllers;
 
 import android.content.Context;
 
-import com.example.machine2.movietime.models.Requests;
-import com.example.machine2.movietime.parser.MovieDetailsParser;
-import com.example.machine2.movietime.parser.MoviesErrorParser;
-import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MovieDetailResponse;
+import com.example.machine2.movietime.models.Requests;
+import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;
+import com.example.machine2.movietime.parser.MovieDetailsParser;
+import com.example.machine2.movietime.parser.MoviesErrorParser;
 
 /**
  * Created by machine2 on 26/05/16.
  */
 public class MovieDetailsManager extends BaseManager implements NetworkListener {
 
+
     MovieDetailsListener movieDetailsListener;
 
     //to get the all details of a particular movie by sending all the information to the network communicator class.
     public void getMovieDetails(Context context, MovieDetailsListener movieDetailsListener, String id) {
 
-        Requests request;
+        Integer requestId = 1;
+        Requests request = new Requests();
         this.movieDetailsListener = movieDetailsListener;
-        request = new Requests();
-        request.setUrl(UrlProvider.MOVIE_DETAILS_URL + id + "?");
+        request.setId(requestId);
+        request.setUrl(UrlProvider.MOVIE_DETAILS_URL + id+"?");
         request.setHeaders(getHeaders());
 
         NetworkCommunicator networkCommunicator = new NetworkCommunicator(context);

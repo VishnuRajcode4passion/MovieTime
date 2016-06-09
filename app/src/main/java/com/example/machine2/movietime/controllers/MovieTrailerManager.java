@@ -24,12 +24,14 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
     //method for getting the trailer URL and header
     public void getTrailerManager(Context context, MovieDetailsListener movieDetailsListener, String id) {
 
+        Integer requestId = 1;
         String trailerid;
         Requests request = new Requests();
         this.movieDetailsListener = movieDetailsListener;
         trailerid = id;
-        String trailerId = trailerid + "/videos?";
-        request.setUrl(UrlProvider.MOVIE_TRAILER_URL + trailerId);
+        String trailerId = trailerid+"/videos?";
+        request.setId(requestId);
+        request.setUrl(UrlProvider.MOVIE_TRAILER_URL+trailerId);
         System.out.println(" Trailer url " + UrlProvider.MOVIE_TRAILER_URL + trailerId);
         request.setHeaders(getHeaders());
         NetworkCommunicator networkCommunicator = new NetworkCommunicator(context);

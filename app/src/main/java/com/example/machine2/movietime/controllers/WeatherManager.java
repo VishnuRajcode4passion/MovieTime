@@ -22,30 +22,46 @@ public class WeatherManager extends BaseManager implements NetworkListener {
 
     //method for getting the URL and headers
     public void getWeather(Context context,WeatherDetailsListener weatherDetailsListener, String city_name) {
-
+        Integer requestId = 2;
         Requests request;
         this.weatherDetailsListener = weatherDetailsListener;
         request = new Requests();
-        request.setUrl(UrlProvider.WEATHER_URL+city_name);
+        request.setUrl(UrlProvider.WEATHER_URL+city_name+"&units=metric"+"&");
         request.setHeader(getHeader());
+        request.setId(requestId);
+
         NetworkCommunicator networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
 
-    //implemeting the methods ofNetworkListener.
+    //implemeting the methods of NetworkListener.
     @Override
+
     public void onSuccess(Context context,byte[] responseBody) {
 
         UpdatedWeatherDetails updatedWeatherDetails = new UpdatedWeatherDetails();
         WeatherDetailParser weatherDetailParser = new WeatherDetailParser();
         WeatherResponse weatherResponse;
-
         weatherResponse = weatherDetailParser.parse(responseBody);
+
+        Double temp = weatherResponse.getMain().getTemp();
+        String main =  weatherResponse.getWeather().get(0).getDescription();
+        String image = weatherResponse.getWeather().get(0).getIcon();
+        String country = weatherResponse.getSys().getCountry();
+        String city = weatherResponse.getName();
+        Double Wind_speed = weatherResponse.getWind().getSpeed();
         System.out.println("weatherResponse  " + weatherResponse);
-        System.out.println("weatherResponse.getMain()" + weatherResponse.getDescription());
-        updatedWeatherDetails.setTemp(weatherResponse.getMain());
+        System.out.println("weatherResponse.getMain()" + weatherResponse.getMain());
+
+        updatedWeatherDetails.setTemp(temp);
+        updatedWeatherDetails.setMain(main);
+        updatedWeatherDetails.setWeatherImage(image);
+        updatedWeatherDetails.setCountry(country);
+        updatedWeatherDetails.setWindSpeed(Wind_speed);
+        updatedWeatherDetails.setCity(city);
 
         weatherDetailsListener.setWeatherDetails(updatedWeatherDetails);
+
     }
 
     //to display the error message ,if there is problem in fetching the contents from server.

@@ -21,9 +21,11 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
 
         Requests request;
+        Integer requestId=1;
         this.moviePosterListener = moviePosterListener;
 
         request = new Requests();
+        request.setId(requestId);
         request.setUrl(UrlProvider.POPULAR_URL);
         request.setHeaders(getHeaders());
 

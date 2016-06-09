@@ -39,6 +39,7 @@ public class LoginActivityFragment extends Fragment {
     ProfileTracker profileTracker;
     AccessToken accessToken;
     Profile profile;
+    String image_url;
 
     //facebook login
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
@@ -55,7 +56,8 @@ public class LoginActivityFragment extends Fragment {
                 Log.v("User is login", "YES");
                 loginButton.setVisibility(View.INVISIBLE);
 
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                intent.putExtra("url",image_url);
                 startActivity(intent);
                 getActivity().finish();
 
@@ -110,8 +112,9 @@ public class LoginActivityFragment extends Fragment {
 
     //set the display messages
     public void displayWelcomeMessage(Profile profile) {
+        if(profile!=null) {
+            image_url = profile.getProfilePictureUri(150,200).toString();
 
-        if (profile != null) {
             textDetails.setText("Login As" + ":" + profile.getName());
         }
     }
