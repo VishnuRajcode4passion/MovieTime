@@ -2,6 +2,7 @@
 package com.example.machine2.movietime.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -87,5 +88,14 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
 
         dismissDialog();
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
+    }
+
+    //to navigate to Main Activity when back button is pressed.
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }
