@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
  * Created by machine2 on 06/06/16.
  */
 public class WeatherDetailsActivity extends  BaseActivity implements WeatherDetailsListener {
-    
+
     //variable declarations
 
     TextView temp;
@@ -31,6 +31,7 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.displayfragment);
+        
         temp = (TextView)findViewById(R.id.textView9);
         main = (TextView)findViewById(R.id.textView8);
         windSpeed = (TextView)findViewById(R.id.textView7);
@@ -39,7 +40,6 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
         imageView = (ImageView)findViewById(R.id.imageView3);
         bundle = getIntent().getExtras();
         city_name = bundle.getString("cityname");
-        System.out.println("citys" + city_name);
 
         WeatherManager weatherManager = new WeatherManager();
         weatherManager.getWeather(this,this,city_name);
