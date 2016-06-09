@@ -137,9 +137,7 @@ catch(Exception e)
     @Override
     public void onBackPressed() {
 
-        super.onBackPressed();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+       finish();
     }
 
     //based on item click in navigation menu,corresponding title and posters are set in grid view.

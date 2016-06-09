@@ -1,6 +1,7 @@
 
 package com.example.machine2.movietime.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
 
     //implementing inteface to set the details
     @Override
-    public void setWeatherDetails(UpdatedWeatherDetails updatedWeatherDetails) {
+    public void setWeatherDetails(Context context, UpdatedWeatherDetails updatedWeatherDetails) {
 
         Double temps;
         Double wind_speed;

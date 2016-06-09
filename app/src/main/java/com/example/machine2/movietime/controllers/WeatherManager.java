@@ -22,6 +22,7 @@ public class WeatherManager extends BaseManager implements NetworkListener {
 
     //method for getting the URL and headers
     public void getWeather(Context context,WeatherDetailsListener weatherDetailsListener, String city_name) {
+
         Integer requestId = 2;
         Requests request;
         this.weatherDetailsListener = weatherDetailsListener;
@@ -60,7 +61,7 @@ public class WeatherManager extends BaseManager implements NetworkListener {
         updatedWeatherDetails.setWindSpeed(Wind_speed);
         updatedWeatherDetails.setCity(city);
 
-        weatherDetailsListener.setWeatherDetails(updatedWeatherDetails);
+        weatherDetailsListener.setWeatherDetails(context,updatedWeatherDetails);
 
     }
 
