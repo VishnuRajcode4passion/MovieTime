@@ -20,16 +20,18 @@ import java.util.Map;
  */
 public class NetworkCommunicator {
 
- //   Variables declarations
+    //Variables declarations
 //    AsyncHttpClient client;
 //    RequestParams params;
 //    String url;
+//    Context context;
 //
 //    //method created for sending requestUrl to server
 //    public void sendRequest(final NetworkListener networkListener, Requests request) {
 //
 //        url = request.getUrl();
-//        params = new RequestParams(request.getHeaders());
+//        params = new RequestParams(request.getHeader());
+//        System.out.println("urls"+url+params);
 //        client = new AsyncHttpClient();
 //        client.get(url, params, new AsyncHttpResponseHandler() {
 //
@@ -54,6 +56,7 @@ public class NetworkCommunicator {
     JsonObjectRequest jsonObjectRequest;
     String url;
     String result;
+    Integer id;
     Map<String, String> headers;
 
     public NetworkCommunicator(Context context) {
@@ -65,7 +68,21 @@ public class NetworkCommunicator {
 
         requestQueue = Volley.newRequestQueue(context);
         url = request.getUrl();
-        headers = request.getHeaders();
+        id = request.getId();
+
+        if(id ==1) {
+
+            headers = request.getHeaders();
+        }
+        else if(id == 2)
+        {
+            headers = request.getHeader();
+        }
+        else
+        {
+            headers = null;
+        }
+
         result = headers.toString();
         result = result.replaceAll("[{}]", "");
 

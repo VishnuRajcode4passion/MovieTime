@@ -25,11 +25,13 @@ public class TopRatedMoviesManager extends BaseManager implements NetworkListene
 //Method declaration for the top rated movies
 
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
+        Integer requestId=1;
 
         this.context = context;
         this.moviePosterListener = moviePosterListener;
 
         Requests request = new Requests();
+        request.setId(requestId);
         request.setUrl(UrlProvider.TOP_RATED_URL);
         request.setHeaders(getHeaders());
 

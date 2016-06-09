@@ -39,7 +39,7 @@ public class LoginActivityFragment extends Fragment {
     ProfileTracker profileTracker;
     AccessToken accessToken;
     Profile profile;
-   String image_url;
+    String image_url;
 
 //facebook login
 
