@@ -164,6 +164,7 @@ catch(Exception e)
         } else if (id == R.id.favorite) {
 
             showDialog();
+
             title = getString(R.string.favourite);
 
             MovieDatabaseManager movieDatabaseManager = new MovieDatabaseManager(this);
@@ -171,9 +172,10 @@ catch(Exception e)
 
 
         } else if (id == R.id.search) {
-
+                        
             Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
+
         } else if (id == R.id.logout) {
 
             FacebookSdk.sdkInitialize(getApplicationContext());
