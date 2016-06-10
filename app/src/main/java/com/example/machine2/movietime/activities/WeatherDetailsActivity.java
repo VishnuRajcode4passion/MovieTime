@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 /**
  * Created by machine2 on 06/06/16.
  */
-public class WeatherDetailsActivity extends  BaseActivity implements WeatherDetailsListener {
+public class WeatherDetailsActivity extends BaseActivity implements WeatherDetailsListener {
     //variable declarations
 
     TextView temp;
@@ -27,27 +27,27 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
     Bundle bundle;
     String city_name;
     ImageView Home;
-    ImageView arrow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.displayfragment);
-        temp = (TextView)findViewById(R.id.textView9);
-        main = (TextView)findViewById(R.id.textView8);
-        windSpeed = (TextView)findViewById(R.id.textView7);
-        country = (TextView)findViewById(R.id.textView5);
-        weatherImage = (ImageView)findViewById(R.id.showicon);
-        Home = (ImageView)findViewById(R.id.HomePage);
-        arrow = (ImageView) findViewById(R.id.imageView3);
+        temp = (TextView) findViewById(R.id.textView9);
+        main = (TextView) findViewById(R.id.textView8);
+        windSpeed = (TextView) findViewById(R.id.textView7);
+        country = (TextView) findViewById(R.id.textView5);
+        weatherImage = (ImageView) findViewById(R.id.showicon);
+        Home = (ImageView) findViewById(R.id.HomePage);
+
 
         bundle = getIntent().getExtras();
         city_name = bundle.getString("cityname");
         System.out.println("citys" + city_name);
 
         WeatherManager weatherManager = new WeatherManager();
-        weatherManager.getWeather(this,this,city_name);
+        weatherManager.getWeather(this, this, city_name);
 
         showDialog();
 
@@ -60,19 +60,18 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
             }
         });
 
-        arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(WeatherDetailsActivity.this, WeatherActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
 
     }
-//implementing inteface to set the details
+
+    @Override
+    public void onBackPressed() {
+        Intent intent;
+        intent = new Intent(WeatherDetailsActivity.this, WeatherActivity.class);
+        startActivity(intent);
+
+    }
+
+    //implementing inteface to set the details
 
     @Override
     public void setWeatherDetails(UpdatedWeatherDetails updatedWeatherDetails) {
@@ -92,11 +91,11 @@ public class WeatherDetailsActivity extends  BaseActivity implements WeatherDeta
         city_name = updatedWeatherDetails.getCity();
         wind_speed = updatedWeatherDetails.getWindSpeed();
 
-        temp.setText(String.valueOf(temps)+ " °C");
+        temp.setText(String.valueOf(temps) + " °C");
         main.setText(mains);
-        country.setText(city_name+","+country_name);
-        windSpeed.setText(String.valueOf(wind_speed+"mps"));
-        Picasso.with(this).load(image).resize(30,40).into(weatherImage);
+        country.setText(city_name + "," + country_name);
+        windSpeed.setText(String.valueOf(wind_speed + "mps"));
+        Picasso.with(this).load(image).resize(30, 40).into(weatherImage);
 
         dismissDialog();
     }
