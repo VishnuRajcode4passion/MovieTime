@@ -16,15 +16,12 @@ import com.example.machine2.movietime.network.NetworkListener;
 public class PopularMoviesManager extends BaseManager implements NetworkListener {
 
     MoviePosterListener moviePosterListener;
-    MovieImageAdapter movieImageAdapter;
-    NetworkCommunicator networkCommunicator;
-    Context context;
 
     //to pass the information regarding popular movies to network communicator and sets the results in gridview.
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
+
         Requests request;
         Integer requestId=1;
-        this.context = context;
         this.moviePosterListener = moviePosterListener;
 
         request = new Requests();
@@ -32,17 +29,18 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
         request.setUrl(UrlProvider.POPULAR_URL);
         request.setHeaders(getHeaders());
 
-        networkCommunicator = new NetworkCommunicator(context);
+        NetworkCommunicator networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
 
-    //when the request was successful,the response body is obtained from network communicator class and the posters are set in grid view.
+    //when the request was successful,the response body is obtained from network communicator class.
     @Override
-    public void onSuccess(byte[] responseBody) {
+    public void onSuccess(Context context, byte[] responseBody) {
 
         MoviePosterParser moviePosterParser;
         moviePosterParser = new MoviePosterParser();
-        movieImageAdapter = moviePosterParser.parse(context, responseBody);
+        MovieImageAdapter movieImageAdapter = moviePosterParser.parse(context, responseBody);
+
         moviePosterListener.refreshPoster(movieImageAdapter);
     }
 
@@ -54,6 +52,7 @@ public class PopularMoviesManager extends BaseManager implements NetworkListener
         MoviesErrorParser moviesErrorParser;
         moviesErrorParser = new MoviesErrorParser();
         statusMessage = moviesErrorParser.parse(responseBody);
+
         moviePosterListener.setErrorMessage(statusMessage);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.machine2.movietime.controllers;
 
+import android.content.Context;
+
 import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 
 /**
@@ -8,5 +10,7 @@ import com.example.machine2.movietime.models.UpdatedWeatherDetails;
 //interface for the weather activity
 
 public interface WeatherDetailsListener {
-    void setWeatherDetails(UpdatedWeatherDetails updatedWeatherDetails);
+
+    void setWeatherDetails(Context context,UpdatedWeatherDetails updatedWeatherDetails);
+    void setErrorMessage(String statusMessage);
 }

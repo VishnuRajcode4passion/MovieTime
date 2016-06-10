@@ -1,5 +1,6 @@
 package com.example.machine2.movietime.parser;
 
+import com.example.machine2.movietime.BaseParser;
 import com.example.machine2.movietime.models.MovieDetailResponse;
 import com.google.gson.Gson;
 
@@ -8,20 +9,17 @@ import com.google.gson.Gson;
  */
 //parser class for movie details
 
-public class MovieDetailsParser {
-//variable declarations
+public class MovieDetailsParser extends BaseParser {
 
-    Gson gson;
+    //variable declarations
     MovieDetailResponse detailResponse;
-    String responseString;
 
     //method for getting MovieDetailResponse
-
     public MovieDetailResponse parse(byte[] responseBody) {
 
         responseString = new String(responseBody);
         gson = new Gson();
         detailResponse = gson.fromJson(responseString, MovieDetailResponse.class);
-        return  detailResponse;
+        return detailResponse;
     }
 }

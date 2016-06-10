@@ -8,6 +8,8 @@ import com.example.machine2.movietime.UrlProvider;
 import com.example.machine2.movietime.models.MovieTrailerResponse;
 import com.example.machine2.movietime.network.NetworkCommunicator;
 import com.example.machine2.movietime.network.NetworkListener;
+import com.example.machine2.movietime.parser.MoviePosterParser;
+import com.example.machine2.movietime.parser.MovieTrailerParser;
 import com.example.machine2.movietime.parser.MoviesErrorParser;
 import com.google.gson.Gson;
 
@@ -16,21 +18,15 @@ import com.google.gson.Gson;
  */
 public class MovieTrailerManager extends BaseManager implements NetworkListener {
 
-//variable declarations
-    NetworkCommunicator networkCommunicator;
-    Requests request = new Requests();
-    Gson gson;
-    Context context;
-    MovieTrailerResponse movieTrailerResponse;
+    //variable declarations
     MovieDetailsListener movieDetailsListener;
 
-//method for getting the trailer URL and header
+    //method for getting the trailer URL and header
     public void getTrailerManager(Context context, MovieDetailsListener movieDetailsListener, String id) {
 
         Integer requestId = 1;
-
         String trailerid;
-        this.context = context;
+        Requests request = new Requests();
         this.movieDetailsListener = movieDetailsListener;
         trailerid = id;
         String trailerId = trailerid+"/videos?";
@@ -38,23 +34,21 @@ public class MovieTrailerManager extends BaseManager implements NetworkListener 
         request.setUrl(UrlProvider.MOVIE_TRAILER_URL+trailerId);
         System.out.println(" Trailer url " + UrlProvider.MOVIE_TRAILER_URL + trailerId);
         request.setHeaders(getHeaders());
-        networkCommunicator = new NetworkCommunicator(context);
+        NetworkCommunicator networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
-//implementing the NetworkListener to get MovieTrailerResponses
+
+    //implementing the NetworkListener to get MovieTrailerResponses
     @Override
-    public void onSuccess(byte[] responseBody) {
+    public void onSuccess(Context context, byte[] responseBody) {
 
-        String responseString;
-        responseString = new String(responseBody);
+        MovieTrailerParser movieTrailerParser = new MovieTrailerParser();
         MovieTrailerAdapter movieTrailerAdapter;
-
-        gson = new Gson();
-        movieTrailerResponse = gson.fromJson(responseString, MovieTrailerResponse.class);
-        movieTrailerAdapter = new MovieTrailerAdapter(context, movieTrailerResponse.getResults());
+        movieTrailerAdapter = movieTrailerParser.parse(context, responseBody);
         movieDetailsListener.movieTrailer(movieTrailerAdapter);
     }
 
+    //to display the error message ,if there is problem in fetching the contents from server.
     @Override
     public void onFailure(byte[] responseBody) {
 

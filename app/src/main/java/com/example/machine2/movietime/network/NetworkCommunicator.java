@@ -20,6 +20,7 @@ import java.util.Map;
  */
 public class NetworkCommunicator {
 
+
     //Variables declarations
 //    AsyncHttpClient client;
 //    RequestParams params;
@@ -55,22 +56,24 @@ public class NetworkCommunicator {
     Context context;
     JsonObjectRequest jsonObjectRequest;
     String url;
-    String result;
+
+    String header;
     Integer id;
     Map<String, String> headers;
+    byte[] responseBody;
 
     public NetworkCommunicator(Context context) {
 
         this.context = context;
     }
 
-    public void sendRequest(final NetworkListener networkListener, final Requests request) {
+    public void sendRequest(final NetworkListener networkListener, Requests request) {
 
         requestQueue = Volley.newRequestQueue(context);
         url = request.getUrl();
         id = request.getId();
 
-        if(id ==1) {
+        if(id == 1) {
 
             headers = request.getHeaders();
         }
@@ -83,17 +86,16 @@ public class NetworkCommunicator {
             headers = null;
         }
 
-        result = headers.toString();
-        result = result.replaceAll("[{}]", "");
+        header = headers.toString();
+        header = header.replaceAll("[{}]", "");
 
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url + result, null,
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url + header, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Log.d("Volley", "url+result " +(url + result));
-                        Log.d("Volley", "Sucess");
-                        networkListener.onSuccess(response.toString().getBytes());
+                        responseBody = response.toString().getBytes();
+                        networkListener.onSuccess(context,responseBody);
                     }
                 },
                 new Response.ErrorListener() {
@@ -101,6 +103,8 @@ public class NetworkCommunicator {
                     public void onErrorResponse(VolleyError error) {
 
                         Log.e("Volley", "Error" + error);
+                        responseBody = error.toString().getBytes();
+                        networkListener.onFailure(responseBody);
                     }
                 });
         requestQueue.add(jsonObjectRequest);

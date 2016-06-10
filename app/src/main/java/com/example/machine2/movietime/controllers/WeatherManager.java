@@ -18,40 +18,33 @@ import com.example.machine2.movietime.parser.WeatherDetailParser;
 public class WeatherManager extends BaseManager implements NetworkListener {
 
     //variable declarations
-
-
     WeatherDetailsListener weatherDetailsListener;
-    String city_name;
-    WeatherResponse weatherResponse = new WeatherResponse();
-
-    NetworkCommunicator networkCommunicator;
-
 
     //method for getting the URL and headers
     public void getWeather(Context context,WeatherDetailsListener weatherDetailsListener, String city_name) {
-        Integer requestId=2;
-        Requests request;
 
+        Integer requestId = 2;
+        Requests request;
         this.weatherDetailsListener = weatherDetailsListener;
-        this.city_name = city_name;
         request = new Requests();
         request.setUrl(UrlProvider.WEATHER_URL+city_name+"&units=metric"+"&");
         request.setHeader(getHeader());
-
         request.setId(requestId);
 
-        networkCommunicator = new NetworkCommunicator(context);
+        NetworkCommunicator networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
-//implemeting the methods ofNetworkListener.
-    @Override
-    public void onSuccess(byte[] responseBody) {
 
+    //implemeting the methods of NetworkListener.
+    @Override
+
+    public void onSuccess(Context context,byte[] responseBody) {
 
         UpdatedWeatherDetails updatedWeatherDetails = new UpdatedWeatherDetails();
-        WeatherDetailParser weatherDetailParser;
-        weatherDetailParser = new WeatherDetailParser();
+        WeatherDetailParser weatherDetailParser = new WeatherDetailParser();
+        WeatherResponse weatherResponse;
         weatherResponse = weatherDetailParser.parse(responseBody);
+
         Double temp = weatherResponse.getMain().getTemp();
         String main =  weatherResponse.getWeather().get(0).getDescription();
         String image = weatherResponse.getWeather().get(0).getIcon();
@@ -60,26 +53,28 @@ public class WeatherManager extends BaseManager implements NetworkListener {
         Double Wind_speed = weatherResponse.getWind().getSpeed();
         System.out.println("weatherResponse  " + weatherResponse);
         System.out.println("weatherResponse.getMain()" + weatherResponse.getMain());
+
         updatedWeatherDetails.setTemp(temp);
         updatedWeatherDetails.setMain(main);
         updatedWeatherDetails.setWeatherImage(image);
         updatedWeatherDetails.setCountry(country);
         updatedWeatherDetails.setWindSpeed(Wind_speed);
         updatedWeatherDetails.setCity(city);
-        weatherDetailsListener.setWeatherDetails(updatedWeatherDetails);
+
+        weatherDetailsListener.setWeatherDetails(context,updatedWeatherDetails);
 
     }
 
+    //to display the error message ,if there is problem in fetching the contents from server.
     @Override
-    public void onFailure(byte[] responseBody) {
+    public void onFailure( byte[] responseBody) {
 
         String statusMessage;
         MoviesErrorParser moviesErrorParser;
         moviesErrorParser = new MoviesErrorParser();
         statusMessage = moviesErrorParser.parse(responseBody);
 
+        weatherDetailsListener.setErrorMessage(statusMessage);
     }
-
-
 }
 

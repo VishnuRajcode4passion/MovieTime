@@ -120,7 +120,6 @@ catch(Exception e)
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MovieId = (TextView) view.findViewById(R.id.textView);
-
                 movieId = MovieId.getText().toString();
                 Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movieId);
@@ -169,6 +168,7 @@ catch(Exception e)
 
 
 
+
         if(backButtonCount >= 1)
         {
             Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -181,6 +181,7 @@ catch(Exception e)
             Toast.makeText(this, "Press again to exit.", Toast.LENGTH_SHORT).show();
             backButtonCount++;
         }
+
     }
 
 
@@ -215,9 +216,10 @@ catch(Exception e)
 
             showDialog();
             title = getString(R.string.favourite);
-            
+
             MovieDatabaseManager movieDatabaseManager = new MovieDatabaseManager(this);
-            movieDatabaseManager.getFavourite(this,this);
+            movieDatabaseManager.getFavourite(this, this);
+
 
 
 
@@ -232,7 +234,6 @@ catch(Exception e)
 
         }
         else if (id == R.id.search) {
-
             Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
         } else if (id == R.id.logout) {

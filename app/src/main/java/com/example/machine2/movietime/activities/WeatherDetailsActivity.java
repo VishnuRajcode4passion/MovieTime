@@ -1,10 +1,13 @@
+
 package com.example.machine2.movietime.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.controllers.WeatherDetailsListener;
@@ -16,14 +19,19 @@ import com.squareup.picasso.Picasso;
  * Created by machine2 on 06/06/16.
  */
 public class WeatherDetailsActivity extends BaseActivity implements WeatherDetailsListener {
+
     //variable declarations
 
+
+    //variable declarations
     TextView temp;
     TextView main;
     TextView country;
     TextView windSpeed;
+
     ImageView weatherImage;
     ImageView imageView;
+
     Bundle bundle;
     String city_name;
     ImageView Home;
@@ -39,17 +47,21 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
         windSpeed = (TextView) findViewById(R.id.textView7);
         country = (TextView) findViewById(R.id.textView5);
         weatherImage = (ImageView) findViewById(R.id.showicon);
+
         Home = (ImageView) findViewById(R.id.HomePage);
 
 
+
+        //imageView = (ImageView) findViewById(R.id.imageView3);
+
         bundle = getIntent().getExtras();
         city_name = bundle.getString("cityname");
-        System.out.println("citys" + city_name);
 
         WeatherManager weatherManager = new WeatherManager();
         weatherManager.getWeather(this, this, city_name);
 
         showDialog();
+
 
         Home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +85,10 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
 
     //implementing inteface to set the details
 
+
+    //implementing inteface to set the details
     @Override
-    public void setWeatherDetails(UpdatedWeatherDetails updatedWeatherDetails) {
+    public void setWeatherDetails(Context context, UpdatedWeatherDetails updatedWeatherDetails) {
 
         Double temps;
         Double wind_speed;
@@ -94,9 +108,24 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
         temp.setText(String.valueOf(temps) + " °C");
         main.setText(mains);
         country.setText(city_name + "," + country_name);
-        windSpeed.setText(String.valueOf(wind_speed + "mps"));
+
+        windSpeed.setText(String.valueOf(wind_speed + " mps"));
+
+        //set the image into the imageView
+
         Picasso.with(this).load(image).resize(30, 40).into(weatherImage);
 
         dismissDialog();
     }
+
+    //to display the error message ,if there is problem in fetching the contents from server.
+    @Override
+    public void setErrorMessage(String statusMessage) {
+
+        dismissDialog();
+        Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
+    }
+
+    //to navigate to Main Activity when back button is pressed.
+
 }

@@ -35,7 +35,7 @@ public class UpdatedMovieDetails {
         paramMap = request.getHeaders();
         params = new RequestParams(paramMap);
         this.poster_path = poster_path;
-        posters_path = urlProvider.IMAGE_URL + poster_path + params;
+        posters_path = urlProvider.MOVIE_IMAGE_URL + poster_path + params;
     }
 
     public String getImage() {

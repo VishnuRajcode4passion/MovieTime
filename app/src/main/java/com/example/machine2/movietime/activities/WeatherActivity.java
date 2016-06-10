@@ -18,10 +18,11 @@ import com.example.machine2.movietime.controllers.WeatherManager;
  */
 public class WeatherActivity extends BaseActivity  {
 
-    double temp;
+
     Button search;
     EditText searchCity;
     String cityName;
+
     WeatherManager weatherManager;
     ImageButton GoHome;
 
@@ -70,5 +71,4 @@ public class WeatherActivity extends BaseActivity  {
 
 
     }
-
 }

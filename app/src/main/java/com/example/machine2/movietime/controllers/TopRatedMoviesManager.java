@@ -18,16 +18,11 @@ import com.example.machine2.movietime.network.NetworkListener;
 public class TopRatedMoviesManager extends BaseManager implements NetworkListener {
 
     MoviePosterListener moviePosterListener;
-    MovieImageAdapter movieImageAdapter;
-    NetworkCommunicator networkCommunicator;
-    Context context;
 
-//Method declaration for the top rated movies
-
+    //Method declaration for the top rated movies
     public void getPosters(Context context, MoviePosterListener moviePosterListener) {
         Integer requestId=1;
 
-        this.context = context;
         this.moviePosterListener = moviePosterListener;
 
         Requests request = new Requests();
@@ -35,20 +30,22 @@ public class TopRatedMoviesManager extends BaseManager implements NetworkListene
         request.setUrl(UrlProvider.TOP_RATED_URL);
         request.setHeaders(getHeaders());
 
-        networkCommunicator = new NetworkCommunicator(context);
+        NetworkCommunicator networkCommunicator = new NetworkCommunicator(context);
         networkCommunicator.sendRequest(this, request);
     }
-//implementing the NetworkListener for set the topratedMovie posters
 
+    //implementing the NetworkListener for set the topratedMovie posters
     @Override
-    public void onSuccess(byte[] responseBody) {
+    public void onSuccess(Context context, byte[] responseBody) {
 
+        MovieImageAdapter movieImageAdapter;
         MoviePosterParser moviePosterParser;
         moviePosterParser = new MoviePosterParser();
         movieImageAdapter = moviePosterParser.parse(context, responseBody);
         moviePosterListener.refreshPoster(movieImageAdapter);
     }
 
+    //to display the error message ,if there is problem in fetching the contents from server.
     @Override
     public void onFailure(byte[] responseBody) {
 

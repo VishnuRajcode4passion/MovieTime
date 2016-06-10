@@ -2,6 +2,7 @@ package com.example.machine2.movietime.parser;
 
 import android.util.Log;
 
+import com.example.machine2.movietime.BaseParser;
 import com.example.machine2.movietime.models.MoviesErrorResponse;
 import com.google.gson.Gson;
 
@@ -9,17 +10,14 @@ import com.google.gson.Gson;
  * Created by machine3 on 6/2/16.
  */
 //parser class for error handling
-public class MoviesErrorParser {
+public class MoviesErrorParser extends BaseParser{
 
-    Gson gson;
-    MoviesErrorResponse moviesErrorResponse;
-    int statusCode;
-
-    String responseString;
-    String statusMessage;
-//method for getting the error responses
-
+    //method for getting the error responses
     public String parse(byte[] responseBody) {
+
+        MoviesErrorResponse moviesErrorResponse;
+        int statusCode;
+        String statusMessage;
 
         responseString = new String(responseBody);
         gson = new Gson();

@@ -44,48 +44,42 @@ public class LoginActivityFragment extends Fragment {
     String image_url;
 
 
-//facebook login
+    //facebook login
+    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
 
-
-
-    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>()
-    {
 
         @Override
         public void onSuccess(LoginResult loginResult) {
+
             accessToken = loginResult.getAccessToken();
             profile = Profile.getCurrentProfile();
             displayWelcomeMessage(profile);
-            if(AccessToken.getCurrentAccessToken()!=null)
-            {
+
+            if (AccessToken.getCurrentAccessToken() != null) {
+
                 Log.v("User is login", "YES");
                 loginButton.setVisibility(View.INVISIBLE);
-                System.out.println("url" + image_url);
+
                 Intent intent = new Intent(getActivity(),MainActivity.class);
                 intent.putExtra("url",image_url);
 
                 startActivity(intent);
                 getActivity().finish();
 
-            }
-            else
-            {
-                Log.v("User is not login","OK");
+            } else {
+
+                Log.v("User is not login", "OK");
                 LoginManager.getInstance().logInWithReadPermissions(getActivity(), (Arrays.asList("public_profile", "user_friends", "user_birthday", "user_about_me", "email")));
             }
-
-
         }
 
 
         @Override
         public void onCancel() {
-
         }
 
         @Override
         public void onError(FacebookException error) {
-
         }
     };
 
@@ -94,6 +88,7 @@ public class LoginActivityFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -105,7 +100,6 @@ public class LoginActivityFragment extends Fragment {
         tracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-
             }
         };
         accessToken = AccessToken.getCurrentAccessToken();
@@ -113,22 +107,21 @@ public class LoginActivityFragment extends Fragment {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-              displayWelcomeMessage(currentProfile);
-
+                displayWelcomeMessage(currentProfile);
             }
         };
         tracker.startTracking();
         profileTracker.startTracking();
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_loginactivity_fragment, container, false);
     }
 
     //set the display messages
+
 
     public void displayWelcomeMessage(Profile profile)
     {
@@ -142,12 +135,13 @@ public class LoginActivityFragment extends Fragment {
 
 
 
-        }
 
+        }
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
         loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
@@ -155,30 +149,30 @@ public class LoginActivityFragment extends Fragment {
         loginButton.setFragment(this);
         loginButton.registerCallback(callbackManager, callback);
         textDetails = (TextView) view.findViewById(R.id.details);
-
-
     }
-//resuming the data of the user before login
+
+    //resuming the data of the user before login
     @Override
     public void onResume() {
+
         super.onResume();
         profile = Profile.getCurrentProfile();
         displayWelcomeMessage(profile);
-
     }
-//dismiss the data
+
+    //dismiss the data
     @Override
     public void onStop() {
+
         super.onStop();
         tracker.stopTracking();
         profileTracker.stopTracking();
     }
 
     @Override
-   public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-
     }
-
 }
