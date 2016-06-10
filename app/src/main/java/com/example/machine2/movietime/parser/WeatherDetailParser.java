@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 public class WeatherDetailParser extends BaseParser {
 
     //method declaration for getting the weather responses
+
     public WeatherResponse parse(byte[] responseBody) {
 
         WeatherResponse weatherResponse;

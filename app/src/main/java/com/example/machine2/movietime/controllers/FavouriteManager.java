@@ -12,15 +12,15 @@ import java.util.ArrayList;
 public class FavouriteManager extends BaseManager  {
 
     FavouriteAdapter favouriteAdapter;
-    MoviePosterListener moviePosterListener;
+    Context context;
 
-    public FavouriteManager(MoviePosterListener moviePosterListener ) {
+    public FavouriteManager(Context context ) {
 
-        this.moviePosterListener = moviePosterListener;
+        this.context =context;
     }
 
     // to get the posters of favourite movies.
-    public void getPosters(Context context, ArrayList<String> image, ArrayList<String> ids) {
+    public void getPosters(MoviePosterListener moviePosterListener, ArrayList<String> image, ArrayList<String> ids) {
 
          favouriteAdapter = new FavouriteAdapter(context,image,ids);
          moviePosterListener.setFavourite(favouriteAdapter);

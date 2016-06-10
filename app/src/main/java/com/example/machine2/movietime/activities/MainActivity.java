@@ -56,7 +56,6 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity_main);
 
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

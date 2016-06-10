@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:background="#2196F3"
+    android:background="#8cf6faf7"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -12,7 +12,7 @@
         android:layout_height="270dp"
         android:layout_margin="2dp"
         card_view:cardCornerRadius="2dp"
-        card_view:cardBackgroundColor="#2196F3"
+        card_view:cardBackgroundColor="#e2e5e7"
         card_view:contentPadding="20dp"
         android:minHeight="50dp">
 
@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView3"
-        android:background="@drawable/wether"
+        android:background="@drawable/weather"
         android:layout_gravity="center_horizontal" />
 
 

@@ -2,7 +2,6 @@ package com.example.machine2.movietime.controllers;
 
 import android.content.Context;
 
-import com.example.machine2.movietime.R;
 import com.example.machine2.movietime.database.MovieDatabase;
 
 import java.util.ArrayList;
@@ -57,8 +56,8 @@ public class MovieDatabaseManager {
         db.open();
         image = db.getPoster();
         ids = db.getId();
-        favouriteManager = new FavouriteManager(moviePosterListener);
-        favouriteManager.getPosters(context, image, ids);
+        favouriteManager = new FavouriteManager(context);
+        favouriteManager.getPosters(moviePosterListener, image, ids);
         db.close();
     }
 }
