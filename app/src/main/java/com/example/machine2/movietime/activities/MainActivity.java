@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.example.machine2.movietime.controllers.MovieDatabaseManager;
 import com.example.machine2.movietime.controllers.MoviePosterListener;
 import com.example.machine2.movietime.controllers.PopularMoviesManager;
 import com.example.machine2.movietime.controllers.TopRatedMoviesManager;
+import com.example.machine2.movietime.database.MovieDatabase;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
@@ -37,9 +39,10 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
     ActionBarDrawerToggle toggle;
 
-    NavigationView navigationView;
-
     TextView MovieId;
+    TextView FavAlert;
+
+    ImageView CurrentProfPic;
 
     Intent intent;
 
@@ -47,8 +50,14 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
 
     PopularMoviesManager popularMoviesManager;
 
+    MovieDatabase movieDatabase;
+
     String movieId;
     String title;
+
+
+    private NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,27 +65,29 @@ public class MainActivity extends BaseActivity implements MoviePosterListener, N
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        CurrentProfPic = (ImageView)findViewById(R.id.profile_image);
+
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+
+
         gridView = (GridView) findViewById(R.id.gridview);
+
 
         final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.popular));
-try {
-    Bundle bundle = getIntent().getExtras();
-    String image_url = bundle.getString("url");
-    System.out.println("image" + image_url);
-}
-catch(Exception e)
-        {
 
-        }
 
         //calling the progress dialog from the Base activty
         showDialog();
@@ -89,14 +100,14 @@ catch(Exception e)
         popularMoviesManager = new PopularMoviesManager();
         popularMoviesManager.getPosters(this, this);
 
-        //to pass the movie id of particular movie to the movie details activity and to zoom the clicked poster.
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MovieId = (TextView) view.findViewById(R.id.textView);
                 movieId = MovieId.getText().toString();
-                intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra("selectedId", movieId);
 
                 gridView.startAnimation(animation);
@@ -132,16 +143,42 @@ catch(Exception e)
         Toast.makeText(this, statusMessage, Toast.LENGTH_LONG).show();
     }
 
-    //to navigate to login activity when back button is pressed.
-    @Override
-    public void onBackPressed() {
 
-       finish();
+
+
+    int backButtonCount = 0;
+
+    @Override
+    public void onBackPressed(){
+
+
+
+
+
+        if(backButtonCount >= 1)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(this, "Press again to exit.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
+
     }
 
-    //based on item click in navigation menu,corresponding title and posters are set in grid view.
+
+
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+
+
+
 
         int id = item.getItemId();
 
@@ -160,7 +197,8 @@ catch(Exception e)
             popularMoviesManager.getPosters(this, this);
             title = getString(R.string.popular);
 
-        } else if (id == R.id.favorite) {
+        }
+        else if (id == R.id.favorite) {
 
             showDialog();
 
@@ -169,9 +207,17 @@ catch(Exception e)
             MovieDatabaseManager movieDatabaseManager = new MovieDatabaseManager(this);
             movieDatabaseManager.getFavourite(this, this);
 
+           // movieDatabase.close();
 
-        } else if (id == R.id.search) {
-                        
+            title = "Favourite";
+
+
+
+//            movieDatabaseManager = new MovieDatabaseManager();
+//            movieDatabaseManager.getFavourite();
+
+        }
+        else if (id == R.id.search) {
             Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
 
@@ -183,6 +229,7 @@ catch(Exception e)
             startActivity(intent);
         }
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         getSupportActionBar().setTitle(title);
         drawer.closeDrawer(GravityCompat.START);
         return true;

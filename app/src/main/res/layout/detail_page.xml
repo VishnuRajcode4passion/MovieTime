@@ -3,8 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -18,6 +17,7 @@
             android:id="@+id/goBackArrow"
             android:layout_width="22dp"
             android:layout_height="30dp"
+            android:background="@drawable/button_bg"
             android:src="@drawable/arrows" />
 
         <TextView
@@ -34,7 +34,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
 
-        android:layout_height="110dp"
+        android:layout_height="89dp"
         android:background="#84d438">
 
         <TextView
@@ -43,31 +43,33 @@
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="47dp"
-            android:gravity="center|start" android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center|start"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
-            android:textSize="25sp"
-            android:layout_alignParentTop="true" />
+            android:textSize="25sp" />
+
 
     </RelativeLayout>
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:layout_margin="1dp"
         card_view:contentPadding="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="135dp"
-            >
+            android:layout_height="135dp">
 
             <ImageView
                 android:id="@+id/movie_poster"
                 android:layout_width="160dp"
                 android:layout_height="154dp"
                 android:layout_alignBottom="@+id/durationOfTheMovie"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true" />
 
             <TextView
@@ -83,13 +85,13 @@
 
             <CheckBox
                 android:id="@+id/checkBox_favorite"
-                android:button="@drawable/star_selector"
-                android:layout_marginTop="1dp"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_below="@+id/rating"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="1dp"
                 android:layout_toEndOf="@+id/movie_poster"
+                android:button="@drawable/star_selector"
                 android:checked="false"
                 android:text="Favourite"
                 android:textColor="#000000" />
@@ -98,9 +100,9 @@
                 android:id="@+id/rating"
                 android:layout_width="75dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/year_of_relese"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/movie_poster"
                 android:textColor="#000000" />
 
@@ -108,10 +110,10 @@
                 android:id="@+id/durationOfTheMovie"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignStart="@+id/checkBox_favorite"
                 android:layout_below="@id/checkBox_favorite"
+                android:layout_marginTop="10dp"
                 android:textColor="#000000" />
         </RelativeLayout>
 
@@ -129,15 +131,16 @@
 
                 <TextView
                     android:id="@+id/movie_description"
+
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:textColor="#000000"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
         </ScrollView>
 
@@ -154,8 +157,7 @@
             android:cacheColorHint="@android:color/transparent"
             android:divider="#e7e8ef"
             android:dividerHeight="1dp"
-            android:listSelector="#ade263">
-        </ListView>
+            android:listSelector="#ade263"></ListView>
 
     </RelativeLayout>
 </LinearLayout>

@@ -18,7 +18,6 @@ import com.example.machine2.movietime.controllers.MovieDatabaseManager;
 import com.example.machine2.movietime.controllers.MovieDetailsListener;
 import com.example.machine2.movietime.controllers.MovieDetailsManager;
 import com.example.machine2.movietime.controllers.MovieTrailerManager;
-import com.example.machine2.movietime.database.MovieDatabase;
 import com.example.machine2.movietime.models.UpdatedMovieDetails;
 import com.squareup.picasso.Picasso;
 
@@ -30,13 +29,17 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
     ImageView poster;
     ImageView backArrow;
 
-    TextView durations;
+
     TextView Rating;
     TextView titles;
+    TextView durations;
     TextView descriptions;
     TextView releaseDate;
+
     ListView listView;
+
     Bundle bundle;
+
     CheckBox favorite;
 
     String id;
@@ -54,14 +57,16 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         setContentView(R.layout.detail_page);
 
         backArrow = (ImageView) findViewById(R.id.goBackArrow);
-        poster = (ImageView) findViewById(R.id.movie_poster);
+        poster    = (ImageView) findViewById(R.id.movie_poster);
+
         durations = (TextView) findViewById(R.id.durationOfTheMovie);
-        Rating = (TextView) findViewById(R.id.rating);
-        titles = (TextView) findViewById(R.id.Title_of_movie);
+        Rating    = (TextView) findViewById(R.id.rating);
+        titles    = (TextView) findViewById(R.id.Title_of_movie);
         descriptions = (TextView) findViewById(R.id.movie_description);
-        releaseDate = (TextView) findViewById(R.id.year_of_relese);
-        listView = (ListView) findViewById(R.id.listView);
-        favorite = (CheckBox) findViewById(R.id.checkBox_favorite);
+        releaseDate  = (TextView) findViewById(R.id.year_of_relese);
+
+        listView     = (ListView) findViewById(R.id.listView);
+        favorite     = (CheckBox) findViewById(R.id.checkBox_favorite);
 
         //to receive the movie id from MainActivity.
         bundle = getIntent().getExtras();
@@ -75,12 +80,15 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
         movieTrailerManager = new MovieTrailerManager();
         movieTrailerManager.getTrailerManager(this, this, id);
 
+
         databaseManager = new MovieDatabaseManager(this);
 
         //to check the state of favourite button during loading the MovieDetailsActivity.
         String state = databaseManager.getState(id);
 
+
         if (state != null) {
+
             if (state.equals("checked")) {
                 favorite.setChecked(true);
             }
@@ -91,6 +99,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 String trailerLink;
                 TextView v = (TextView) view.findViewById(R.id.textView6);
                 trailerLink = (String) v.getText();
@@ -98,6 +107,8 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
                 intent.setData(Uri.parse(trailerLink));
 
                 if (intent.resolveActivity(getPackageManager()) != null) {
+
+
 
                     startActivity(intent);
                 }
@@ -114,19 +125,25 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsLi
                     databaseManager.setFavorite(posters, id, "checked");
                 } else {
 
+
                     databaseManager.removeFavorites(id);
+
                 }
             }
         });
 
+
         //to navigate back to main screen.
+
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
                 Intent intent;
                 intent = new Intent(MovieDetailsActivity.this, MainActivity.class);
                 startActivity(intent);
+
             }
         });
     }

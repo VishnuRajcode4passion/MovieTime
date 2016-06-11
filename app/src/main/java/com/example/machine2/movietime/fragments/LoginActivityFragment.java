@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.machine2.movietime.R;
@@ -35,14 +36,17 @@ public class LoginActivityFragment extends Fragment {
     LoginButton loginButton;
     CallbackManager callbackManager;
     TextView textDetails;
+    ImageView Profpicture;
     AccessTokenTracker tracker;
     ProfileTracker profileTracker;
     AccessToken accessToken;
     Profile profile;
     String image_url;
 
+
     //facebook login
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
+
 
         @Override
         public void onSuccess(LoginResult loginResult) {
@@ -58,6 +62,7 @@ public class LoginActivityFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(),MainActivity.class);
                 intent.putExtra("url",image_url);
+
                 startActivity(intent);
                 getActivity().finish();
 
@@ -67,6 +72,7 @@ public class LoginActivityFragment extends Fragment {
                 LoginManager.getInstance().logInWithReadPermissions(getActivity(), (Arrays.asList("public_profile", "user_friends", "user_birthday", "user_about_me", "email")));
             }
         }
+
 
         @Override
         public void onCancel() {
@@ -86,6 +92,10 @@ public class LoginActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+
+
+
+
 
         tracker = new AccessTokenTracker() {
             @Override
@@ -111,11 +121,21 @@ public class LoginActivityFragment extends Fragment {
     }
 
     //set the display messages
-    public void displayWelcomeMessage(Profile profile) {
-        if(profile!=null) {
+
+
+    public void displayWelcomeMessage(Profile profile)
+    {
+        if(profile!=null)
+        {
+
+            textDetails.setText("Welcome"+"\t"+profile.getName());
+            //Profpicture.setImageResource(profile.getProfilePictureUri(150,1500),);
+
             image_url = profile.getProfilePictureUri(150,200).toString();
 
-            textDetails.setText("Login As" + ":" + profile.getName());
+
+
+
         }
     }
 

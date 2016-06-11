@@ -4,6 +4,7 @@ package com.example.machine2.movietime.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,9 @@ import com.squareup.picasso.Picasso;
 public class WeatherDetailsActivity extends BaseActivity implements WeatherDetailsListener {
 
     //variable declarations
+
+
+    //variable declarations
     TextView temp;
     TextView main;
     TextView country;
@@ -30,19 +34,26 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
 
     Bundle bundle;
     String city_name;
+    ImageView Home;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.displayfragment);
-
         temp = (TextView) findViewById(R.id.textView9);
         main = (TextView) findViewById(R.id.textView8);
         windSpeed = (TextView) findViewById(R.id.textView7);
         country = (TextView) findViewById(R.id.textView5);
         weatherImage = (ImageView) findViewById(R.id.showicon);
-        imageView = (ImageView) findViewById(R.id.imageView3);
+
+        Home = (ImageView) findViewById(R.id.HomePage);
+
+
+
+        //imageView = (ImageView) findViewById(R.id.imageView3);
+
         bundle = getIntent().getExtras();
         city_name = bundle.getString("cityname");
 
@@ -50,7 +61,30 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
         weatherManager.getWeather(this, this, city_name);
 
         showDialog();
+
+
+        Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WeatherDetailsActivity.this, MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent;
+        intent = new Intent(WeatherDetailsActivity.this, WeatherActivity.class);
+        startActivity(intent);
+
+    }
+
+    //implementing inteface to set the details
+
 
     //implementing inteface to set the details
     @Override
@@ -74,9 +108,11 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
         temp.setText(String.valueOf(temps) + " °C");
         main.setText(mains);
         country.setText(city_name + "," + country_name);
+
         windSpeed.setText(String.valueOf(wind_speed + " mps"));
 
         //set the image into the imageView
+
         Picasso.with(this).load(image).resize(30, 40).into(weatherImage);
 
         dismissDialog();
@@ -91,11 +127,5 @@ public class WeatherDetailsActivity extends BaseActivity implements WeatherDetai
     }
 
     //to navigate to Main Activity when back button is pressed.
-    @Override
-    public void onBackPressed() {
 
-        super.onBackPressed();
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-    }
 }
